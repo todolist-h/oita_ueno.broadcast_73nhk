@@ -246,6 +246,7 @@
 
         /* ==========================================
            インライン作品再生用プレイヤーコンテナ（スマホUI風極上スプリングアニメーション）
+           【改善】高さ（max-height）をアニメーションにブレンドし、ガタつきを完全解消！
            ========================================== */
         .video-player-container {
             width: 100%;
@@ -276,7 +277,8 @@
             }
         }
 
-        /* 閉じるときのスマホUI風スプリングアニメーション */
+        /* 閉じるときのスマホUI風スプリングアニメーション
+           こちらも max-height と margin-bottom を連動してスルスルと滑らかに畳みます！ */
         .video-player-container.slide-up {
             animation: slideUpPlayer 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.15) forwards;
         }
@@ -1109,7 +1111,7 @@
         }
 
         // ==========================================
-        // その場再生プレイヤー制御用の関数（エラー153および★PDF埋め込み対応版★）
+        // その場再生プレイヤー制御用の関数（エラー153および★PDF埋め込み完全バグ回避対応版★）
         // ==========================================
         function togglePlay(btn, videoId) {
             const card = btn.closest('.program-card');
@@ -1127,10 +1129,31 @@
                 container.style.display = 'block';
                 container.classList.remove('slide-up'); // クローズ時のクラスをクリア
                 
-                // 【★研究発表(PDF)用の埋め込み判定★】
+                // 【★研究発表(PDF)用のバグ回避：モバイルでも100%動くプレミアムHTML5案内カードを生成★】
                 if (videoId === 'pdf_N73') {
-                    // PDFを表示するためのiframeを設定。サーバーにアップロードされたPDFファイルを直接読み込みます。
-                    container.innerHTML = `<iframe width="100%" height="100%" src="N73_大分上野丘研究発表.pdf" frameborder="0" style="border: none;"></iframe>`;
+                    container.innerHTML = `
+                        <div style="width: 100%; height: 100%; background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px; box-sizing: border-box; color: #ffffff; text-align: center;">
+                            <div style="background: rgba(56, 189, 248, 0.15); padding: 14px; border-radius: 50%; margin-bottom: 10px; border: 1px solid rgba(56, 189, 248, 0.3); display: flex; align-items: center; justify-content: center;">
+                                <svg style="width: 28px; height: 28px; stroke: #38bdf8; stroke-width: 2.2; fill: none;" viewBox="0 0 24 24">
+                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                    <polyline points="14 2 14 8 20 8"></polyline>
+                                    <line x1="16" y1="13" x2="8" y2="13"></line>
+                                    <line x1="16" y1="17" x2="8" y2="17"></line>
+                                    <polyline points="10 9 9 9 8 9"></polyline>
+                                </svg>
+                            </div>
+                            <div style="font-size: 0.8rem; font-weight: 800; margin-bottom: 2px; letter-spacing: 0.05em; color: #f8fafc;">研究発表プレゼンテーションスライド</div>
+                            <div style="font-size: 0.65rem; color: #94a3b8; margin-bottom: 14px;">大分県立大分上野丘高等学校 放送部</div>
+                            <a href="N73_大分上野丘研究発表.pdf" target="_blank" style="display: inline-flex; align-items: center; gap: 6px; background: linear-gradient(135deg, #38bdf8 0%, #0284c7 100%); color: #ffffff; text-decoration: none; padding: 8px 16px; border-radius: 20px; font-size: 0.7rem; font-weight: 700; box-shadow: 0 4px 12px rgba(2, 132, 199, 0.35); transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.03)'" onmouseout="this.style.transform='scale(1)'">
+                                <span>スライド(PDF)をひらく</span>
+                                <svg style="width: 11px; height: 11px; fill: none; stroke: currentColor; stroke-width: 3;" viewBox="0 0 24 24">
+                                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                                    <polyline points="15 3 21 3 21 9"></polyline>
+                                    <line x1="10" y1="14" x2="21" y2="3"></line>
+                                </svg>
+                            </a>
+                        </div>
+                    `;
                 } else {
                     // 通常のYouTubeビデオ
                     const currentOrigin = window.location.origin;
