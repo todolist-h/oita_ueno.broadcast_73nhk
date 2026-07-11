@@ -931,7 +931,6 @@
                     </div>
                     <div class="btn-text">
                         <span class="category-row">
-                            <!-- シネマ（ドラマ）用SVGアイコン -->
                             <svg class="category-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"></rect><line x1="7" y1="2" x2="7" y2="22"></line><line x1="17" y1="2" x2="17" y2="22"></line><line x1="2" y1="12" x2="22" y2="12"></line><line x1="2" y1="7" x2="7" y2="7"></line><line x1="2" y1="17" x2="7" y2="17"></line><line x1="17" y1="17" x2="22" y2="17"></line><line x1="17" y1="7" x2="22" y2="7"></line></svg>
                             <span class="category">創作テレビドラマ</span>
                             <!-- 最優秀賞（ゴールド：最前面に進出して見える一番目立つ色） -->
@@ -980,8 +979,14 @@
                             <!-- ひらめき・サイネージ用SVGアイコン -->
                             <svg class="category-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .6 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"></path><line x1="9" y1="18" x2="15" y2="18"></line><line x1="10" y1="22" x2="14" y2="22"></line></svg>
                             <span class="category">研究発表</span>
+                            <!-- 【改善】県大会 最優秀賞バッジをここに合流させました -->
+                            <span class="award-tag-mini award-gold">
+                                <svg class="award-medal-svg" viewBox="0 0 24 24"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg>
+                                県大会 最優秀賞
+                            </span>
                         </span>
-                        <span class="work-title">『掲示 of New Ageサイネージ』</span>
+                        <!-- 【改善】作品名を「掲示のNew Ageサイネージ」に変更 -->
+                        <span class="work-title">『掲示のNew Ageサイネージ』</span>
                     </div>
                 </div>
             </a>
@@ -991,12 +996,12 @@
                     <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg> 作品を視聴する
                 </button>
                 
-                <!-- アコーディオン（制作意図） -->
+                <!-- アコーディオン -->
                 <details class="work-details">
-                    <summary>制作意図・発表資料を見る</summary>
+                    <summary>研究要旨・発表資料を見る</summary>
                     <div class="details-content">
-                        <div class="details-section-title">制作意図</div>
-                        <div class="details-content-text">校内の情報伝達を効率化するための「サイネージのあり方」について、アンケート結果を多角的に分析し、具体的な解決策を分かりやすくスライドにまとめました。私たちの知恵の結晶です。</div>
+                        <div class="details-section-title">研究要旨</div>
+                        <div class="details-content-text">情報化社会といわれるように、私たちのもとに届く情報はあまりにも多い。重要な連絡が情報過多により埋もれる実態が、生徒や教員への調査から浮き彫りになった。そこで、更新が容易で視認性の高いデジタルサイネージを導入するとともに、管理・運用を生徒だけで完結する体制を構築した。導入前後の比較からその効果を分析し、他校でも導入可能な汎用性の高い構成を考え、校内放送活動における情報伝達の新たな形を提示する。</div>
                         
                         <!-- ★新機能：アコーディオン内にもPDFファイルを大画面（別タブ）で開くオシャレなボタンを追加★ -->
                         <div class="details-section-title">発表資料</div>
@@ -1009,10 +1014,8 @@
             </div>
         </div>
 
-        <!-- SNSセクション -->
         <div class="section-title">OFFICIAL SNS</div>
 
-        <!-- Instagram公式リンクバナー -->
         <a href="https://www.instagram.com/oita_ueno.broadcast?igsh=dWhhaWJxNGsyanVu&utm_source=qr" target="_blank" class="btn-insta-banner">
             <div class="insta-icon-container">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
@@ -1027,15 +1030,11 @@
             </div>
         </a>
 
-        <!-- その他コンテンツセクション（学校紹介PV） -->
         <div class="section-title">OTHER CONTENTS</div>
 
-        <!-- 学校紹介PVリンク（自動サムネイル付き） -->
         <div class="program-card">
-            <!-- その場再生用の埋め込みプレイヤーコンテナ -->
             <div class="video-player-container" id="player-pv"></div>
 
-            <!-- 学校紹介PVのサムネイルやタイトルもその場で再生されるように onclick を設定 -->
             <a href="javascript:void(0)" onclick="triggerPlayFromCard(this, 'rwcsDeVlROE')" class="program-main-link" title="作品を視聴する">
                 <div class="program-main">
                     <div class="thumbnail-wrapper">
@@ -1057,7 +1056,6 @@
             </div>
         </div>
 
-        <!-- 交流メッセージ -->
         <div class="message-card">
             <p>
                 全国の放送部の皆さん、ご視聴ありがとうございます！<br>
@@ -1068,7 +1066,6 @@
 
     </div>
 
-    <!-- 常時表示（フローティング）Instagramボタン（皆さんの実際のInstagramリンク） -->
     <a href="https://www.instagram.com/oita_ueno.broadcast?igsh=dWhhaWJxNGsyanVu&utm_source=qr" target="_blank" class="floating-insta" aria-label="Official Instagram">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
@@ -1077,13 +1074,11 @@
         </svg>
     </a>
 
-    <!-- フッター部分 -->
     <footer>
         <p class="copyright-notice">当サイトの作品リンク等の部外への共有、画面収録等の保存、無断転載は固くお断りいたします。</p>
         <p>&copy; Oita Uenogaoka High School Broadcasting Club.</p>
     </footer>
 
-    <!-- スプラッシュスクリーンのコントロール用スクリプト -->
     <script>
         window.addEventListener('load', () => {
             const splash = document.getElementById('splash-screen');
