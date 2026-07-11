@@ -19,6 +19,28 @@
             letter-spacing: 0.03em;
         }
 
+        /* ==========================================
+           新追加：ポルカドット背景パターン（Polka v2）
+           全体のパステルブルーに完璧に溶け込む半透明のドット柄にカスタマイズ
+           ========================================== */
+        .bg_pattern {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none; /* 背面のボタンクリックやスクロールを邪魔しない対策 */
+            opacity: 0.5; /* ドットが強すぎて文字の邪魔をしないようにふんわり透明化 */
+            z-index: -1;
+        }
+        .Polka_v2 {
+            /* 黄色のドットを、サイトのパステルブルーに調和する「半透明の澄んだ青」にアレンジ */
+            background-image: radial-gradient(rgba(56, 189, 248, 0.35) 2px, transparent 2px), 
+                              radial-gradient(rgba(56, 189, 248, 0.35) 2px, transparent 2px);
+            background-size: 40px 40px;
+            background-position: 0 0, 20px 20px;
+        }
+
         /* 嵐（J-Storm）オフィシャル風オープニングスプラッシュ画面 */
         #splash-screen {
             position: fixed;
@@ -596,6 +618,9 @@
 </head>
 <body>
 
+    <!-- 🌸 追加：ポルカドット背景パターン -->
+    <div class="bg_pattern Polka_v2"></div>
+
     <!-- 嵐（J-Storm / Storm Labels）風 オープニングスクリーン -->
     <div id="splash-screen">
         <!-- ロゴ画像を設定（背景透過を活かして表示します。拡張子を.pngに変更） -->
@@ -891,15 +916,15 @@
     <script>
         window.addEventListener('load', () => {
             const splash = document.getElementById('splash-screen');
-            // ご要望：最初に1.45s空けてから表示が始まり、ロゴのフェードイン開始からフェードアウト開始までを2.7sに調整
-            // 1.45s（ディレイ） + 2.7s（表示時間） = 4.15秒（4150ms）
+            // ご要望：最初に1.45s空けてから表示が始まり、ロゴのフェードイン開始からフェードアウト開始までを3.0sに調整
+            // 1.45s（ディレイ） + 3.0s（表示時間） = 4.45秒（4450ms）
             setTimeout(() => {
                 splash.classList.add('loaded');
                 // フェードアウトの完了（1.3秒）を待って、背景の操作ができるようにDOMから非表示
                 setTimeout(() => {
                     splash.style.display = 'none';
                 }, 1300);
-            }, 4150);
+            }, 4450);
         });
     </script>
 </body>
