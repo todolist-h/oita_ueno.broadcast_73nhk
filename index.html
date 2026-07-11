@@ -53,8 +53,8 @@
             object-fit: cover;
             opacity: 0;
             transform: scale(0.92);
-            /* ご要望のディレイ「1.2秒」空けてから、1.0秒かけて優しくフェードインする設定 */
-            animation: splashLogoFadeIn 1.0s cubic-bezier(0.16, 1, 0.3, 1) 1.2s forwards;
+            /* ご要望のディレイ「1.45秒」空けてから、1.0秒かけて優しくフェードインする設定 */
+            animation: splashLogoFadeIn 1.0s cubic-bezier(0.16, 1, 0.3, 1) 1.45s forwards;
         }
 
         .splash-title {
@@ -64,8 +64,8 @@
             color: #4f46e5;
             letter-spacing: 0.2em;
             opacity: 0;
-            /* ロゴが少し現れた1.5秒後（1.2s + 0.3s）から、優しくフェードインする設定 */
-            animation: splashTextFadeIn 1.0s ease 1.5s forwards;
+            /* ロゴが少し現れた1.75秒後（1.45s + 0.3s）から、優しくフェードインする設定 */
+            animation: splashTextFadeIn 1.0s ease 1.75s forwards;
             text-transform: uppercase;
         }
 
@@ -550,15 +550,15 @@
     <script>
         window.addEventListener('load', () => {
             const splash = document.getElementById('splash-screen');
-            // ご要望：最初に1.2s空けてから表示が始まり、ロゴのフェードイン開始からフェードアウト開始までを2.5sに調整
-            // 1.2s（ディレイ） + 2.5s（表示時間） = 3.7秒（3700ms）
+            // ご要望：最初に1.45s空けてから表示が始まり、ロゴのフェードイン開始からフェードアウト開始までを2.7sに調整
+            // 1.45s（ディレイ） + 2.7s（表示時間） = 4.15秒（4150ms）
             setTimeout(() => {
                 splash.classList.add('loaded');
                 // フェードアウトの完了（1.3秒）を待って、背景の操作ができるようにDOMから非表示
                 setTimeout(() => {
                     splash.style.display = 'none';
                 }, 1300);
-            }, 3700);
+            }, 4150);
         });
     </script>
 </body>
