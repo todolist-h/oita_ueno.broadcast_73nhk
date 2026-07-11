@@ -26,7 +26,7 @@
             left: 0;
             width: 100%;
             height: 100vh;
-            background: linear-gradient(135deg, #e0f2fe 0%, #eef2f6 50%, #f5f3ff 100%);
+            background: linear-gradient(135deg, #e0f2fe 0%, #eef2f6 50%, #f5f3ff 100%); /* ★元のパステルカラーに戻しました★ */
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -45,24 +45,24 @@
         }
 
         .splash-logo {
-            width: 110px;
-            height: 110px;
-            border-radius: 50%;
-            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.18);
-            border: 4px solid #ffffff;
-            object-fit: cover;
+            width: 82%; /* スマホやタブレットでも見栄えが良くなるサイズに調整 */
+            max-width: 320px;
+            height: auto;
+            border-radius: 0; /* ロゴに合わせて丸みをカット */
+            box-shadow: none; /* 背景に溶け込ませるためシャドウをクリア */
+            object-fit: contain;
             opacity: 0;
-            transform: scale(0.92);
+            transform: scale(0.95);
             /* ご要望のディレイ「1.45秒」空けてから、1.0秒かけて優しくフェードインする設定 */
             animation: splashLogoFadeIn 1.0s cubic-bezier(0.16, 1, 0.3, 1) 1.45s forwards;
         }
 
         .splash-title {
-            margin-top: 20px;
+            margin-top: 24px;
             font-size: 0.65rem; /* スマホでも1行できれいに収まるよう微調整 */
             font-weight: 800;
-            color: #4f46e5; /* エモくて美しいインディゴパープル */
-            letter-spacing: 0.18em; /* テキストが長くなったので間隔を微調整 */
+            color: #4f46e5; /* ★パステルグラデーションに映える、元のエモいインディゴパープルに戻しました★ */
+            letter-spacing: 0.22em; /* 文字間隔をほんのり広げて美しく */
             opacity: 0;
             text-align: center;
             padding: 0 15px;
@@ -226,11 +226,11 @@
             display: flex;
             align-items: center;
             flex-wrap: wrap; /* スマホ画面でバッジが折り返せるように設定 */
-            gap: 6px;
+            gap: 4px;
             margin-bottom: 4px;
         }
 
-        /* SVGアイコンのスタイル */
+        /* SVGアイコン of スタイル */
         .category-icon {
             width: 12px;
             height: 12px;
@@ -245,17 +245,19 @@
             letter-spacing: 0.05em;
         }
 
-        /* 👑【新デザイン】部門名の真横に並ぶ、絵文字なしの洗練されたミニ受賞実績バッジ */
+        /* 👑 部門名の真横に並ぶ、絵文字なしの洗練されたミニ受賞実績バッジ */
         .award-tag-mini {
             display: inline-flex;
             align-items: center;
             gap: 3px;
-            font-size: 0.6rem;
+            font-size: 0.58rem; /* 文字数が多くなったため0.6remから少し小さく調整 */
             font-weight: 800;
-            padding: 1px 7px;
+            padding: 1px 6px;
             border-radius: 8px;
             line-height: 1.2;
-            letter-spacing: 0.02em;
+            letter-spacing: 0.01em;
+            white-space: nowrap; /* ★絶対改行しない設定です★ */
+            flex-shrink: 0;
         }
 
         /* 賞のランクに合わせたエモ可愛いパステルカラー調整（視覚ヒエラルキーを改善） */
@@ -272,7 +274,6 @@
         }
 
         .award-bronze {
-            /* 【修正】目立つピンクを廃止し、背景のパステル調に最も溶け込む「ミルクティベージュ」へ変更 */
             background: linear-gradient(135deg, #fff7ed 0%, #ffedd5 100%);
             color: #9a3412; /* 目立ちすぎず温かみのあるアースブラウン */
             border: 1px solid rgba(251, 146, 60, 0.15);
@@ -591,7 +592,8 @@
 
     <!-- 嵐（J-Storm / Storm Labels）風 オープニングスクリーン -->
     <div id="splash-screen">
-        <img class="splash-logo" src="放送部アイコン.png" alt="UBC Logo">
+        <!-- ロゴ画像を設定（背景透過を活かして表示します） -->
+        <img class="splash-logo" src="IMG_0839.jpg" alt="放送部って、意外と青春だ。">
         <div class="splash-title">Oita Uenogaoka Broadcast Club</div>
     </div>
 
@@ -626,10 +628,10 @@
                             <!-- ラジオ用SVGアイコン -->
                             <svg class="category-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M16.24 7.76a6 6 0 0 1 0 8.49m-8.48-.01a6 6 0 0 1 0-8.49m11.31-2.82a10 10 0 0 1 0 14.14m-14.14 0a10 10 0 0 1 0-14.14"></path><circle cx="12" cy="12" r="2"></circle></svg>
                             <span class="category">ラジオドキュメント</span>
-                            <!-- 【改善】優良賞を背景グラデーションに馴染む「ミルクティベージュ（award-bronze）」へ変更 -->
+                            <!-- 優良賞（パステル調ミルクティベージュバッジ） -->
                             <span class="award-tag-mini award-bronze">
                                 <svg class="award-medal-svg" viewBox="0 0 24 24"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg>
-                                優良賞
+                                県大会 優良賞
                             </span>
                         </span>
                         <span class="work-title">『ベースとフレンド』</span>
@@ -667,7 +669,7 @@
                             <!-- 優秀賞（シルバー） -->
                             <span class="award-tag-mini award-silver">
                                 <svg class="award-medal-svg" viewBox="0 0 24 24"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg>
-                                優秀賞
+                                県大会 優秀賞
                             </span>
                         </span>
                         <span class="work-title">『雨ニハマケズ、目ニハトマズ』</span>
@@ -705,7 +707,7 @@
                             <!-- 最優秀賞（ゴールド：最前面に進出して見える一番目立つ色） -->
                             <span class="award-tag-mini award-gold">
                                 <svg class="award-medal-svg" viewBox="0 0 24 24"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg>
-                                最優秀賞
+                                県大会 最優秀賞
                             </span>
                         </span>
                         <span class="work-title">『パーフェクト・リバース』</span>
@@ -724,7 +726,7 @@
                         <div class="details-section-title">制作意図</div>
                         <div class="details-content-text">完璧カリスマ高校生バーチャルライバー高嶺優美の本当の姿は、引っ込み思案で自己主張が苦手な正反対の人間だった。そんな彼女はファンやマネージャーの期待に応えて常に完璧を演じ続ける日々に嫌気がさしていた。
 ある日突然、彼女は日頃の愚痴を聞いたAIに配信を乗っ取られてしまう。AIから主導権を取り戻そうとするも、完璧さでAIに勝ち目がないことが証明されてしまった。 乗っ取られたことから、今まで自分のやっていたことがいかに中身のなかったことだったか気がつき、ライバー活動を引退することを決意する。
-ところが相談したマネージャーの熱い言葉に心を動かされ、今までの完璧主義から生まれ変わってありのままの自分でライバー活動を続ける選択をする。結果は賛否論で人気も落ちてしまったが、今日も彼女は本当の自分を愛してくれるファンのために配信を続けていく。</div>
+ところが相談したマネージャーの熱い言葉に心を動かされ、今までの完璧主義から生まれ変わってありのままの自分でライバー活動を続ける選択をする。結果は賛否両論で人気も落ちてしまったが、今日も彼女は本当の自分を愛してくれるファンのために配信を続けていく。</div>
                         
                         <div class="details-section-title">あらすじ</div>
                         <div class="details-content-text">完璧カリスマ高校生バーチャルライバー高嶺優美の本当の姿は、引っ込み思案で自己主張が苦手な正反対の人間だった。そんな彼女はファンやマネージャーの期待に応えて常に完璧を演じ続ける日々に嫌気がさしていた。
@@ -750,7 +752,7 @@
                             <!-- 最優秀賞（ゴールド：最前面に進出して見える一番目立つ色） -->
                             <span class="award-tag-mini award-gold">
                                 <svg class="award-medal-svg" viewBox="0 0 24 24"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg>
-                                最優秀賞
+                                県大会 最優秀賞
                             </span>
                         </span>
                         <span class="work-title">『未完成でも、その一歩先へ。』</span>
