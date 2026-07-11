@@ -59,11 +59,13 @@
 
         .splash-title {
             margin-top: 20px;
-            font-size: 0.85rem; /* UBCのみにしたので、少しだけ文字サイズを大きめにしてバランス調整 */
+            font-size: 0.65rem; /* スマホでも1行できれいに収まるよう微調整 */
             font-weight: 800;
             color: #4f46e5; /* エモくて美しいインディゴパープル */
-            letter-spacing: 0.28em; /* 文字間隔を広げてより洗練された印象に */
+            letter-spacing: 0.18em; /* テキストが長くなったので間隔を微調整 */
             opacity: 0;
+            text-align: center;
+            padding: 0 15px;
             /* ロゴが少し現れた1.75秒後（1.45s + 0.3s）から、優しくフェードインする設定 */
             animation: splashTextFadeIn 1.0s ease 1.75s forwards;
             text-transform: uppercase;
@@ -223,8 +225,9 @@
         .category-row {
             display: flex;
             align-items: center;
-            gap: 5px;
-            margin-bottom: 2px;
+            flex-wrap: wrap; /* スマホ画面でバッジが折り返せるように設定 */
+            gap: 6px;
+            margin-bottom: 4px;
         }
 
         /* SVGアイコンのスタイル */
@@ -242,6 +245,50 @@
             letter-spacing: 0.05em;
         }
 
+        /* 👑【新デザイン】部門名の真横に並ぶ、絵文字なしの洗練されたミニ受賞実績バッジ */
+        .award-tag-mini {
+            display: inline-flex;
+            align-items: center;
+            gap: 3px;
+            font-size: 0.6rem;
+            font-weight: 800;
+            padding: 1px 7px;
+            border-radius: 8px;
+            line-height: 1.2;
+            letter-spacing: 0.02em;
+        }
+
+        /* 賞のランクに合わせたエモ可愛いパステルカラー調整（視覚ヒエラルキーを改善） */
+        .award-gold {
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            color: #b45309; /* 最も進出して目立つパステルゴールドブラウン */
+            border: 1px solid rgba(245, 158, 11, 0.2);
+        }
+
+        .award-silver {
+            background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+            color: #475569; /* 中間の落ち着きを持ったパステルシルバーグレー */
+            border: 1px solid rgba(148, 163, 184, 0.2);
+        }
+
+        .award-bronze {
+            /* 【修正】目立つピンクを廃止し、背景のパステル調に最も溶け込む「ミルクティベージュ」へ変更 */
+            background: linear-gradient(135deg, #fff7ed 0%, #ffedd5 100%);
+            color: #9a3412; /* 目立ちすぎず温かみのあるアースブラウン */
+            border: 1px solid rgba(251, 146, 60, 0.15);
+        }
+
+        /* ミニバッジ内の洗練された極細SVGメダルアイコン */
+        .award-medal-svg {
+            width: 10px !important;
+            height: 10px !important;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 2.5;
+            flex-shrink: 0;
+        }
+
+        /* 作品タイトルがハッキリ主役として表示されます */
         .btn-text .work-title {
             font-size: 0.85rem;
             font-weight: 700;
@@ -249,6 +296,7 @@
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis; /* 長いタイトルを綺麗に省略 */
+            margin-top: 2px;
         }
 
         /* カード下部：ボタンを並べる領域 */
@@ -266,8 +314,8 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 6px;
-            padding: 8px 12px;
+            gap: 4px;
+            padding: 8px 10px;
             height: 36px; /* 高さを確実に固定し、引き伸ばされバグを完全防止 */
             border-radius: 12px;
             font-size: 0.72rem;
@@ -380,23 +428,6 @@
         }
         .details-content::-webkit-scrollbar-thumb:hover {
             background: #94a3b8;
-        }
-
-        /* 受賞ゴールドタグ */
-        .award-badge-inline {
-            display: inline-flex;
-            align-items: center;
-            gap: 4px;
-            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
-            color: #ffffff;
-            font-size: 0.65rem;
-            font-weight: 800;
-            padding: 3px 8px;
-            border-radius: 20px;
-            margin-bottom: 8px;
-            letter-spacing: 0.05em;
-            box-shadow: 0 2px 6px rgba(217, 119, 6, 0.15);
-            line-height: 1.2;
         }
 
         .details-section-title {
@@ -561,7 +592,7 @@
     <!-- 嵐（J-Storm / Storm Labels）風 オープニングスクリーン -->
     <div id="splash-screen">
         <img class="splash-logo" src="放送部アイコン.png" alt="UBC Logo">
-        <div class="splash-title">UBC</div>
+        <div class="splash-title">Oita Uenogaoka Broadcast Club</div>
     </div>
 
     <!-- ヘッダー部分 -->
@@ -595,6 +626,11 @@
                             <!-- ラジオ用SVGアイコン -->
                             <svg class="category-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M16.24 7.76a6 6 0 0 1 0 8.49m-8.48-.01a6 6 0 0 1 0-8.49m11.31-2.82a10 10 0 0 1 0 14.14m-14.14 0a10 10 0 0 1 0-14.14"></path><circle cx="12" cy="12" r="2"></circle></svg>
                             <span class="category">ラジオドキュメント</span>
+                            <!-- 【改善】優良賞を背景グラデーションに馴染む「ミルクティベージュ（award-bronze）」へ変更 -->
+                            <span class="award-tag-mini award-bronze">
+                                <svg class="award-medal-svg" viewBox="0 0 24 24"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg>
+                                優良賞
+                            </span>
                         </span>
                         <span class="work-title">『ベースとフレンド』</span>
                     </div>
@@ -609,7 +645,6 @@
                 <details class="work-details">
                     <summary>制作意図を見る</summary>
                     <div class="details-content">
-                        <div class="award-badge-inline">🏆 大分県大会 優良賞</div>
                         <div class="details-section-title">制作意図</div>
                         <div class="details-content-text">私達の通う上野丘高校には「文武不岐」というスローガンが掲げられています。勉強と部活の両立を意味するこの言葉の裏には、仲間との熱量の差や、両立するための時間がないといった葛藤がありました。今回は、上野丘高校野球部77年ぶりの県大会優勝を通して、私達にも当てはまるであろう等身大の葛藤にスポットを当てました。完璧な両立を目指すのではなく、仲間と補い合いながら悩み抜く道のりにこそ価値があるというメッセージを、今を生きる高校生に伝えたいと思い、制作しました。</div>
                     </div>
@@ -629,6 +664,11 @@
                             <!-- テレビ用SVGアイコン -->
                             <svg class="category-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="15" rx="2" ry="2"></rect><polyline points="17 2 12 7 7 2"></polyline></svg>
                             <span class="category">テレビドキュメント</span>
+                            <!-- 優秀賞（シルバー） -->
+                            <span class="award-tag-mini award-silver">
+                                <svg class="award-medal-svg" viewBox="0 0 24 24"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg>
+                                優秀賞
+                            </span>
                         </span>
                         <span class="work-title">『雨ニハマケズ、目ニハトマズ』</span>
                     </div>
@@ -643,7 +683,6 @@
                 <details class="work-details">
                     <summary>制作意図を見る</summary>
                     <div class="details-content">
-                        <div class="award-badge-inline">🏆 大分県大会 優秀賞</div>
                         <div class="details-section-title">制作意図</div>
                         <div class="details-content-text">大分上野丘高校の大きな問題、それは落とし物が多いことである。特に多いのは傘で、校内で忘れ去られたままの傘は数知れず。この現状に先生方も頭を抱えている。コロナ禍が明けて以来、落とし物は世間的にも増加の一途を辿っている社会問題だ。自分が失くしたものに対して無関心でいる多くの生徒に、当事者意識を持たせ、落とし物の存在に気づいてもらおうと、この番組を制作した。</div>
                     </div>
@@ -663,6 +702,11 @@
                             <!-- マイク（音声）用SVGアイコン -->
                             <svg class="category-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="23"></line><line x1="8" y1="23" x2="16" y2="23"></line></svg>
                             <span class="category">創作ラジオドラマ</span>
+                            <!-- 最優秀賞（ゴールド：最前面に進出して見える一番目立つ色） -->
+                            <span class="award-tag-mini award-gold">
+                                <svg class="award-medal-svg" viewBox="0 0 24 24"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg>
+                                最優秀賞
+                            </span>
                         </span>
                         <span class="work-title">『パーフェクト・リバース』</span>
                     </div>
@@ -677,11 +721,10 @@
                 <details class="work-details">
                     <summary>制作意図・あらすじを見る</summary>
                     <div class="details-content">
-                        <div class="award-badge-inline">🏆 大分県大会 最優秀賞</div>
                         <div class="details-section-title">制作意図</div>
                         <div class="details-content-text">完璧カリスマ高校生バーチャルライバー高嶺優美の本当の姿は、引っ込み思案で自己主張が苦手な正反対の人間だった。そんな彼女はファンやマネージャーの期待に応えて常に完璧を演じ続ける日々に嫌気がさしていた。
 ある日突然、彼女は日頃の愚痴を聞いたAIに配信を乗っ取られてしまう。AIから主導権を取り戻そうとするも、完璧さでAIに勝ち目がないことが証明されてしまった。 乗っ取られたことから、今まで自分のやっていたことがいかに中身のなかったことだったか気がつき、ライバー活動を引退することを決意する。
-ところが相談したマネージャーの熱い言葉に心を動かされ、今までの完璧主義から生まれ変わってありのままの自分でライバー活動を続ける選択をする。結果は賛否両論で人気も落ちてしまったが、今日も彼女は本当の自分を愛してくれるファンのために配信を続けていく。</div>
+ところが相談したマネージャーの熱い言葉に心を動かされ、今までの完璧主義から生まれ変わってありのままの自分でライバー活動を続ける選択をする。結果は賛否論で人気も落ちてしまったが、今日も彼女は本当の自分を愛してくれるファンのために配信を続けていく。</div>
                         
                         <div class="details-section-title">あらすじ</div>
                         <div class="details-content-text">完璧カリスマ高校生バーチャルライバー高嶺優美の本当の姿は、引っ込み思案で自己主張が苦手な正反対の人間だった。そんな彼女はファンやマネージャーの期待に応えて常に完璧を演じ続ける日々に嫌気がさしていた。
@@ -704,6 +747,11 @@
                             <!-- シネマ（ドラマ）用SVGアイコン -->
                             <svg class="category-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"></rect><line x1="7" y1="2" x2="7" y2="22"></line><line x1="17" y1="2" x2="17" y2="22"></line><line x1="2" y1="12" x2="22" y2="12"></line><line x1="2" y1="7" x2="7" y2="7"></line><line x1="2" y1="17" x2="7" y2="17"></line><line x1="17" y1="17" x2="22" y2="17"></line><line x1="17" y1="7" x2="22" y2="7"></line></svg>
                             <span class="category">創作テレビドラマ</span>
+                            <!-- 最優秀賞（ゴールド：最前面に進出して見える一番目立つ色） -->
+                            <span class="award-tag-mini award-gold">
+                                <svg class="award-medal-svg" viewBox="0 0 24 24"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg>
+                                最優秀賞
+                            </span>
                         </span>
                         <span class="work-title">『未完成でも、その一歩先へ。』</span>
                     </div>
@@ -718,7 +766,6 @@
                 <details class="work-details">
                     <summary>制作意図・あらすじを見る</summary>
                     <div class="details-content">
-                        <div class="award-badge-inline">🏆 大分県大会 最優秀賞</div>
                         <div class="details-section-title">制作意図</div>
                         <div class="details-content-text">コミュニケーション。人間社会で生きていくにあたって、避けて通ることのできない道。これだけ重要で欠かせないものであるにもかかわらず、「苦手」と感じる人が多いのではないのだろうか？その理由は様々だろうが、過去の失敗、や失敗することへの恐怖などが挙げられると思う。今回この作品を作った理由は、そんな人たちに「失敗を恐れず、未完成でもいいから踏み出す勇気」を伝えたいと思い、この作品を制作した。</div>
                         
