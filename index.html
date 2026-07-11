@@ -66,27 +66,74 @@
             visibility: hidden;
         }
 
-        /* ★透過ロゴの白文字をくっきりと見せるための「極濃ドロップシャドウ・マルチレイヤー」を適用★ */
-        .splash-logo {
+        /* ★新追加：第1フェーズ キャッチコピー透過ロゴのアニメーションシーケンス★
+           1.0s時点でフェードイン開始、3.0s（1.0s + 2.0s）まで表示を完全にキープし、
+           そこから2.5秒間表示（計4.5sまで）、最後の0.5秒（〜5.0s）でスッと消えます。 */
+        .splash-logo-1 {
+            position: absolute;
             width: 82%; /* スマホやタブレットでも見栄えが良くなるサイズに調整 */
             max-width: 320px;
             height: auto;
-            border-radius: 0; /* ロゴに合わせて丸みをカット */
-            box-shadow: none; /* 背景に溶け込ませるためシャドウをクリア */
             object-fit: contain;
             opacity: 0;
-            transform: scale(0.95);
-            /* ご要望のディレイ「1.45秒」空けてから、1.0秒かけて優しくフェードインする設定 */
-            animation: splashLogoFadeIn 1.0s cubic-bezier(0.16, 1, 0.3, 1) 1.45s forwards;
+            animation: splashLogo1Sequence 4.0s cubic-bezier(0.25, 1, 0.5, 1) 1.0s forwards;
             
-            /* 【大幅改善】白文字のフチにクッキリした影を作るため、不透明度を大幅に引き上げて重ねています */
+            /* 白文字のフチにクッキリした影を作るためのマルチドロップシャドウ */
             filter: drop-shadow(0px 1px 2px rgba(15, 23, 42, 0.8))      /* 文字のすぐ後ろを濃い暗色で引き締め（視認性を確保） */
                     drop-shadow(0px 3px 8px rgba(79, 70, 229, 0.5))     /* テーマカラーの紫を外側に広げてエモい発光感を演出 */
                     drop-shadow(0px 8px 24px rgba(15, 23, 42, 0.25));   /* 大きく柔らかい影で全体の立体感をアップ */
         }
 
+        @keyframes splashLogo1Sequence {
+            0% {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            25% { /* 1.0sかけてフェードイン完了 (キーフレーム上の1.0s / 4.0s = 25%) */
+                opacity: 1;
+                transform: scale(1);
+            }
+            87.5% { /* キャッチコピーの表示を2.5秒間キープ (キーフレーム上の3.5s / 4.0s = 87.5%) */
+                opacity: 1;
+                transform: scale(1);
+            }
+            100% { /* 最後の0.5秒でスッと消えて第2フェーズのロゴにバトンタッチ */
+                opacity: 0;
+                transform: scale(0.95);
+            }
+        }
+
+        /* ★新追加：第2フェーズ 放送部公式ロゴアイコンのアニメーション★
+           キャッチコピーが完全に消え去る 5.0秒の瞬間から1.0秒かけてフワッと浮かび上がります */
+        .splash-logo-2 {
+            position: absolute;
+            width: 105px;
+            height: 105px;
+            border-radius: 50%;
+            border: 4px solid #ffffff;
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.22);
+            object-fit: cover;
+            opacity: 0;
+            transform: translateY(-40px); /* 中央から少し上に配置して英文部活名と重ならないように調整 */
+            animation: splashLogo2FadeIn 1.0s cubic-bezier(0.16, 1, 0.3, 1) 5.0s forwards;
+        }
+
+        @keyframes splashLogo2FadeIn {
+            0% {
+                opacity: 0;
+                transform: translateY(-40px) scale(0.92);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(-40px) scale(1);
+            }
+        }
+
+        /* ★新追加：英文部活名のアニメーション★
+           公式丸ロゴ（ロゴ2）と同じ5.0秒のタイミングで、そのすぐ下にフェードインします */
         .splash-title {
-            margin-top: 24px;
+            position: absolute;
+            transform: translateY(60px); /* 丸ロゴ（105px）のすぐ下に重ならず並ぶように位置調整 */
             font-size: 0.65rem; /* スマホでも1行できれいに収まるよう微調整 */
             font-weight: 800;
             color: #4f46e5; /* パステルグラデーションに映える、元のエモいインディゴパープル */
@@ -94,21 +141,18 @@
             opacity: 0;
             text-align: center;
             padding: 0 15px;
-            /* ロゴが少し現れた1.75秒後（1.45s + 0.3s）から、優しくフェードインする設定 */
-            animation: splashTextFadeIn 1.0s ease 1.75s forwards;
             text-transform: uppercase;
+            animation: splashTitleFadeIn 1.0s cubic-bezier(0.16, 1, 0.3, 1) 5.0s forwards;
         }
 
-        @keyframes splashLogoFadeIn {
-            to {
-                opacity: 1;
-                transform: scale(1);
+        @keyframes splashTitleFadeIn {
+            0% {
+                opacity: 0;
+                transform: translateY(70px); /* 下からスッと上昇しながら現れるスマホUI風演出 */
             }
-        }
-
-        @keyframes splashTextFadeIn {
-            to {
+            100% {
                 opacity: 0.8;
+                transform: translateY(60px);
             }
         }
 
@@ -682,10 +726,13 @@
     <!-- 🌸 追加：ポルカドット背景パターン -->
     <div class="bg_pattern Polka_v2"></div>
 
-    <!-- 嵐（J-Storm / Storm Labels）風 オープニングスクリーン -->
+    <!-- 嵐（J-Storm / Storm Labels）風 オープニングスクリーン（2段階アニメーション仕様） -->
     <div id="splash-screen">
-        <!-- ロゴ画像を設定（背景透過を活かして表示します。拡張子を.pngに変更） -->
-        <img class="splash-logo" src="IMG_0839.png" alt="放送部って、意外と青春だ。">
+        <!-- ロゴ1：キャッチコピー透過ロゴ画像（拡張子.png） -->
+        <img class="splash-logo-1" src="IMG_0839.png" alt="放送部って、意外と青春だ。">
+        
+        <!-- ロゴ2：放送部の公式丸型アイコン画像 -->
+        <img class="splash-logo-2" src="放送部アイコン.png" alt="放送部アイコン">
         <div class="splash-title">Oita Uenogaoka Broadcast Club</div>
     </div>
 
@@ -999,15 +1046,16 @@
     <script>
         window.addEventListener('load', () => {
             const splash = document.getElementById('splash-screen');
-            // ご要望：最初に1.45s空けてから表示が始まり、ロゴのフェードイン開始からフェードアウト開始までを3.0sに調整
-            // 1.45s（ディレイ） + 3.0s（表示時間） = 4.45秒（4450ms）
+            // ご要望：最初にキャッチコピーを2.5秒表示させ、バトンタッチしてロゴと部活動名をフェードイン。
+            // ロゴ2とタイトルの表示時間を完全に確保した 7.5秒（7500ms）時点で全体のフェードアウトを開始。
+            // 7.5s（ディレイ） + 1.3s（フェードアウト時間） = 8.8s（8800ms）
             setTimeout(() => {
                 splash.classList.add('loaded');
                 // フェードアウトの完了（1.3秒）を待って、背景の操作ができるようにDOMから非表示
                 setTimeout(() => {
                     splash.style.display = 'none';
                 }, 1300);
-            }, 4450);
+            }, 7500);
         });
 
         // ==========================================
@@ -1060,7 +1108,7 @@
         }
 
         // ==========================================
-        // ★新追加：プレイヤーをスマホUI風スプリングモーションで閉じる共通処理★
+        // ★プレイヤーをスマホUI風スプリングモーションで閉じる共通処理★
         // ==========================================
         function closePlayerWithAnimation(container) {
             const card = container.closest('.program-card');
