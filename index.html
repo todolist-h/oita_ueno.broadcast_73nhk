@@ -34,7 +34,7 @@
             z-index: -1;
         }
         .Polka_v2 {
-            /* 黄色のドットを、サイトのパステルブルーに調和する「半透明の澄んだ青」にアレンジ */
+            /* 黄色のドットを、サイト of パステルブルーに調和する「半透明の澄んだ青」にアレンジ */
             background-image: radial-gradient(rgba(56, 189, 248, 0.35) 2px, transparent 2px), 
                               radial-gradient(rgba(56, 189, 248, 0.35) 2px, transparent 2px);
             background-size: 40px 40px;
@@ -67,8 +67,8 @@
         }
 
         /* ★キャッチコピー透過ロゴのアニメーションシーケンス★
-           1.0s時点でフェードイン開始、1.0sかけて現れ、1.8秒間表示を完全にキープ、
-           そこから0.5秒間（計3.3s）でスッとフェードアウトするように時間を短縮して調整しました。 */
+           1.0s時点でフェードイン開始、1.0sかけて現れ、1.7秒間（表示時間を-0.1秒調整）表示を完全にキープ、
+           そこから0.5秒間（計3.2s）でスッとフェードアウトするように時間を短縮調整しました。 */
         .splash-logo-1 {
             position: absolute;
             width: 82%; /* スマホやタブレットでも見栄えが良くなるサイズに調整 */
@@ -76,7 +76,7 @@
             height: auto;
             object-fit: contain;
             opacity: 0;
-            animation: splashLogo1Sequence 3.3s cubic-bezier(0.25, 1, 0.5, 1) 1.0s forwards;
+            animation: splashLogo1Sequence 3.2s cubic-bezier(0.25, 1, 0.5, 1) 1.0s forwards;
             
             /* 白文字のフチにクッキリした影を作るためのマルチドロップシャドウ */
             filter: drop-shadow(0px 1px 2px rgba(15, 23, 42, 0.8))      /* 文字のすぐ後ろを濃い暗色で引き締め（視認性を確保） */
@@ -89,22 +89,22 @@
                 opacity: 0;
                 transform: scale(0.95);
             }
-            30.3% { /* 1.0sかけてフェードイン完了 (1.0s / 3.3s ≒ 30.3%) */
+            31.25% { /* 1.0sかけてフェードイン完了 (1.0s / 3.2s = 31.25%) */
                 opacity: 1;
                 transform: scale(1);
             }
-            84.8% { /* キャッチコピーの表示を1.8秒間キープ (2.8s / 3.3s ≒ 84.8%) */
+            84.375% { /* キャッチコピーの表示を1.7秒間キープ (2.7s / 3.2s = 84.375%) */
                 opacity: 1;
                 transform: scale(1);
             }
-            100% { /* 最後の0.5秒でスッと消えて第2フェーズのロゴにバトンタッチ (3.3s) */
+            100% { /* 最後の0.5秒でスッと消えて第2フェーズのロゴにバトンタッチ (3.2s) */
                 opacity: 0;
                 transform: scale(0.95);
             }
         }
 
         /* ★第2フェーズ 放送部公式ロゴアイコンのアニメーション★
-           キャッチコピーが完全に消え去る「4.3秒」の瞬間から1.0秒かけてフワッと浮かび上がります */
+           キャッチコピーが完全に消え去る「4.2秒」の瞬間から1.0秒かけてフワッと浮かび上がります */
         .splash-logo-2 {
             position: absolute;
             width: 105px;
@@ -115,7 +115,7 @@
             object-fit: cover;
             opacity: 0;
             transform: translateY(-40px); /* 中央から少し上に配置して英文部活名と重ならないように調整 */
-            animation: splashLogo2FadeIn 1.0s cubic-bezier(0.16, 1, 0.3, 1) 4.3s forwards;
+            animation: splashLogo2FadeIn 1.0s cubic-bezier(0.16, 1, 0.3, 1) 4.2s forwards;
         }
 
         @keyframes splashLogo2FadeIn {
@@ -130,7 +130,7 @@
         }
 
         /* ★英文部活名のアニメーション★
-           公式丸ロゴ（ロゴ2）と同じ「4.3秒」のタイミングで、そのすぐ下にフェードインします */
+           公式丸ロゴ（ロゴ2）と同じ「4.2秒」のタイミングで、そのすぐ下にフェードインします */
         .splash-title {
             position: absolute;
             transform: translateY(60px); /* 丸ロゴ（105px）のすぐ下に重ならず並ぶように位置調整 */
@@ -142,7 +142,7 @@
             text-align: center;
             padding: 0 15px;
             text-transform: uppercase;
-            animation: splashTitleFadeIn 1.0s cubic-bezier(0.16, 1, 0.3, 1) 4.3s forwards;
+            animation: splashTitleFadeIn 1.0s cubic-bezier(0.16, 1, 0.3, 1) 4.2s forwards;
         }
 
         @keyframes splashTitleFadeIn {
@@ -683,7 +683,7 @@
             width: 54px;
             height: 54px;
             background: linear-gradient(45deg, #f9ce34 0%, #ee2a7b 50%, #6228d7 100%);
-            border: 3px solid #ffffff; /* 白いふちどりで可愛らしく */
+            border: 3px solid #ffffff; /* 白いふchいどりので可愛らしく */
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -892,7 +892,7 @@
             <div class="video-player-container" id="player-4"></div>
 
             <!-- ★サムネイルやタイトルをタップしたときも、動画プレイヤーを開くように onclick を設定★ -->
-            <a href="javascript:void(0)" onclick="triggerPlayFromCard(this, 'AZhI3iw4Nlw')" class="program-main-link" title="作品を視聴する">
+            <a href="javascript:void(0)" onclick="triggerPlayFromCard(this, 'AZhI3iu4Nlw')" class="program-main-link" title="作品を視聴する">
                 <div class="program-main">
                     <div class="thumbnail-wrapper">
                         <img src="https://img.youtube.com/vi/AZhI3iu4Nlw/mqdefault.jpg" alt="創作テレビドラマ サムネイル" onerror="this.src='https://images.unsplash.com/photo-1485846234645-a62644f84728?w=300&auto=format&fit=crop&q=60'">
