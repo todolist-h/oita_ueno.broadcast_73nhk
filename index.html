@@ -66,9 +66,9 @@
             visibility: hidden;
         }
 
-        /* ★新追加：第1フェーズ キャッチコピー透過ロゴのアニメーションシーケンス★
-           1.0s時点でフェードイン開始、3.0s（1.0s + 2.0s）まで表示を完全にキープし、
-           そこから2.5秒間表示（計4.5sまで）、最後の0.5秒（〜5.0s）でスッと消えます。 */
+        /* ★キャッチコピー透過ロゴのアニメーションシーケンス★
+           1.0s時点でフェードイン開始、1.0sかけて現れ、1.8秒間表示を完全にキープ、
+           そこから0.5秒間（計3.3s）でスッとフェードアウトするように時間を短縮して調整しました。 */
         .splash-logo-1 {
             position: absolute;
             width: 82%; /* スマホやタブレットでも見栄えが良くなるサイズに調整 */
@@ -76,7 +76,7 @@
             height: auto;
             object-fit: contain;
             opacity: 0;
-            animation: splashLogo1Sequence 4.0s cubic-bezier(0.25, 1, 0.5, 1) 1.0s forwards;
+            animation: splashLogo1Sequence 3.3s cubic-bezier(0.25, 1, 0.5, 1) 1.0s forwards;
             
             /* 白文字のフチにクッキリした影を作るためのマルチドロップシャドウ */
             filter: drop-shadow(0px 1px 2px rgba(15, 23, 42, 0.8))      /* 文字のすぐ後ろを濃い暗色で引き締め（視認性を確保） */
@@ -89,22 +89,22 @@
                 opacity: 0;
                 transform: scale(0.95);
             }
-            25% { /* 1.0sかけてフェードイン完了 (キーフレーム上の1.0s / 4.0s = 25%) */
+            30.3% { /* 1.0sかけてフェードイン完了 (1.0s / 3.3s ≒ 30.3%) */
                 opacity: 1;
                 transform: scale(1);
             }
-            87.5% { /* キャッチコピーの表示を2.5秒間キープ (キーフレーム上の3.5s / 4.0s = 87.5%) */
+            84.8% { /* キャッチコピーの表示を1.8秒間キープ (2.8s / 3.3s ≒ 84.8%) */
                 opacity: 1;
                 transform: scale(1);
             }
-            100% { /* 最後の0.5秒でスッと消えて第2フェーズのロゴにバトンタッチ */
+            100% { /* 最後の0.5秒でスッと消えて第2フェーズのロゴにバトンタッチ (3.3s) */
                 opacity: 0;
                 transform: scale(0.95);
             }
         }
 
-        /* ★新追加：第2フェーズ 放送部公式ロゴアイコンのアニメーション★
-           キャッチコピーが完全に消え去る 5.0秒の瞬間から1.0秒かけてフワッと浮かび上がります */
+        /* ★第2フェーズ 放送部公式ロゴアイコンのアニメーション★
+           キャッチコピーが完全に消え去る「4.3秒」の瞬間から1.0秒かけてフワッと浮かび上がります */
         .splash-logo-2 {
             position: absolute;
             width: 105px;
@@ -115,7 +115,7 @@
             object-fit: cover;
             opacity: 0;
             transform: translateY(-40px); /* 中央から少し上に配置して英文部活名と重ならないように調整 */
-            animation: splashLogo2FadeIn 1.0s cubic-bezier(0.16, 1, 0.3, 1) 5.0s forwards;
+            animation: splashLogo2FadeIn 1.0s cubic-bezier(0.16, 1, 0.3, 1) 4.3s forwards;
         }
 
         @keyframes splashLogo2FadeIn {
@@ -129,8 +129,8 @@
             }
         }
 
-        /* ★新追加：英文部活名のアニメーション★
-           公式丸ロゴ（ロゴ2）と同じ5.0秒のタイミングで、そのすぐ下にフェードインします */
+        /* ★英文部活名のアニメーション★
+           公式丸ロゴ（ロゴ2）と同じ「4.3秒」のタイミングで、そのすぐ下にフェードインします */
         .splash-title {
             position: absolute;
             transform: translateY(60px); /* 丸ロゴ（105px）のすぐ下に重ならず並ぶように位置調整 */
@@ -142,7 +142,7 @@
             text-align: center;
             padding: 0 15px;
             text-transform: uppercase;
-            animation: splashTitleFadeIn 1.0s cubic-bezier(0.16, 1, 0.3, 1) 5.0s forwards;
+            animation: splashTitleFadeIn 1.0s cubic-bezier(0.16, 1, 0.3, 1) 4.3s forwards;
         }
 
         @keyframes splashTitleFadeIn {
@@ -892,7 +892,7 @@
             <div class="video-player-container" id="player-4"></div>
 
             <!-- ★サムネイルやタイトルをタップしたときも、動画プレイヤーを開くように onclick を設定★ -->
-            <a href="javascript:void(0)" onclick="triggerPlayFromCard(this, 'AZhI3iu4Nlw')" class="program-main-link" title="作品を視聴する">
+            <a href="javascript:void(0)" onclick="triggerPlayFromCard(this, 'AZhI3iw4Nlw')" class="program-main-link" title="作品を視聴する">
                 <div class="program-main">
                     <div class="thumbnail-wrapper">
                         <img src="https://img.youtube.com/vi/AZhI3iu4Nlw/mqdefault.jpg" alt="創作テレビドラマ サムネイル" onerror="this.src='https://images.unsplash.com/photo-1485846234645-a62644f84728?w=300&auto=format&fit=crop&q=60'">
@@ -1046,7 +1046,7 @@
     <script>
         window.addEventListener('load', () => {
             const splash = document.getElementById('splash-screen');
-            // ご要望：最初にキャッチコピーを2.5秒表示させ、バトンタッチしてロゴと部活動名をフェードイン。
+            // ご要望：最初にキャッチコピーを1.8秒表示させ、バトンタッチしてロゴと部活動名をフェードイン。
             // ロゴ2とタイトルの表示時間を完全に確保した 7.5秒（7500ms）時点で全体のフェードアウトを開始。
             // 7.5s（ディレイ） + 1.3s（フェードアウト時間） = 8.8s（8800ms）
             setTimeout(() => {
