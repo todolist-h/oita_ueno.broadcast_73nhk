@@ -21,7 +21,7 @@
 
         /* ==========================================
            ポルカドット背景パターン（Polka v2）
-           全体のパステルブルーに完璧に溶け込む半透明のドット柄にカスタマイズ
+           全体のパステルブルーに完璧に溶け込む半透明 of ドット柄にカスタマイズ
            ========================================== */
         .bg_pattern {
             position: fixed;
@@ -202,16 +202,18 @@
 
         /* ==========================================
            インライン作品再生用プレイヤーコンテナ（スマホUI風極上スプリングアニメーション）
+           【改善】高さ（max-height）をアニメーションにブレンドし、ガタつきを完全解消！
            ========================================== */
         .video-player-container {
             width: 100%;
             aspect-ratio: 16 / 9;
             border-radius: 12px;
             overflow: hidden;
-            margin-bottom: 8px;
             background-color: #000000;
             display: none; /* 初期状態は非表示、ボタン押下時にスライド表示 */
             box-shadow: 0 4px 12px rgba(15, 23, 42, 0.1);
+            max-height: 282px; /* スマホ画面の最大16:9比率高さに制限 */
+            margin-bottom: 0;
             /* iOSのカード展開のような、極上の跳ね返り（バウンス感）がある0.4秒のスプリングアニメーションを設定 */
             animation: slideDownPlayer 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1) forwards;
         }
@@ -220,26 +222,35 @@
                 opacity: 0;
                 /* 上から優しく滑り降りつつ、0.93のサイズからふんわりと飛び出るように拡大します */
                 transform: translateY(-15px) scale(0.93);
+                max-height: 0;
+                margin-bottom: 0;
             }
             to {
                 opacity: 1;
                 transform: translateY(0) scale(1);
+                max-height: 282px; /* カード表面で最大の高さまで滑らかに展開 */
+                margin-bottom: 8px; /* 展開完了時に少しマージンを確保 */
             }
         }
 
-        /* ★新追加：閉じるときのスマホUI風スプリングアニメーション★ */
+        /* ★新追加：閉じるときのスマホUI風スプリングアニメーション★
+           こちらも max-height と margin-bottom を連動してスルスルと滑らかに畳みます！ */
         .video-player-container.slide-up {
-            animation: slideUpPlayer 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.1) forwards;
+            animation: slideUpPlayer 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.15) forwards;
         }
         @keyframes slideUpPlayer {
             from {
                 opacity: 1;
                 transform: translateY(0) scale(1);
+                max-height: 282px;
+                margin-bottom: 8px;
             }
             to {
                 opacity: 0;
-                /* 閉じる時は、プレイヤーがふんわりと上に引っ込みながら0.93倍に縮んで消えていきます */
+                /* 閉じる時は、プレイヤーがふんわりと上に引っ込みながら0.93倍に縮んで綺麗に畳まれます */
                 transform: translateY(-15px) scale(0.93);
+                max-height: 0;
+                margin-bottom: 0;
             }
         }
 
@@ -701,7 +712,7 @@
             <!-- その場再生用の埋め込みプレイヤーコンテナ（初期状態は隠す） -->
             <div class="video-player-container" id="player-1"></div>
 
-            <!-- ★【改善】サムネイルやタイトルをタップしたときも、動画プレイヤーを開くように onclick を設定★ -->
+            <!-- ★サムネイルやタイトルをタップしたときも、動画プレイヤーを開くように onclick を設定★ -->
             <a href="javascript:void(0)" onclick="triggerPlayFromCard(this, 'hWRPaxYbU6I')" class="program-main-link" title="作品を視聴する">
                 <div class="program-main">
                     <div class="thumbnail-wrapper">
@@ -743,7 +754,7 @@
             <!-- その場再生用の埋め込みプレイヤーコンテナ -->
             <div class="video-player-container" id="player-2"></div>
 
-            <!-- ★【改善】サムネイルやタイトルをタップしたときも、動画プレイヤーを開くように onclick を設定★ -->
+            <!-- ★サムネイルやタイトルをタップしたときも、動画プレイヤーを開くように onclick を設定★ -->
             <a href="javascript:void(0)" onclick="triggerPlayFromCard(this, 'bLaiO6uIzfs')" class="program-main-link" title="作品を視聴する">
                 <div class="program-main">
                     <div class="thumbnail-wrapper">
@@ -785,7 +796,7 @@
             <!-- その場再生用の埋め込みプレイヤーコンテナ -->
             <div class="video-player-container" id="player-3"></div>
 
-            <!-- ★【改善】サムネイルやタイトルをタップしたときも、動画プレイヤーを開くように onclick を設定★ -->
+            <!-- ★サムネイルやタイトルをタップしたときも、動画プレイヤーを開くように onclick を設定★ -->
             <a href="javascript:void(0)" onclick="triggerPlayFromCard(this, 'k6mVJT84P4Y')" class="program-main-link" title="作品を視聴する">
                 <div class="program-main">
                     <div class="thumbnail-wrapper">
@@ -833,7 +844,7 @@
             <!-- その場再生用の埋め込みプレイヤーコンテナ -->
             <div class="video-player-container" id="player-4"></div>
 
-            <!-- ★【改善】サムネイルやタイトルをタップしたときも、動画プレイヤーを開くように onclick を設定★ -->
+            <!-- ★サムネイルやタイトルをタップしたときも、動画プレイヤーを開くように onclick を設定★ -->
             <a href="javascript:void(0)" onclick="triggerPlayFromCard(this, 'AZhI3iu4Nlw')" class="program-main-link" title="作品を視聴する">
                 <div class="program-main">
                     <div class="thumbnail-wrapper">
@@ -878,7 +889,7 @@
             <!-- その場再生用の埋め込みプレイヤーコンテナ -->
             <div class="video-player-container" id="player-5"></div>
 
-            <!-- ★【改善】サムネイルやタイトルをタップしたときも、動画プレイヤーを開くように onclick を設定★ -->
+            <!-- ★サムネイルやタイトルをタップしたときも、動画プレイヤーを開くように onclick を設定★ -->
             <a href="javascript:void(0)" onclick="triggerPlayFromCard(this, 'dQw4w9WgXcQ')" class="program-main-link" title="作品を視聴する">
                 <div class="program-main">
                     <div class="thumbnail-wrapper">
@@ -936,7 +947,7 @@
             <!-- その場再生用の埋め込みプレイヤーコンテナ -->
             <div class="video-player-container" id="player-pv"></div>
 
-            <!-- ★【改善】学校紹介PVのサムネイルやタイトルもその場で再生されるように onclick を設定★ -->
+            <!-- 学校紹介PVのサムネイルやタイトルもその場で再生されるように onclick を設定 -->
             <a href="javascript:void(0)" onclick="triggerPlayFromCard(this, 'rwcsDeVlROE')" class="program-main-link" title="作品を視聴する">
                 <div class="program-main">
                     <div class="thumbnail-wrapper">
