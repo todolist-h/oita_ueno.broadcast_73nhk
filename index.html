@@ -67,8 +67,8 @@
         }
 
         /* ★キャッチコピー透過ロゴのアニメーションシーケンス★
-           1.0s時点でフェードイン開始、1.0sかけて現れ、1.5秒間（表示時間を-0.2秒調整）表示を完全にキープ、
-           そこから0.5秒間（計3.0s）でスッとフェードアウトするように調整しました。 */
+           1.0s時点でフェードイン開始、1.0sかけて現れ、1.4秒間（表示時間をさらに-0.1秒調整）表示を完全にキープ、
+           そこから0.5秒間（計2.9s）でスッとフェードアウトするように時間を短縮調整しました。 */
         .splash-logo-1 {
             position: absolute;
             width: 82%; /* スマホやタブレットでも見栄えが良くなるサイズに調整 */
@@ -76,7 +76,7 @@
             height: auto;
             object-fit: contain;
             opacity: 0;
-            animation: splashLogo1Sequence 3.0s cubic-bezier(0.25, 1, 0.5, 1) 1.0s forwards;
+            animation: splashLogo1Sequence 2.9s cubic-bezier(0.25, 1, 0.5, 1) 1.0s forwards;
             
             /* 白文字のフチにクッキリした影を作るためのマルチドロップシャドウ */
             filter: drop-shadow(0px 1px 2px rgba(15, 23, 42, 0.8))      /* 文字のすぐ後ろを濃い暗色で引き締め（視認性を確保） */
@@ -89,22 +89,22 @@
                 opacity: 0;
                 transform: scale(0.95);
             }
-            33.33% { /* 1.0sかけてフェードイン完了 (1.0s / 3.0s ≒ 33.33%) */
+            34.48% { /* 1.0sかけてフェードイン完了 (1.0s / 2.9s ≒ 34.48%) */
                 opacity: 1;
                 transform: scale(1);
             }
-            83.33% { /* キャッチコピーの表示を1.5秒間キープ (2.5s / 3.0s ≒ 83.33%) */
+            82.76% { /* キャッチコピーの表示を1.4秒間キープ (2.4s / 2.9s ≒ 82.76%) */
                 opacity: 1;
                 transform: scale(1);
             }
-            100% { /* 最後の0.5秒でスッと消えて第2フェーズのロゴにバトンタッチ (3.0s) */
+            100% { /* 最後の0.5秒でスッと消えて第2フェーズのロゴにバトンタッチ (2.9s) */
                 opacity: 0;
                 transform: scale(0.95);
             }
         }
 
         /* ★第2フェーズ 放送部公式ロゴアイコンのアニメーション★
-           キャッチコピーが完全に消え去る「4.0秒」の瞬間から1.0秒かけてフワッと浮かび上がります */
+           キャッチコピーが完全に消え去る「3.9秒」の瞬間から1.0秒かけてフワッと浮かび上がります */
         .splash-logo-2 {
             position: absolute;
             width: 105px;
@@ -115,7 +115,7 @@
             object-fit: cover;
             opacity: 0;
             transform: translateY(-40px); /* 中央から少し上に配置して英文部活名と重ならないように調整 */
-            animation: splashLogo2FadeIn 1.0s cubic-bezier(0.16, 1, 0.3, 1) 4.0s forwards;
+            animation: splashLogo2FadeIn 1.0s cubic-bezier(0.16, 1, 0.3, 1) 3.9s forwards;
         }
 
         @keyframes splashLogo2FadeIn {
@@ -130,7 +130,7 @@
         }
 
         /* ★英文部活名のアニメーション★
-           公式丸ロゴ（ロゴ2）と同じ「4.0秒」のタイミングで、そのすぐ下にフェードインします */
+           公式丸ロゴ（ロゴ2）と同じ「3.9秒」のタイミングで、そのすぐ下にフェードインします */
         .splash-title {
             position: absolute;
             transform: translateY(60px); /* 丸ロゴ（105px）のすぐ下に重ならず並ぶように位置調整 */
@@ -142,7 +142,7 @@
             text-align: center;
             padding: 0 15px;
             text-transform: uppercase;
-            animation: splashTitleFadeIn 1.0s cubic-bezier(0.16, 1, 0.3, 1) 4.0s forwards;
+            animation: splashTitleFadeIn 1.0s cubic-bezier(0.16, 1, 0.3, 1) 3.9s forwards;
         }
 
         @keyframes splashTitleFadeIn {
@@ -1046,16 +1046,16 @@
     <script>
         window.addEventListener('load', () => {
             const splash = document.getElementById('splash-screen');
-            // ご要望：最初にキャッチコピーを1.5秒（-0.2秒調整）表示させ、バトンタッチしてロゴと部活動名をフェードイン。
-            // ロゴ2とタイトルの表示時間を-0.3秒調整し、合計 6.75秒（6750ms）時点で全体のフェードアウトを開始。
-            // 6.75s（ディレイ） + 1.3s（フェードアウト時間） = 8.05s（8050ms）
+            // ご要望：最初にキャッチコピーを1.5秒（さらに-0.1秒、初期設定より-0.2秒調整）表示させ、バトンタッチしてロゴと部活動名をフェードイン。
+            // ロゴ2とタイトルの表示時間を-0.3秒調整し、合計 6.65秒（6650ms）時点で全体のフェードアウトを開始。
+            // 6.65s（ディレイ） + 1.3s（フェードアウト時間） = 7.95s（7950ms）
             setTimeout(() => {
                 splash.classList.add('loaded');
                 // フェードアウトの完了（1.3秒）を待って、背景の操作ができるようにDOMから非表示
                 setTimeout(() => {
                     splash.style.display = 'none';
                 }, 1300);
-            }, 6750);
+            }, 6650);
         });
 
         // ==========================================
