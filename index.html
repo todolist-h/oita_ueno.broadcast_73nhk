@@ -34,7 +34,7 @@
             z-index: -1;
         }
         .Polka_v2 {
-            /* 黄色のドットを、サイト of パステルブルーに調和する「半透明の澄んだ青」にアレンジ */
+            /* 黄色のドットを、サイト of パステルブルーに調和する「半透明 of 澄んだ青」にアレンジ */
             background-image: radial-gradient(rgba(56, 189, 248, 0.35) 2px, transparent 2px), 
                               radial-gradient(rgba(56, 189, 248, 0.35) 2px, transparent 2px);
             background-size: 40px 40px;
@@ -67,8 +67,8 @@
         }
 
         /* ★キャッチコピー透過ロゴのアニメーションシーケンス★
-           1.0s時点でフェードイン開始、1.0sかけて現れ、1.7秒間（表示時間を-0.1秒調整）表示を完全にキープ、
-           そこから0.5秒間（計3.2s）でスッとフェードアウトするように時間を短縮調整しました。 */
+           1.0s時点でフェードイン開始、1.0sかけて現れ、1.5秒間（表示時間を-0.2秒調整）表示を完全にキープ、
+           そこから0.5秒間（計3.0s）でスッとフェードアウトするように調整しました。 */
         .splash-logo-1 {
             position: absolute;
             width: 82%; /* スマホやタブレットでも見栄えが良くなるサイズに調整 */
@@ -76,7 +76,7 @@
             height: auto;
             object-fit: contain;
             opacity: 0;
-            animation: splashLogo1Sequence 3.2s cubic-bezier(0.25, 1, 0.5, 1) 1.0s forwards;
+            animation: splashLogo1Sequence 3.0s cubic-bezier(0.25, 1, 0.5, 1) 1.0s forwards;
             
             /* 白文字のフチにクッキリした影を作るためのマルチドロップシャドウ */
             filter: drop-shadow(0px 1px 2px rgba(15, 23, 42, 0.8))      /* 文字のすぐ後ろを濃い暗色で引き締め（視認性を確保） */
@@ -89,22 +89,22 @@
                 opacity: 0;
                 transform: scale(0.95);
             }
-            31.25% { /* 1.0sかけてフェードイン完了 (1.0s / 3.2s = 31.25%) */
+            33.33% { /* 1.0sかけてフェードイン完了 (1.0s / 3.0s ≒ 33.33%) */
                 opacity: 1;
                 transform: scale(1);
             }
-            84.375% { /* キャッチコピーの表示を1.7秒間キープ (2.7s / 3.2s = 84.375%) */
+            83.33% { /* キャッチコピーの表示を1.5秒間キープ (2.5s / 3.0s ≒ 83.33%) */
                 opacity: 1;
                 transform: scale(1);
             }
-            100% { /* 最後の0.5秒でスッと消えて第2フェーズのロゴにバトンタッチ (3.2s) */
+            100% { /* 最後の0.5秒でスッと消えて第2フェーズのロゴにバトンタッチ (3.0s) */
                 opacity: 0;
                 transform: scale(0.95);
             }
         }
 
         /* ★第2フェーズ 放送部公式ロゴアイコンのアニメーション★
-           キャッチコピーが完全に消え去る「4.2秒」の瞬間から1.0秒かけてフワッと浮かび上がります */
+           キャッチコピーが完全に消え去る「4.0秒」の瞬間から1.0秒かけてフワッと浮かび上がります */
         .splash-logo-2 {
             position: absolute;
             width: 105px;
@@ -115,7 +115,7 @@
             object-fit: cover;
             opacity: 0;
             transform: translateY(-40px); /* 中央から少し上に配置して英文部活名と重ならないように調整 */
-            animation: splashLogo2FadeIn 1.0s cubic-bezier(0.16, 1, 0.3, 1) 4.2s forwards;
+            animation: splashLogo2FadeIn 1.0s cubic-bezier(0.16, 1, 0.3, 1) 4.0s forwards;
         }
 
         @keyframes splashLogo2FadeIn {
@@ -130,7 +130,7 @@
         }
 
         /* ★英文部活名のアニメーション★
-           公式丸ロゴ（ロゴ2）と同じ「4.2秒」のタイミングで、そのすぐ下にフェードインします */
+           公式丸ロゴ（ロゴ2）と同じ「4.0秒」のタイミングで、そのすぐ下にフェードインします */
         .splash-title {
             position: absolute;
             transform: translateY(60px); /* 丸ロゴ（105px）のすぐ下に重ならず並ぶように位置調整 */
@@ -142,7 +142,7 @@
             text-align: center;
             padding: 0 15px;
             text-transform: uppercase;
-            animation: splashTitleFadeIn 1.0s cubic-bezier(0.16, 1, 0.3, 1) 4.2s forwards;
+            animation: splashTitleFadeIn 1.0s cubic-bezier(0.16, 1, 0.3, 1) 4.0s forwards;
         }
 
         @keyframes splashTitleFadeIn {
@@ -1046,16 +1046,16 @@
     <script>
         window.addEventListener('load', () => {
             const splash = document.getElementById('splash-screen');
-            // ご要望：最初にキャッチコピーを1.8秒表示させ、バトンタッチしてロゴと部活動名をフェードイン。
-            // ロゴ2とタイトルの表示時間を完全に確保した 7.5秒（7500ms）時点で全体のフェードアウトを開始。
-            // 7.5s（ディレイ） + 1.3s（フェードアウト時間） = 8.8s（8800ms）
+            // ご要望：最初にキャッチコピーを1.5秒（-0.2秒調整）表示させ、バトンタッチしてロゴと部活動名をフェードイン。
+            // ロゴ2とタイトルの表示時間を-0.3秒調整し、合計 6.75秒（6750ms）時点で全体のフェードアウトを開始。
+            // 6.75s（ディレイ） + 1.3s（フェードアウト時間） = 8.05s（8050ms）
             setTimeout(() => {
                 splash.classList.add('loaded');
                 // フェードアウトの完了（1.3秒）を待って、背景の操作ができるようにDOMから非表示
                 setTimeout(() => {
                     splash.style.display = 'none';
                 }, 1300);
-            }, 7500);
+            }, 6750);
         });
 
         // ==========================================
