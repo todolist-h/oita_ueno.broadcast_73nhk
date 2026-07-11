@@ -201,7 +201,7 @@
         }
 
         /* ==========================================
-           インライン作品再生用プレイヤーコンテナ
+           インライン作品再生用プレイヤーコンテナ（スマホUI風極上スプリングアニメーション）
            ========================================== */
         .video-player-container {
             width: 100%;
@@ -212,16 +212,34 @@
             background-color: #000000;
             display: none; /* 初期状態は非表示、ボタン押下時にスライド表示 */
             box-shadow: 0 4px 12px rgba(15, 23, 42, 0.1);
-            animation: slideDownPlayer 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            /* iOSのカード展開のような、極上の跳ね返り（バウンス感）がある0.4秒のスプリングアニメーションを設定 */
+            animation: slideDownPlayer 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1) forwards;
         }
         @keyframes slideDownPlayer {
             from {
                 opacity: 0;
-                transform: translateY(-8px) scale(0.98);
+                /* 上から優しく滑り降りつつ、0.93のサイズからふんわりと飛び出るように拡大します */
+                transform: translateY(-15px) scale(0.93);
             }
             to {
                 opacity: 1;
                 transform: translateY(0) scale(1);
+            }
+        }
+
+        /* ★新追加：閉じるときのスマホUI風スプリングアニメーション★ */
+        .video-player-container.slide-up {
+            animation: slideUpPlayer 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.1) forwards;
+        }
+        @keyframes slideUpPlayer {
+            from {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+            to {
+                opacity: 0;
+                /* 閉じる時は、プレイヤーがふんわりと上に引っ込みながら0.93倍に縮んで消えていきます */
+                transform: translateY(-15px) scale(0.93);
             }
         }
 
@@ -798,9 +816,8 @@
                     <summary>制作意図・あらすじを見る</summary>
                     <div class="details-content">
                         <div class="details-section-title">制作意図</div>
-                        <div class="details-content-text">完璧カリスマ高校生バーチャルライバー高嶺優美の本当の姿は、引っ込み思案で自己主張が苦手な正反対の人間だった。そんな彼女はファンやマネージャーの期待に応えて常に完璧を演じ続ける日々に嫌気がさしていた。
-ある日突然、彼女は日頃の愚痴を聞いたAIに配信を乗っ取られてしまう。AIから主導権を取り戻しようとするも、完璧さでAIに勝ち目がないことが証明されてしまった。 乗っ取られたことから、今まで自分のやっていたことがいかに中身のなかったことだったか気がつき、ライバー活動を引退することを決意する。
-ところが相談したマネージャーの熱い言葉に心を動かされ、今までの完璧主義から生まれ変わってありのままの自分でライバー活動を続ける選択をする。結果は賛否論で人気も落ちてしまったが、今日も彼女は本当の自分を愛してくれるファンのために配信を続けていく。</div>
+                        <div class="details-content-text">周りの人にどう思われるかを気にしすぎて、本当の自分を偽ってしまうことはありませんか？
+本当の自分を押し殺して苦しんでまで、求められた自分になる必要なんてない。AIが台頭する現代こそ、自分らしさを見失って中身のない人間になってほしくない。ありのままのあなたでいてほしい。という思いを込めて、最近高校生の間で人気のバーチャルライバーの二面性になぞらえて制作しました。</div>
                         
                         <div class="details-section-title">あらすじ</div>
                         <div class="details-content-text">完璧カリスマ高校生バーチャルライバー高嶺優美の本当の姿は、引っ込み思案で自己主張が苦手な正反対 of 人間だった。そんな彼女はファンやマネージャーの期待に応えて常に完璧を演じ続ける日々に嫌気がさしていた。
@@ -945,7 +962,7 @@
         <div class="message-card">
             <p>
                 全国の放送部の皆さん、ご視聴ありがとうございます！<br>
-                感想や、日頃の活動の様子など、ぜひお聞かせください。<br>
+                感想や、日頃 of 活動の様子など、ぜひお聞かせください。<br>
                 大会期間中、お互いに頑張りましょう！✨
             </p>
         </div>
@@ -1000,16 +1017,10 @@
             const card = btn.closest('.program-card');
             const container = card.querySelector('.video-player-container');
             
-            // 1. 他の開いている動画プレイヤーをすべて停止して閉じる（重くなるのを防止する親切バグ対策）
+            // 1. 他の開いている動画プレイヤーをすべて停止して閉じる（重くなるのを防止する親切バグ対策・こちらもアニメーション対応）
             document.querySelectorAll('.video-player-container').forEach(c => {
                 if (c !== container && c.style.display === 'block') {
-                    c.style.display = 'none';
-                    c.innerHTML = '';
-                    const otherBtn = c.closest('.program-card').querySelector('.btn-watch');
-                    if (otherBtn) {
-                        otherBtn.innerHTML = `<svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg> 作品を視聴する`;
-                        otherBtn.classList.remove('active-playing');
-                    }
+                    closePlayerWithAnimation(c);
                 }
             });
 
@@ -1017,10 +1028,9 @@
             if (container.style.display === 'none' || container.innerHTML === '') {
                 // プレイヤーを生成して自動再生付きで埋め込み
                 container.style.display = 'block';
+                container.classList.remove('slide-up'); // クローズ時のクラスをクリア
                 
                 // 【★エラー 153 解決策★】
-                // アプリ内ブラウザのサードパーティCookie・トラッキングブロック制限を完全回避するために
-                // 信頼性の高い「youtube-nocookie.com」ドメインを使用し、originと暗号化通信設定を付与します。
                 const currentOrigin = window.location.origin;
                 container.innerHTML = `<iframe width="100%" height="100%" src="https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&rel=0&enablejsapi=1&origin=${encodeURIComponent(currentOrigin)}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
                 
@@ -1033,14 +1043,33 @@
                     container.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
                 }, 150);
             } else {
-                // プレイヤーを閉じて完全に破棄（音を止める）
-                container.style.display = 'none';
-                container.innerHTML = '';
-                
-                // ボタンを元に戻す
+                // プレイヤーを閉じる（アニメーション処理を適用）
+                closePlayerWithAnimation(container);
+            }
+        }
+
+        // ==========================================
+        // ★新追加：プレイヤーをスマホUI風スプリングモーションで閉じる共通処理★
+        // ==========================================
+        function closePlayerWithAnimation(container) {
+            const card = container.closest('.program-card');
+            const btn = card.querySelector('.btn-watch');
+
+            // 1. 閉じる用のスライドアップ（縮小フェードアウト）クラスを追加
+            container.classList.add('slide-up');
+
+            // 2. ボタン表示を「作品を視聴する」に戻す
+            if (btn) {
                 btn.innerHTML = `<svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg> 作品を視聴する`;
                 btn.classList.remove('active-playing');
             }
+
+            // 3. 0.3秒のアニメーション終了を待って、プレイヤーを非表示＆iframeデータを破棄
+            setTimeout(() => {
+                container.style.display = 'none';
+                container.innerHTML = '';
+                container.classList.remove('slide-up'); // 次回開く時のためにリセット
+            }, 300); // 閉じるアニメーション（0.3秒）と完全に同期
         }
     </script>
 </body>
