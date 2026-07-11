@@ -26,7 +26,7 @@
             left: 0;
             width: 100%;
             height: 100vh;
-            background: linear-gradient(135deg, #e0f2fe 0%, #eef2f6 50%, #f5f3ff 100%); /* ★元のパステルカラーに戻しました★ */
+            background: linear-gradient(135deg, #e0f2fe 0%, #eef2f6 50%, #f5f3ff 100%);
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -44,6 +44,7 @@
             visibility: hidden;
         }
 
+        /* ★透過ロゴの視認性を劇的に高める多重ドロップシャドウを適用★ */
         .splash-logo {
             width: 82%; /* スマホやタブレットでも見栄えが良くなるサイズに調整 */
             max-width: 320px;
@@ -55,13 +56,17 @@
             transform: scale(0.95);
             /* ご要望のディレイ「1.45秒」空けてから、1.0秒かけて優しくフェードインする設定 */
             animation: splashLogoFadeIn 1.0s cubic-bezier(0.16, 1, 0.3, 1) 1.45s forwards;
+            /* パステル背景に溶け込まないよう、インディゴブルーとネイビーのソフトな影を文字のフチにまとわせます */
+            filter: drop-shadow(0px 2px 6px rgba(79, 70, 229, 0.18))
+                    drop-shadow(0px 6px 18px rgba(79, 70, 229, 0.12))
+                    drop-shadow(0px 1px 1px rgba(15, 23, 42, 0.1));
         }
 
         .splash-title {
             margin-top: 24px;
             font-size: 0.65rem; /* スマホでも1行できれいに収まるよう微調整 */
             font-weight: 800;
-            color: #4f46e5; /* ★パステルグラデーションに映える、元のエモいインディゴパープルに戻しました★ */
+            color: #4f46e5; /* パステルグラデーションに映える、元のエモいインディゴパープル */
             letter-spacing: 0.22em; /* 文字間隔をほんのり広げて美しく */
             opacity: 0;
             text-align: center;
@@ -378,7 +383,7 @@
             align-items: center;
             justify-content: center;
             gap: 4px;
-            list-style: none; /* デフォルトの黒い矢印を消す */
+            list-style: none; /* デフォルト of 黒い矢印を消す */
             box-sizing: border-box;
             height: 36px; /* こちらも高さを揃えて綺麗に統一 */
         }
@@ -729,7 +734,7 @@
 ところが相談したマネージャーの熱い言葉に心を動かされ、今までの完璧主義から生まれ変わってありのままの自分でライバー活動を続ける選択をする。結果は賛否両論で人気も落ちてしまったが、今日も彼女は本当の自分を愛してくれるファンのために配信を続けていく。</div>
                         
                         <div class="details-section-title">あらすじ</div>
-                        <div class="details-content-text">完璧カリスマ高校生バーチャルライバー高嶺優美の本当の姿は、引っ込み思案で自己主張が苦手な正反対の人間だった。そんな彼女はファンやマネージャーの期待に応えて常に完璧を演じ続ける日々に嫌気がさしていた。
+                        <div class="details-content-text">完璧カリスマ高校生バーチャルライバー高嶺優美の本当の姿は、引っ込み思案で自己主張が苦手な正反対 of 人間だった。そんな彼女はファンやマネージャーの期待に応えて常に完璧を演じ続ける日々に嫌気がさしていた。
 ある日突然、彼女は日頃の愚痴を聞いたAIに配信を乗っ取られてしまう。AIから主導権を取り戻そうとするも、完璧さでAIに勝ち目がないことが証明されてしまった。 乗っ取られたことから、今まで自分のやっていたことがいかに中身のなかったことだったか気がつき、ライバー活動を引退することを決意する。
 ところが相談したマネージャーの熱い言葉に心を動かされ、今までの完璧主義から生まれ変わってありのままの自分でライバー活動を続ける選択をする。結果は賛否論で人気も落ちてしまったが、今日も彼女は本当の自分を愛してくれるファンのために配信を続けていく。</div>
                     </div>
