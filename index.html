@@ -20,7 +20,7 @@
         }
 
         /* ==========================================
-           新追加：ポルカドット背景パターン（Polka v2）
+           ポルカドット背景パターン（Polka v2）
            全体のパステルブルーに完璧に溶け込む半透明のドット柄にカスタマイズ
            ========================================== */
         .bg_pattern {
@@ -200,6 +200,31 @@
             box-shadow: 0 8px 20px rgba(99, 102, 241, 0.05);
         }
 
+        /* ==========================================
+           インライン作品再生用プレイヤーコンテナ
+           ========================================== */
+        .video-player-container {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 8px;
+            background-color: #000000;
+            display: none; /* 初期状態は非表示、ボタン押下時にスライド表示 */
+            box-shadow: 0 4px 12px rgba(15, 23, 42, 0.1);
+            animation: slideDownPlayer 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        @keyframes slideDownPlayer {
+            from {
+                opacity: 0;
+                transform: translateY(-8px) scale(0.98);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
         /* 作品情報の上の部分：画像やタイトルを押すと視聴できるリンクに設定 */
         .program-main-link {
             text-decoration: none;
@@ -208,6 +233,7 @@
             align-items: center;
             min-width: 0;
             width: 100%;
+            cursor: pointer;
         }
 
         .program-main {
@@ -370,6 +396,12 @@
         .btn-watch:hover {
             background: linear-gradient(135deg, #1d8fff 0%, #0074df 100%);
             box-shadow: 0 6px 14px rgba(29, 143, 255, 0.25);
+        }
+
+        /* 再生中・プレイヤーオープン時のちょっとエモいピンク調グラデーションボタン */
+        .btn-watch.active-playing {
+            background: linear-gradient(135deg, #fda4af 0%, #f43f5e 100%);
+            box-shadow: 0 4px 10px rgba(244, 63, 94, 0.15);
         }
 
         /* ボタン内のアイコン用SVG - 絶対に巨大化しないようにサイズを強力固定！ */
@@ -648,8 +680,11 @@
 
         <!-- 01. ラジオドキュメント（ベースとフレンド） -->
         <div class="program-card">
-            <!-- 添付画像部分や作品名をタップしても作品を視聴できるリンクを設定 -->
-            <a href="https://www.youtube.com/watch?v=hWRPaxYbU6I&list=PLDLkhIT6097k&index=1" target="_blank" class="program-main-link" title="作品を視聴する">
+            <!-- その場再生用の埋め込みプレイヤーコンテナ（初期状態は隠す） -->
+            <div class="video-player-container" id="player-1"></div>
+
+            <!-- ★【改善】サムネイルやタイトルをタップしたときも、動画プレイヤーを開くように onclick を設定★ -->
+            <a href="javascript:void(0)" onclick="triggerPlayFromCard(this, 'hWRPaxYbU6I')" class="program-main-link" title="作品を視聴する">
                 <div class="program-main">
                     <div class="thumbnail-wrapper">
                         <img src="https://img.youtube.com/vi/hWRPaxYbU6I/mqdefault.jpg" alt="ラジオドキュメント サムネイル" onerror="this.src='https://images.unsplash.com/photo-1484755560695-a4c740285fa6?w=300&auto=format&fit=crop&q=60'">
@@ -670,9 +705,9 @@
                 </div>
             </a>
             <div class="program-actions">
-                <a href="https://www.youtube.com/watch?v=hWRPaxYbU6I&list=PLDLkhIT6097k&index=1" target="_blank" class="action-btn btn-watch">
+                <button type="button" class="action-btn btn-watch" onclick="togglePlay(this, 'hWRPaxYbU6I')">
                     <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg> 作品を視聴する
-                </a>
+                </button>
                 
                 <!-- 新アコーディオン（制作意図） -->
                 <details class="work-details">
@@ -687,7 +722,11 @@
 
         <!-- 02. テレビドキュメント（雨ニハマケズ、目ニハトマズ） -->
         <div class="program-card">
-            <a href="https://www.youtube.com/watch?v=bLaiO6uIzfs&list=PLDLkhIT6097k&index=2" target="_blank" class="program-main-link" title="作品を視聴する">
+            <!-- その場再生用の埋め込みプレイヤーコンテナ -->
+            <div class="video-player-container" id="player-2"></div>
+
+            <!-- ★【改善】サムネイルやタイトルをタップしたときも、動画プレイヤーを開くように onclick を設定★ -->
+            <a href="javascript:void(0)" onclick="triggerPlayFromCard(this, 'bLaiO6uIzfs')" class="program-main-link" title="作品を視聴する">
                 <div class="program-main">
                     <div class="thumbnail-wrapper">
                         <img src="https://img.youtube.com/vi/bLaiO6uIzfs/mqdefault.jpg" alt="テレビドキュメント サムネイル" onerror="this.src='https://images.unsplash.com/photo-1461151304267-38535e780c79?w=300&auto=format&fit=crop&q=60'">
@@ -708,9 +747,9 @@
                 </div>
             </a>
             <div class="program-actions">
-                <a href="https://www.youtube.com/watch?v=bLaiO6uIzfs&list=PLDLkhIT6097k&index=2" target="_blank" class="action-btn btn-watch">
+                <button type="button" class="action-btn btn-watch" onclick="togglePlay(this, 'bLaiO6uIzfs')">
                     <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg> 作品を視聴する
-                </a>
+                </button>
                 
                 <!-- 新アコーディオン（制作意図) -->
                 <details class="work-details">
@@ -725,7 +764,11 @@
         
         <!-- 03. 創作ラジオドラマ（パーフェクト・リバース） -->
         <div class="program-card">
-            <a href="https://www.youtube.com/watch?v=k6mVJT84P4Y&list=PLDLkhIT6097k&index=3" target="_blank" class="program-main-link" title="作品を視聴する">
+            <!-- その場再生用の埋め込みプレイヤーコンテナ -->
+            <div class="video-player-container" id="player-3"></div>
+
+            <!-- ★【改善】サムネイルやタイトルをタップしたときも、動画プレイヤーを開くように onclick を設定★ -->
+            <a href="javascript:void(0)" onclick="triggerPlayFromCard(this, 'k6mVJT84P4Y')" class="program-main-link" title="作品を視聴する">
                 <div class="program-main">
                     <div class="thumbnail-wrapper">
                         <img src="https://img.youtube.com/vi/k6mVJT84P4Y/mqdefault.jpg" alt="創作ラジオドラマ サムネイル" onerror="this.src='https://images.unsplash.com/photo-1478737270239-2f02b77fc618?w=300&auto=format&fit=crop&q=60'">
@@ -746,9 +789,9 @@
                 </div>
             </a>
             <div class="program-actions">
-                <a href="https://www.youtube.com/watch?v=k6mVJT84P4Y&list=PLDLkhIT6097k&index=3" target="_blank" class="action-btn btn-watch">
+                <button type="button" class="action-btn btn-watch" onclick="togglePlay(this, 'k6mVJT84P4Y')">
                     <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg> 作品を視聴する
-                </a>
+                </button>
                 
                 <!-- 新アコーディオン（制作意図・あらすじ） -->
                 <details class="work-details">
@@ -756,8 +799,8 @@
                     <div class="details-content">
                         <div class="details-section-title">制作意図</div>
                         <div class="details-content-text">完璧カリスマ高校生バーチャルライバー高嶺優美の本当の姿は、引っ込み思案で自己主張が苦手な正反対の人間だった。そんな彼女はファンやマネージャーの期待に応えて常に完璧を演じ続ける日々に嫌気がさしていた。
-ある日突然、彼女は日頃の愚痴を聞いたAIに配信を乗っ取られてしまう。AIから主導権を取り戻そうとするも、完璧さでAIに勝ち目がないことが証明されてしまった。 乗っ取られたことから、今まで自分のやっていたことがいかに中身のなかったことだったか気がつき、ライバー活動を引退することを決意する。
-ところが相談したマネージャーの熱い言葉に心を動かされ、今までの完璧主義から生まれ変わってありのままの自分でライバー活動を続ける選択をする。結果は賛否両論で人気も落ちてしまったが、今日も彼女は本当の自分を愛してくれるファンのために配信を続けていく。</div>
+ある日突然、彼女は日頃の愚痴を聞いたAIに配信を乗っ取られてしまう。AIから主導権を取り戻しようとするも、完璧さでAIに勝ち目がないことが証明されてしまった。 乗っ取られたことから、今まで自分のやっていたことがいかに中身のなかったことだったか気がつき、ライバー活動を引退することを決意する。
+ところが相談したマネージャーの熱い言葉に心を動かされ、今までの完璧主義から生まれ変わってありのままの自分でライバー活動を続ける選択をする。結果は賛否論で人気も落ちてしまったが、今日も彼女は本当の自分を愛してくれるファンのために配信を続けていく。</div>
                         
                         <div class="details-section-title">あらすじ</div>
                         <div class="details-content-text">完璧カリスマ高校生バーチャルライバー高嶺優美の本当の姿は、引っ込み思案で自己主張が苦手な正反対 of 人間だった。そんな彼女はファンやマネージャーの期待に応えて常に完璧を演じ続ける日々に嫌気がさしていた。
@@ -770,7 +813,11 @@
 
         <!-- 04. 創作テレビドラマ（未完成でも、その一歩先へ。） -->
         <div class="program-card">
-            <a href="https://www.youtube.com/watch?v=AZhI3iu4Nlw&list=PLDLkhIT6097k&index=4" target="_blank" class="program-main-link" title="作品を視聴する">
+            <!-- その場再生用の埋め込みプレイヤーコンテナ -->
+            <div class="video-player-container" id="player-4"></div>
+
+            <!-- ★【改善】サムネイルやタイトルをタップしたときも、動画プレイヤーを開くように onclick を設定★ -->
+            <a href="javascript:void(0)" onclick="triggerPlayFromCard(this, 'AZhI3iu4Nlw')" class="program-main-link" title="作品を視聴する">
                 <div class="program-main">
                     <div class="thumbnail-wrapper">
                         <img src="https://img.youtube.com/vi/AZhI3iu4Nlw/mqdefault.jpg" alt="創作テレビドラマ サムネイル" onerror="this.src='https://images.unsplash.com/photo-1485846234645-a62644f84728?w=300&auto=format&fit=crop&q=60'">
@@ -791,9 +838,9 @@
                 </div>
             </a>
             <div class="program-actions">
-                <a href="https://www.youtube.com/watch?v=AZhI3iu4Nlw&list=PLDLkhIT6097k&index=4" target="_blank" class="action-btn btn-watch">
+                <button type="button" class="action-btn btn-watch" onclick="togglePlay(this, 'AZhI3iu4Nlw')">
                     <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg> 作品を視聴する
-                </a>
+                </button>
                 
                 <!-- 新アコーディオン（制作意図・あらすじ） -->
                 <details class="work-details">
@@ -811,7 +858,11 @@
 
         <!-- 05. 研究発表（掲示のNew Ageサイネージ） -->
         <div class="program-card">
-            <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank" class="program-main-link" title="作品を視聴する">
+            <!-- その場再生用の埋め込みプレイヤーコンテナ -->
+            <div class="video-player-container" id="player-5"></div>
+
+            <!-- ★【改善】サムネイルやタイトルをタップしたときも、動画プレイヤーを開くように onclick を設定★ -->
+            <a href="javascript:void(0)" onclick="triggerPlayFromCard(this, 'dQw4w9WgXcQ')" class="program-main-link" title="作品を視聴する">
                 <div class="program-main">
                     <div class="thumbnail-wrapper">
                         <img src="https://img.youtube.com/vi/dQw4w9WgXcQ/mqdefault.jpg" alt="研究発表 サムネイル" onerror="this.src='https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=300&auto=format&fit=crop&q=60'">
@@ -827,9 +878,9 @@
                 </div>
             </a>
             <div class="program-actions">
-                <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank" class="action-btn btn-watch">
+                <button type="button" class="action-btn btn-watch" onclick="togglePlay(this, 'dQw4w9WgXcQ')">
                     <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg> 作品を視聴する
-                </a>
+                </button>
                 
                 <!-- 新アコーディオン（制作意図） -->
                 <details class="work-details">
@@ -865,7 +916,11 @@
 
         <!-- 学校紹介PVリンク（自動サムネイル付き） -->
         <div class="program-card">
-            <a href="https://youtu.be/rwcsDeVlROE?si=UmfHvXHLTa6Eu737" target="_blank" class="program-main-link" title="作品を視聴する">
+            <!-- その場再生用の埋め込みプレイヤーコンテナ -->
+            <div class="video-player-container" id="player-pv"></div>
+
+            <!-- ★【改善】学校紹介PVのサムネイルやタイトルもその場で再生されるように onclick を設定★ -->
+            <a href="javascript:void(0)" onclick="triggerPlayFromCard(this, 'rwcsDeVlROE')" class="program-main-link" title="作品を視聴する">
                 <div class="program-main">
                     <div class="thumbnail-wrapper">
                         <img src="https://img.youtube.com/vi/rwcsDeVlROE/mqdefault.jpg" alt="学校紹介PV サムネイル" onerror="this.src='https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=300&auto=format&fit=crop&q=60'">
@@ -880,9 +935,9 @@
                 </div>
             </a>
             <div class="program-actions">
-                <a href="https://youtu.be/rwcsDeVlROE?si=UmfHvXHLTa6Eu737" target="_blank" class="action-btn btn-watch" style="flex: 100%;">
+                <button type="button" class="action-btn btn-watch" onclick="togglePlay(this, 'rwcsDeVlROE')" style="flex: 100%;">
                     <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg> 作品を視聴する
-                </a>
+                </button>
             </div>
         </div>
 
@@ -926,6 +981,67 @@
                 }, 1300);
             }, 4450);
         });
+
+        // ==========================================
+        // サムネイル画像や作品名部分がタップされた時、対応する視聴ボタンを自動クリックして動かす関数
+        // ==========================================
+        function triggerPlayFromCard(linkElement, videoId) {
+            const card = linkElement.closest('.program-card');
+            const btn = card.querySelector('.btn-watch');
+            if (btn) {
+                togglePlay(btn, videoId);
+            }
+        }
+
+        // ==========================================
+        // その場再生プレイヤー制御用の関数（エラー153対策版）
+        // ==========================================
+        function togglePlay(btn, videoId) {
+            const card = btn.closest('.program-card');
+            const container = card.querySelector('.video-player-container');
+            
+            // 1. 他の開いている動画プレイヤーをすべて停止して閉じる（重くなるのを防止する親切バグ対策）
+            document.querySelectorAll('.video-player-container').forEach(c => {
+                if (c !== container && c.style.display === 'block') {
+                    c.style.display = 'none';
+                    c.innerHTML = '';
+                    const otherBtn = c.closest('.program-card').querySelector('.btn-watch');
+                    if (otherBtn) {
+                        otherBtn.innerHTML = `<svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg> 作品を視聴する`;
+                        otherBtn.classList.remove('active-playing');
+                    }
+                }
+            });
+
+            // 2. ターゲットのプレイヤーを表示／非表示にするトグル処理
+            if (container.style.display === 'none' || container.innerHTML === '') {
+                // プレイヤーを生成して自動再生付きで埋め込み
+                container.style.display = 'block';
+                
+                // 【★エラー 153 解決策★】
+                // アプリ内ブラウザのサードパーティCookie・トラッキングブロック制限を完全回避するために
+                // 信頼性の高い「youtube-nocookie.com」ドメインを使用し、originと暗号化通信設定を付与します。
+                const currentOrigin = window.location.origin;
+                container.innerHTML = `<iframe width="100%" height="100%" src="https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&rel=0&enablejsapi=1&origin=${encodeURIComponent(currentOrigin)}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+                
+                // ボタンのテキストとアイコン、色合い（アクティブ色）を切り替え
+                btn.innerHTML = `<svg viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg> プレイヤーを閉じる`;
+                btn.classList.add('active-playing');
+                
+                // 動画プレイヤーの位置までスルスルと自動でスクロールして見やすくする
+                setTimeout(() => {
+                    container.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                }, 150);
+            } else {
+                // プレイヤーを閉じて完全に破棄（音を止める）
+                container.style.display = 'none';
+                container.innerHTML = '';
+                
+                // ボタンを元に戻す
+                btn.innerHTML = `<svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg> 作品を視聴する`;
+                btn.classList.remove('active-playing');
+            }
+        }
     </script>
 </body>
 </html>
