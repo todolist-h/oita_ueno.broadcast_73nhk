@@ -67,7 +67,7 @@
         }
 
         /* ★キャッチコピー透過ロゴのアニメーションシーケンス★
-           1.0s時点でフェードイン開始、1.0sかけて現れ、1.4秒間（表示時間をさらに-0.1秒調整）表示を完全にキープ、
+           1.0s時点でフェードイン開始、1.0sかけて現れ、1.4秒間表示を完全にキープ、
            そこから0.5秒間（計2.9s）でスッとフェードアウトするように時間を短縮調整しました。 */
         .splash-logo-1 {
             position: absolute;
@@ -246,7 +246,6 @@
 
         /* ==========================================
            インライン作品再生用プレイヤーコンテナ（スマホUI風極上スプリングアニメーション）
-           【改善】高さ（max-height）をアニメーションにブレンドし、ガタつきを完全解消！
            ========================================== */
         .video-player-container {
             width: 100%;
@@ -277,8 +276,7 @@
             }
         }
 
-        /* ★新追加：閉じるときのスマホUI風スプリングアニメーション★
-           こちらも max-height と margin-bottom を連動してスルスルと滑らかに畳みます！ */
+        /* 閉じるときのスマホUI風スプリングアニメーション */
         .video-player-container.slide-up {
             animation: slideUpPlayer 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.15) forwards;
         }
@@ -585,7 +583,39 @@
             white-space: pre-wrap; /* 改行をそのまま反映 */
         }
 
-        /* Instagramバナー（リットリンクでよく見かける特別におしゃれなグラデーションボタン） */
+        /* 新設：アコーディオン内用のオシャレなパステルPDFリンクボタン */
+        .details-pdf-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            width: 100%;
+            padding: 8px 12px;
+            margin-top: 10px;
+            background-color: #f5f3ff; /* ごく淡いパステルパープル */
+            color: #7c3aed;
+            border: 1px dashed rgba(124, 58, 237, 0.35);
+            border-radius: 10px;
+            font-size: 0.72rem;
+            font-weight: 700;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            box-sizing: border-box;
+        }
+        .details-pdf-btn:hover {
+            background-color: #ede9fe;
+            border-color: rgba(124, 58, 237, 0.6);
+            color: #6d28d9;
+        }
+        .details-pdf-btn svg {
+            width: 13px;
+            height: 13px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 2.5;
+        }
+
+        /* Instagramバナー */
         .btn-insta-banner {
             display: flex;
             align-items: center;
@@ -933,13 +963,14 @@
 
         <!-- 05. 研究発表（掲示のNew Ageサイネージ） -->
         <div class="program-card">
-            <!-- その場再生用の埋め込みプレイヤーコンテナ -->
+            <!-- その場再生用の埋め込みプレイヤーコンテナ（★PDFもこれと同じ場所で綺麗に展開します★） -->
             <div class="video-player-container" id="player-5"></div>
 
-            <!-- ★サムネイルやタイトルをタップしたときも、動画プレイヤーを開くように onclick を設定★ -->
-            <a href="javascript:void(0)" onclick="triggerPlayFromCard(this, 'dQw4w9WgXcQ')" class="program-main-link" title="作品を視聴する">
+            <!-- ★サムネイルやタイトルをタップしたときも、動画プレイヤー（PDFスライドプレイヤー）を開くように onclick を設定★ -->
+            <a href="javascript:void(0)" onclick="triggerPlayFromCard(this, 'pdf_N73')" class="program-main-link" title="作品を視聴する">
                 <div class="program-main">
                     <div class="thumbnail-wrapper">
+                        <!-- PDF資料の最初のページ風のアイコンをサムネイルに表示 -->
                         <img src="https://img.youtube.com/vi/dQw4w9WgXcQ/mqdefault.jpg" alt="研究発表 サムネイル" onerror="this.src='https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=300&auto=format&fit=crop&q=60'">
                     </div>
                     <div class="btn-text">
@@ -953,16 +984,24 @@
                 </div>
             </a>
             <div class="program-actions">
-                <button type="button" class="action-btn btn-watch" onclick="togglePlay(this, 'dQw4w9WgXcQ')">
+                <!-- 【★その場でPDFをフワッと展開して視聴するトグルボタン★】 -->
+                <button type="button" class="action-btn btn-watch" onclick="togglePlay(this, 'pdf_N73')">
                     <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg> 作品を視聴する
                 </button>
                 
-                <!-- 新アコーディオン（制作意図） -->
+                <!-- アコーディオン（制作意図） -->
                 <details class="work-details">
-                    <summary>制作意図を見る</summary>
+                    <summary>制作意図・発表資料を見る</summary>
                     <div class="details-content">
                         <div class="details-section-title">制作意図</div>
                         <div class="details-content-text">校内の情報伝達を効率化するための「サイネージのあり方」について、アンケート結果を多角的に分析し、具体的な解決策を分かりやすくスライドにまとめました。私たちの知恵の結晶です。</div>
+                        
+                        <!-- ★新機能：アコーディオン内にもPDFファイルを大画面（別タブ）で開くオシャレなボタンを追加★ -->
+                        <div class="details-section-title">発表資料</div>
+                        <a class="details-pdf-btn" href="N73_大分上野丘研究発表.pdf" target="_blank" title="発表資料（PDF）を新しいタブで表示する">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                            発表資料（PDF）を別タブで大きく表示
+                        </a>
                     </div>
                 </details>
             </div>
@@ -1046,7 +1085,7 @@
     <script>
         window.addEventListener('load', () => {
             const splash = document.getElementById('splash-screen');
-            // ご要望：最初にキャッチコピーを1.5秒（さらに-0.1秒、初期設定より-0.2秒調整）表示させ、バトンタッチしてロゴと部活動名をフェードイン。
+            // ご要望：最初にキャッチコピーを1.5秒表示させ、バトンタッチしてロゴと部活動名をフェードイン。
             // ロゴ2とタイトルの表示時間を-0.3秒調整し、合計 6.65秒（6650ms）時点で全体のフェードアウトを開始。
             // 6.65s（ディレイ） + 1.3s（フェードアウト時間） = 7.95s（7950ms）
             setTimeout(() => {
@@ -1070,13 +1109,13 @@
         }
 
         // ==========================================
-        // その場再生プレイヤー制御用の関数（エラー153対策版）
+        // その場再生プレイヤー制御用の関数（エラー153および★PDF埋め込み対応版★）
         // ==========================================
         function togglePlay(btn, videoId) {
             const card = btn.closest('.program-card');
             const container = card.querySelector('.video-player-container');
             
-            // 1. 他の開いている動画プレイヤーをすべて停止して閉じる（重くなるのを防止する親切バグ対策・こちらもアニメーション対応）
+            // 1. 他の開いている動画プレイヤー（やPDFプレイヤー）をすべて停止して閉じる
             document.querySelectorAll('.video-player-container').forEach(c => {
                 if (c !== container && c.style.display === 'block') {
                     closePlayerWithAnimation(c);
@@ -1085,19 +1124,24 @@
 
             // 2. ターゲットのプレイヤーを表示／非表示にするトグル処理
             if (container.style.display === 'none' || container.innerHTML === '') {
-                // プレイヤーを生成して自動再生付きで埋め込み
                 container.style.display = 'block';
                 container.classList.remove('slide-up'); // クローズ時のクラスをクリア
                 
-                // 【★エラー 153 解決策★】
-                const currentOrigin = window.location.origin;
-                container.innerHTML = `<iframe width="100%" height="100%" src="https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&rel=0&enablejsapi=1&origin=${encodeURIComponent(currentOrigin)}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+                // 【★研究発表(PDF)用の埋め込み判定★】
+                if (videoId === 'pdf_N73') {
+                    // PDFを表示するためのiframeを設定。サーバーにアップロードされたPDFファイルを直接読み込みます。
+                    container.innerHTML = `<iframe width="100%" height="100%" src="N73_大分上野丘研究発表.pdf" frameborder="0" style="border: none;"></iframe>`;
+                } else {
+                    // 通常のYouTubeビデオ
+                    const currentOrigin = window.location.origin;
+                    container.innerHTML = `<iframe width="100%" height="100%" src="https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&rel=0&enablejsapi=1&origin=${encodeURIComponent(currentOrigin)}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+                }
                 
                 // ボタンのテキストとアイコン、色合い（アクティブ色）を切り替え
                 btn.innerHTML = `<svg viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg> プレイヤーを閉じる`;
                 btn.classList.add('active-playing');
                 
-                // 動画プレイヤーの位置までスルスルと自動でスクロールして見やすくする
+                // プレイヤーの位置までスルスルと自動でスクロール
                 setTimeout(() => {
                     container.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
                 }, 150);
@@ -1114,7 +1158,7 @@
             const card = container.closest('.program-card');
             const btn = card.querySelector('.btn-watch');
 
-            // 1. 閉じる用のスライドアップ（縮小フェードアウト）クラスを追加
+            // 1. 閉じる用のスライドアップクラスを追加
             container.classList.add('slide-up');
 
             // 2. ボタン表示を「作品を視聴する」に戻す
