@@ -7,12 +7,12 @@
     <!-- ファビコン（ウェブサイトアイコン）の設定 -->
     <link rel="icon" href="放送部アイコン.png" type="image/png">
     <style>
-        /* 全体のスタイル設定（リットリンク風の爽やかでエモいグラデーション背景） */
+        /* 全体のスタイル設定（リットリンク風の爽やかでエモいパステルグラデーション背景） */
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
             background: linear-gradient(135deg, #e0f2fe 0%, #eef2f6 50%, #f5f3ff 100%);
             background-attachment: fixed;
-            color: #334155; /* 柔らかいダークグレー */
+            color: #475569; /* より柔らかいグレー */
             margin: 0;
             padding: 0;
             line-height: 1.6;
@@ -61,8 +61,8 @@
             margin-top: 20px;
             font-size: 0.75rem;
             font-weight: 700;
-            color: #4f46e5;
-            letter-spacing: 0.2em;
+            color: #4f46e5; /* 前と変わらないエモくて美しいインディゴパープル */
+            letter-spacing: 0.22em; /* 文字間隔をほんのり広げて美しく */
             opacity: 0;
             /* ロゴが少し現れた1.75秒後（1.45s + 0.3s）から、優しくフェードインする設定 */
             animation: splashTextFadeIn 1.0s ease 1.75s forwards;
@@ -95,7 +95,7 @@
             border-radius: 50%;
             margin: 0 auto 16px auto;
             display: block;
-            box-shadow: 0 8px 20px rgba(59, 130, 246, 0.25);
+            box-shadow: 0 8px 20px rgba(59, 130, 246, 0.18);
             object-fit: cover;
             border: 3px solid #ffffff; /* リットリンク風の可愛い white ふちどり */
         }
@@ -116,7 +116,7 @@
             border-radius: 20px;
             font-size: 0.72rem;
             font-weight: 600;
-            color: #4f46e5;
+            color: #6366f1;
             margin-top: 10px;
             letter-spacing: 0.05em;
             box-shadow: 0 2px 8px rgba(0,0,0,0.02);
@@ -148,7 +148,7 @@
         .section-title {
             font-size: 0.85rem;
             font-weight: 700;
-            color: #64748b;
+            color: #828fa3;
             margin: 20px 0 12px 0; /* 上部余白を32pxから20pxに小さく調整 */
             text-align: center;
             letter-spacing: 0.15em;
@@ -161,13 +161,13 @@
             border-radius: 20px;
             padding: 10px; /* 14pxから10pxに縮小してさらにコンパクトに */
             margin: 10px 0; /* 14pxから10pxに縮小 */
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
             transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .program-card:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(99, 102, 241, 0.06);
+            box-shadow: 0 8px 20px rgba(99, 102, 241, 0.05);
         }
 
         /* 作品情報の上の部分：画像やタイトルを押すと視聴できるリンクに設定 */
@@ -196,7 +196,7 @@
             flex-shrink: 0;
             margin-right: 14px;
             background-color: #e2e8f0;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
         }
 
         .thumbnail-wrapper img {
@@ -279,26 +279,32 @@
             white-space: nowrap; /* ボタンテキストの折り返しを防ぎ美しく並べる */
         }
 
-        /* 作品を視聴する用のボタン（淡いラベンダーブルー） */
+        /* 【主役化：濃いパステルスカイブルーで文字を読みやすく！】
+           パステル調の明るく優しい印象は守りつつ、白文字がハッキリ読めるようにグラデーションを少し濃いめの爽快な青へ調整。 */
         .btn-watch {
-            background-color: #eff6ff;
-            color: #3b82f6;
-            border: 1px solid rgba(59, 130, 246, 0.1);
+            background: linear-gradient(135deg, #5db8fe 0%, #1d8fff 100%);
+            color: #ffffff;
+            border: none;
+            box-shadow: 0 4px 10px rgba(29, 143, 255, 0.2);
         }
 
         .btn-watch:hover {
-            background-color: #dbeafe;
+            background: linear-gradient(135deg, #1d8fff 0%, #0074df 100%);
+            box-shadow: 0 6px 14px rgba(29, 143, 255, 0.3);
         }
 
-        /* 制作意図・あらすじ用のボタン（淡いパープル） */
+        /* 【サブ化：ミルキーラベンダー】
+           サイトのパステル背景色に溶け込む、ごく淡い紫色のマシュマロ質感。グレーと違ってとっても可愛いです。 */
         .btn-info {
             background-color: #faf5ff;
             color: #8b5cf6;
-            border: 1px solid rgba(139, 92, 246, 0.1);
+            border: 1px solid rgba(139, 92, 246, 0.15);
         }
 
         .btn-info:hover {
             background-color: #f3e8ff;
+            color: #7c3aed;
+            border-color: rgba(139, 92, 246, 0.3);
         }
 
         /* ボタン内のアイコン用SVG */
@@ -618,7 +624,7 @@
     <!-- 嵐（J-Storm / Storm Labels）風 オープニングスクリーン -->
     <div id="splash-screen">
         <img class="splash-logo" src="放送部アイコン.png" alt="UBC Logo">
-        <div class="splash-title">Oita Uenogaoka UBC</div>
+        <div class="splash-title">OITA UENOGAOKA UBC</div>
     </div>
 
     <!-- ヘッダー部分 -->
@@ -715,7 +721,6 @@
                 <a href="https://www.youtube.com/watch?v=k6mVJT84P4Y&list=PLDLkhIT6097k&index=3" target="_blank" class="action-btn btn-watch">
                     <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg> 作品を視聴する
                 </a>
-                <!-- 「制作」の文言抜けを修正 -->
                 <button type="button" class="action-btn btn-info" onclick="openModal(3)">
                     <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg> 制作意図・あらすじ
                 </button>
@@ -743,7 +748,6 @@
                 <a href="https://www.youtube.com/watch?v=AZhI3iu4Nlw&list=PLDLkhIT6097k&index=4" target="_blank" class="action-btn btn-watch">
                     <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg> 作品を視聴する
                 </a>
-                <!-- 「制作」の文言抜けを修正 -->
                 <button type="button" class="action-btn btn-info" onclick="openModal(4)">
                     <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg> 制作意図・あらすじ
                 </button>
@@ -920,7 +924,7 @@
                 award: "第73回NHK杯全国高校放送コンテスト 大分県大会 優秀賞",
                 url: "https://www.youtube.com/watch?v=bLaiO6uIzfs&list=PLDLkhIT6097k&index=2",
                 icon: `<svg class="category-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="15" rx="2" ry="2"></rect><polyline points="17 2 12 7 7 2"></polyline></svg>`,
-                intent: `大分上野丘高校の大きな問題、それは落とし物が多いことである。特に多いのは傘で、校内で忘れ去られたままの傘は数知れず。この現状に先生方も頭を抱えている。コロナ禍が明けて以来、落とし物は世間的にも増加の一途を辿っている社会問題だ。自分が失くしたものに対して無関心でいる多くの生徒に、当事者意識を持たせ、落とし物の存在に気づてもらおうと、この番組を制作した。`,
+                intent: `大分上野丘高校の大きな問題、それは落とし物が多いことである。特に多いのは傘で、校内で忘れ去られたままの傘は数知れず。この現状に先生方も頭を抱えている。コロナ禍が明けて以来、落とし物は世間的にも増加の一途を辿っている社会問題だ。自分が失くしたものに対して無関心でいる多くの生徒に、当言者意識を持たせ、落とし物の存在に気づてもらおうと、この番組を制作した。`,
                 synopsis: null
             },
             3: {
@@ -943,7 +947,7 @@
                 url: "https://www.youtube.com/watch?v=AZhI3iu4Nlw&list=PLDLkhIT6097k&index=4",
                 icon: `<svg class="category-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"></rect><line x1="7" y1="2" x2="7" y2="22"></line><line x1="17" y1="2" x2="17" y2="22"></line><line x1="2" y1="12" x2="22" y2="12"></line><line x1="2" y1="7" x2="7" y2="7"></line><line x1="2" y1="17" x2="7" y2="17"></line><line x1="17" y1="17" x2="22" y2="17"></line><line x1="17" y1="7" x2="22" y2="7"></line></svg>`,
                 intent: `コミュニケーション。人間社会で生きていくにあたって、避けて通ることのできない道。これだけ重要で欠かせないものであるにもかかわらず、「苦手」と感じる人が多いのではないのだろうか？その理由は様々だろうが、過去の失敗、や失敗することへの恐怖などが挙げられると思う。今回この作品を作った理由は、そんな人たちに「失敗を恐れず、未完成でもいいから踏み出す勇気」を伝えたいと思い、この作品を制作した。`,
-                synopsis: `主人公高橋洸喜はこの春高校生になったばかり。過去のトラウマから人との関わりを恐れて、SNS上だけでのコミュニケーションに依存しきってしまう。そんな中1年前ネットで知り合い、仲良くしていたソラ(松下蒼)から実際に会ってみないか、と誘いを受ける。ソラの強引さに押されて初めてあってみるも、お互いうまく話すことができずソラの行動に過去のトラウマを刺激されその場から逃げ出してしまう。後日高橋洸喜は逃げ出してしまったことを後悔する。そんな高橋洸喜にソラからもう1度会って欲しいと誘いを受ける。ソラの熱意に勇気をもらい今度こそは自分自身を変えて過去のトラウマに打ち勝つと心に決める。2度目の対面での邂逅。お互い用意した策で1回目よりも話すことができるようにはなり、不器用でもいいからコミュニケーションをすることの大切さに気づき、終了。`
+                synopsis: `主人公高橋洸喜はこの春高校生になったばかり。過去のトラマから人との関わりを恐れて、SNS上だけでのコミュニケーションに依存しきってしまう。そんな中1年前ネットで知り合い、仲良くしていたソラ(松下蒼)から実際に会ってみないか、と誘いを受ける。ソラの強引さに押されて初めてあってみるも、お互いうまく話すことができずソラの行動に過去のトラウマを刺激されその場から逃げ出してしまう。後日高橋洸喜は逃げ出してしまったことを後悔する。そんな高橋洸喜にソラからもう1度会って欲しいと誘いを受ける。ソラの熱意に勇気をもらい今度こそは自分自身を変えて過去のトラウマに打ち勝つと心に決める。2度目の対面での邂逅。お互い用意した策で1回目よりも話すことができるようにはなり、不器用でもいいからコミュニケーションをすることの大切さに気づき、終了。`
             },
             5: {
                 title: "『掲示のNew Ageサイネージ』",
