@@ -154,21 +154,37 @@
             letter-spacing: 0.15em;
         }
 
-        /* リンクボタン：画像付きのリットリンク風ボタン */
-        .btn-link {
-            display: flex;
-            align-items: center;
-            padding: 12px;
-            margin: 14px 0;
+        /* 新しい「作品カード」スタイル：リットリンクに完璧に調和する角丸白ボックス */
+        .program-card {
             background-color: #ffffff;
             border: 1px solid rgba(255, 255, 255, 0.8);
-            border-radius: 16px; /* 画像を入れるため、少し角を立たせた美しい角丸に */
-            text-decoration: none;
-            color: #334155;
+            border-radius: 20px;
+            padding: 10px; /* 14pxから10pxに縮小してさらにコンパクトに */
+            margin: 10px 0; /* 14pxから10pxに縮小 */
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
-            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            overflow: hidden;
+            transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .program-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(99, 102, 241, 0.06);
+        }
+
+        /* 作品情報の上の部分：画像やタイトルを押すと視聴できるリンクに設定 */
+        .program-main-link {
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            align-items: center;
+            min-width: 0;
+            width: 100%;
+        }
+
+        .program-main {
+            display: flex;
+            align-items: center;
+            min-width: 0;
+            width: 100%;
         }
 
         /* サムネイル画像のラッパー（アスペクト比 16:9 を維持） */
@@ -188,6 +204,11 @@
             height: 100%;
             object-fit: cover;
             transition: transform 0.3s ease;
+        }
+
+        /* サムネ部分をホバーしたときに画像がほんのりズームアップする美しい演出 */
+        .program-main-link:hover .thumbnail-wrapper img {
+            transform: scale(1.05);
         }
 
         /* テキストエリア */
@@ -230,20 +251,217 @@
             text-overflow: ellipsis; /* 長いタイトルを綺麗に省略 */
         }
 
-        /* ホバー・タップ時のふんわりとしたエフェクト */
-        .btn-link:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(99, 102, 241, 0.08);
-            background-color: #fbfbfd;
-            border-color: rgba(99, 102, 241, 0.2);
+        /* カード下部：ボタンを2つ並べる領域（フレックス横並び） */
+        .program-actions {
+            display: flex;
+            gap: 8px;
+            margin-top: 8px; /* 12pxから8pxに縮小 */
+            border-top: 1px solid #f1f5f9;
+            padding-top: 8px; /* 10pxから8pxに縮小 */
         }
 
-        .btn-link:hover .thumbnail-wrapper img {
-            transform: scale(1.05); /* サムネが少しズームアップ */
+        /* アクション用のスモールボタン */
+        .action-btn {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            padding: 6px 10px; /* 8px 10pxから縦を6pxに狭めてスリム化 */
+            border-radius: 12px;
+            font-size: 0.72rem;
+            font-weight: 700;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            outline: none;
+            user-select: none;
         }
 
-        .btn-link:active {
-            transform: translateY(0);
+        /* 作品を視聴する用のボタン（淡いラベンダーブルー） */
+        .btn-watch {
+            background-color: #eff6ff;
+            color: #3b82f6;
+            border: 1px solid rgba(59, 130, 246, 0.1);
+        }
+
+        .btn-watch:hover {
+            background-color: #dbeafe;
+        }
+
+        /* 制作意図・あらすじ用のボタン（淡いパープル） */
+        .btn-info {
+            background-color: #faf5ff;
+            color: #8b5cf6;
+            border: 1px solid rgba(139, 92, 246, 0.1);
+        }
+
+        .btn-info:hover {
+            background-color: #f3e8ff;
+        }
+
+        /* ボタン内のアイコン用SVG */
+        .action-btn svg {
+            width: 13px;
+            height: 13px;
+            fill: currentColor;
+        }
+
+        /* ==========================================
+           モーダル（ポップアップ）ウィンドウのCSS
+           ========================================== */
+        #detail-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(15, 23, 42, 0.3); /* 優しく暗くする背景 */
+            backdrop-filter: blur(8px); /* iOSやリットリンク風の上品なすりガラス効果 */
+            -webkit-backdrop-filter: blur(8px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.3s ease;
+            padding: 20px;
+        }
+
+        /* モーダル表示時のスタイル */
+        #detail-modal.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* 白いポップアップカード本体 */
+        .modal-card {
+            background-color: #ffffff;
+            width: 100%;
+            max-width: 440px;
+            border-radius: 24px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+            overflow: hidden;
+            transform: scale(0.92);
+            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+        }
+
+        #detail-modal.show .modal-card {
+            transform: scale(1);
+        }
+
+        /* モーダルのヘッダー（クローズボタン） */
+        .modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 18px 20px 10px 20px;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        .modal-category-row {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .modal-category-row svg {
+            width: 14px;
+            height: 14px;
+            color: #6366f1;
+        }
+
+        .modal-category-text {
+            font-size: 0.72rem;
+            color: #828fa3;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+        }
+
+        /* 閉じる（✕）ボタン */
+        .modal-close-btn {
+            background: none;
+            border: none;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background-color: #f1f5f9;
+            color: #64748b;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+            outline: none;
+        }
+
+        .modal-close-btn:hover {
+            background-color: #e2e8f0;
+            color: #334155;
+        }
+
+        /* モーダルのボディ */
+        .modal-body {
+            padding: 20px;
+            max-height: 48vh; /* 高さ制限を少しだけコンパクトにしバランスを調整 */
+            overflow-y: auto; /* 長文の時は内側をスクロール可能に */
+        }
+
+        /* モーダル内の優美な受賞タグ（ゴールドバッジスタイル） */
+        .modal-award-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            color: #ffffff;
+            font-size: 0.65rem;
+            font-weight: 800;
+            padding: 4px 10px;
+            border-radius: 20px;
+            margin-bottom: 10px;
+            letter-spacing: 0.05em;
+            box-shadow: 0 2px 8px rgba(217, 119, 6, 0.2);
+        }
+
+        .modal-title-row {
+            font-size: 1.05rem;
+            font-weight: 800;
+            color: #1e293b;
+            margin-bottom: 14px;
+            line-height: 1.4;
+        }
+
+        .modal-section-title {
+            font-size: 0.72rem;
+            color: #6366f1;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 6px;
+        }
+
+        .modal-content-text {
+            font-size: 0.82rem;
+            color: #475569;
+            line-height: 1.6;
+            white-space: pre-wrap; /* 改行をそのまま反映 */
+            margin-bottom: 14px;
+        }
+
+        /* モーダル下部（作品を視聴するボタンを配置する領域） */
+        .modal-footer {
+            padding: 10px 20px 20px 20px;
+            border-top: 1px solid #f1f5f9;
+            display: flex;
+        }
+
+        .modal-footer .btn-watch-large {
+            width: 100%;
+            padding: 10px;
+            border-radius: 14px;
+            font-size: 0.8rem;
         }
 
         /* Instagramバナー（リットリンクでよく見かける特別におしゃれなグラデーションボタン） */
@@ -405,91 +623,151 @@
     <!-- メインコンテンツ -->
     <div class="container">
 
-        <!-- 「EXHIBITED WORKS」から「PROGRAMS」へ変更 -->
+        <!-- 作品一覧のセクション -->
         <div class="section-title">PROGRAMS</div>
 
         <!-- 01. ラジオドキュメント（ベースとフレンド） -->
-        <a href="https://www.youtube.com/watch?v=hWRPaxYbU6I&list=PLDLkhIT6097k&index=1" target="_blank" class="btn-link">
-            <div class="thumbnail-wrapper">
-                <img src="https://img.youtube.com/vi/hWRPaxYbU6I/mqdefault.jpg" alt="ラジオドキュメント サムネイル" onerror="this.src='https://images.unsplash.com/photo-1484755560695-a4c740285fa6?w=300&auto=format&fit=crop&q=60'">
+        <div class="program-card">
+            <!-- 添付画像部分や作品名をタップしても作品を視聴できるリンクを設定 -->
+            <a href="https://www.youtube.com/watch?v=hWRPaxYbU6I&list=PLDLkhIT6097k&index=1" target="_blank" class="program-main-link" title="作品を視聴する">
+                <div class="program-main">
+                    <div class="thumbnail-wrapper">
+                        <img src="https://img.youtube.com/vi/hWRPaxYbU6I/mqdefault.jpg" alt="ラジオドキュメント サムネイル" onerror="this.src='https://images.unsplash.com/photo-1484755560695-a4c740285fa6?w=300&auto=format&fit=crop&q=60'">
+                    </div>
+                    <div class="btn-text">
+                        <span class="category-row">
+                            <!-- ラジオ用SVGアイコン -->
+                            <svg class="category-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M16.24 7.76a6 6 0 0 1 0 8.49m-8.48-.01a6 6 0 0 1 0-8.49m11.31-2.82a10 10 0 0 1 0 14.14m-14.14 0a10 10 0 0 1 0-14.14"></path><circle cx="12" cy="12" r="2"></circle></svg>
+                            <span class="category">ラジオドキュメント</span>
+                        </span>
+                        <span class="work-title">『ベースとフレンド』</span>
+                    </div>
+                </div>
+            </a>
+            <div class="program-actions">
+                <a href="https://www.youtube.com/watch?v=hWRPaxYbU6I&list=PLDLkhIT6097k&index=1" target="_blank" class="action-btn btn-watch">
+                    <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg> 作品を視聴する
+                </a>
+                <button type="button" class="action-btn btn-info" onclick="openModal(1)">
+                    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg> 制作意図
+                </button>
             </div>
-            <span class="btn-text">
-                <span class="category-row">
-                    <!-- ラジオ用SVGアイコン -->
-                    <svg class="category-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M16.24 7.76a6 6 0 0 1 0 8.49m-8.48-.01a6 6 0 0 1 0-8.49m11.31-2.82a10 10 0 0 1 0 14.14m-14.14 0a10 10 0 0 1 0-14.14"></path><circle cx="12" cy="12" r="2"></circle></svg>
-                    <span class="category">ラジオドキュメント</span>
-                </span>
-                <span class="work-title">『ベースとフレンド』</span>
-            </span>
-        </a>
+        </div>
 
         <!-- 02. テレビドキュメント（雨ニハマケズ、目ニハトマズ） -->
-        <a href="https://www.youtube.com/watch?v=bLaiO6uIzfs&list=PLDLkhIT6097k&index=2" target="_blank" class="btn-link">
-            <div class="thumbnail-wrapper">
-                <img src="https://img.youtube.com/vi/bLaiO6uIzfs/mqdefault.jpg" alt="テレビドキュメント サムネイル" onerror="this.src='https://images.unsplash.com/photo-1461151304267-38535e780c79?w=300&auto=format&fit=crop&q=60'">
+        <div class="program-card">
+            <a href="https://www.youtube.com/watch?v=bLaiO6uIzfs&list=PLDLkhIT6097k&index=2" target="_blank" class="program-main-link" title="作品を視聴する">
+                <div class="program-main">
+                    <div class="thumbnail-wrapper">
+                        <img src="https://img.youtube.com/vi/bLaiO6uIzfs/mqdefault.jpg" alt="テレビドキュメント サムネイル" onerror="this.src='https://images.unsplash.com/photo-1461151304267-38535e780c79?w=300&auto=format&fit=crop&q=60'">
+                    </div>
+                    <div class="btn-text">
+                        <span class="category-row">
+                            <!-- テレビ用SVGアイコン -->
+                            <svg class="category-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="15" rx="2" ry="2"></rect><polyline points="17 2 12 7 7 2"></polyline></svg>
+                            <span class="category">テレビドキュメント</span>
+                        </span>
+                        <span class="work-title">『雨ニハマケズ、目ニハトマズ』</span>
+                    </div>
+                </div>
+            </a>
+            <div class="program-actions">
+                <a href="https://www.youtube.com/watch?v=bLaiO6uIzfs&list=PLDLkhIT6097k&index=2" target="_blank" class="action-btn btn-watch">
+                    <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg> 作品を視聴する
+                </a>
+                <button type="button" class="action-btn btn-info" onclick="openModal(2)">
+                    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg> 制作意図
+                </button>
             </div>
-            <span class="btn-text">
-                <span class="category-row">
-                    <!-- テレビ用SVGアイコン -->
-                    <svg class="category-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="15" rx="2" ry="2"></rect><polyline points="17 2 12 7 7 2"></polyline></svg>
-                    <span class="category">テレビドキュメント</span>
-                </span>
-                <span class="work-title">『雨ニハマケズ、目ニハトマズ』</span>
-            </span>
-        </a>
+        </div>
         
         <!-- 03. 創作ラジオドラマ（パーフェクト・リバース） -->
-        <a href="https://www.youtube.com/watch?v=k6mVJT84P4Y&list=PLDLkhIT6097k&index=3" target="_blank" class="btn-link">
-            <div class="thumbnail-wrapper">
-                <img src="https://img.youtube.com/vi/k6mVJT84P4Y/mqdefault.jpg" alt="創作ラジオドラマ サムネイル" onerror="this.src='https://images.unsplash.com/photo-1478737270239-2f02b77fc618?w=300&auto=format&fit=crop&q=60'">
+        <div class="program-card">
+            <a href="https://www.youtube.com/watch?v=k6mVJT84P4Y&list=PLDLkhIT6097k&index=3" target="_blank" class="program-main-link" title="作品を視聴する">
+                <div class="program-main">
+                    <div class="thumbnail-wrapper">
+                        <img src="https://img.youtube.com/vi/k6mVJT84P4Y/mqdefault.jpg" alt="創作ラジオドラマ サムネイル" onerror="this.src='https://images.unsplash.com/photo-1478737270239-2f02b77fc618?w=300&auto=format&fit=crop&q=60'">
+                    </div>
+                    <div class="btn-text">
+                        <span class="category-row">
+                            <!-- マイク（音声）用SVGアイコン -->
+                            <svg class="category-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="23"></line><line x1="8" y1="23" x2="16" y2="23"></line></svg>
+                            <span class="category">創作ラジオドラマ</span>
+                        </span>
+                        <span class="work-title">『パーフェクト・リバース』</span>
+                    </div>
+                </div>
+            </a>
+            <div class="program-actions">
+                <a href="https://www.youtube.com/watch?v=k6mVJT84P4Y&list=PLDLkhIT6097k&index=3" target="_blank" class="action-btn btn-watch">
+                    <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg> 作品を視聴する
+                </a>
+                <button type="button" class="action-btn btn-info" onclick="openModal(3)">
+                    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg> 意図・あらすじ
+                </button>
             </div>
-            <span class="btn-text">
-                <span class="category-row">
-                    <!-- マイク（音声）用SVGアイコン -->
-                    <svg class="category-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="23"></line><line x1="8" y1="23" x2="16" y2="23"></line></svg>
-                    <span class="category">創作ラジオドラマ</span>
-                </span>
-                <span class="work-title">『パーフェクト・リバース』</span>
-            </span>
-        </a>
+        </div>
 
         <!-- 04. 創作テレビドラマ（未完成でも、その一歩先へ。） -->
-        <a href="https://www.youtube.com/watch?v=AZhI3iu4Nlw&list=PLDLkhIT6097k&index=4" target="_blank" class="btn-link">
-            <div class="thumbnail-wrapper">
-                <img src="https://img.youtube.com/vi/AZhI3iu4Nlw/mqdefault.jpg" alt="創作テレビドラマ サムネイル" onerror="this.src='https://images.unsplash.com/photo-1485846234645-a62644f84728?w=300&auto=format&fit=crop&q=60'">
+        <div class="program-card">
+            <a href="https://www.youtube.com/watch?v=AZhI3iu4Nlw&list=PLDLkhIT6097k&index=4" target="_blank" class="program-main-link" title="作品を視聴する">
+                <div class="program-main">
+                    <div class="thumbnail-wrapper">
+                        <img src="https://img.youtube.com/vi/AZhI3iu4Nlw/mqdefault.jpg" alt="創作テレビドラマ サムネイル" onerror="this.src='https://images.unsplash.com/photo-1485846234645-a62644f84728?w=300&auto=format&fit=crop&q=60'">
+                    </div>
+                    <div class="btn-text">
+                        <span class="category-row">
+                            <!-- シネマ（ドラマ）用SVGアイコン -->
+                            <svg class="category-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"></rect><line x1="7" y1="2" x2="7" y2="22"></line><line x1="17" y1="2" x2="17" y2="22"></line><line x1="2" y1="12" x2="22" y2="12"></line><line x1="2" y1="7" x2="7" y2="7"></line><line x1="2" y1="17" x2="7" y2="17"></line><line x1="17" y1="17" x2="22" y2="17"></line><line x1="17" y1="7" x2="22" y2="7"></line></svg>
+                            <span class="category">創作テレビドラマ</span>
+                        </span>
+                        <span class="work-title">『未完成でも、その一歩先へ。』</span>
+                    </div>
+                </div>
+            </a>
+            <div class="program-actions">
+                <a href="https://www.youtube.com/watch?v=AZhI3iu4Nlw&list=PLDLkhIT6097k&index=4" target="_blank" class="action-btn btn-watch">
+                    <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg> 作品を視聴する
+                </a>
+                <button type="button" class="action-btn btn-info" onclick="openModal(4)">
+                    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg> 意図・あらすじ
+                </button>
             </div>
-            <span class="btn-text">
-                <span class="category-row">
-                    <!-- シネマ（ドラマ）用SVGアイコン -->
-                    <svg class="category-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"></rect><line x1="7" y1="2" x2="7" y2="22"></line><line x1="17" y1="2" x2="17" y2="22"></line><line x1="2" y1="12" x2="22" y2="12"></line><line x1="2" y1="7" x2="7" y2="7"></line><line x1="2" y1="17" x2="7" y2="17"></line><line x1="17" y1="17" x2="22" y2="17"></line><line x1="17" y1="7" x2="22" y2="7"></line></svg>
-                    <span class="category">創作テレビドラマ</span>
-                </span>
-                <span class="work-title">『未完成でも、その一歩先へ。』</span>
-            </span>
-        </a>
+        </div>
 
         <!-- 05. 研究発表（掲示のNew Ageサイネージ） -->
-        <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank" class="btn-link">
-            <div class="thumbnail-wrapper">
-                <img src="https://img.youtube.com/vi/dQw4w9WgXcQ/mqdefault.jpg" alt="研究発表 サムネイル" onerror="this.src='https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=300&auto=format&fit=crop&q=60'">
+        <div class="program-card">
+            <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank" class="program-main-link" title="作品を視聴する">
+                <div class="program-main">
+                    <div class="thumbnail-wrapper">
+                        <img src="https://img.youtube.com/vi/dQw4w9WgXcQ/mqdefault.jpg" alt="研究発表 サムネイル" onerror="this.src='https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=300&auto=format&fit=crop&q=60'">
+                    </div>
+                    <div class="btn-text">
+                        <span class="category-row">
+                            <!-- ひらめき・サイネージ用SVGアイコン -->
+                            <svg class="category-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .6 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"></path><line x1="9" y1="18" x2="15" y2="18"></line><line x1="10" y1="22" x2="14" y2="22"></line></svg>
+                            <span class="category">研究発表</span>
+                        </span>
+                        <span class="work-title">『掲示のNew Ageサイネージ』</span>
+                    </div>
+                </div>
+            </a>
+            <div class="program-actions">
+                <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank" class="action-btn btn-watch">
+                    <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg> 作品を視聴する
+                </a>
+                <button type="button" class="action-btn btn-info" onclick="openModal(5)">
+                    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg> 制作意図
+                </button>
             </div>
-            <span class="btn-text">
-                <span class="category-row">
-                    <!-- ひらめき・サイネージ用SVGアイコン -->
-                    <svg class="category-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .6 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"></path><line x1="9" y1="18" x2="15" y2="18"></line><line x1="10" y1="22" x2="14" y2="22"></line></svg>
-                    <span class="category">研究発表</span>
-                </span>
-                <span class="work-title">『掲示のNew Ageサイネージ』</span>
-            </span>
-        </a>
+        </div>
 
         <!-- SNSセクション -->
         <div class="section-title">OFFICIAL SNS</div>
 
-        <!-- Instagram公式リンクバナー（リットリンクの最も人気な丸型グラデーションスタイル） -->
+        <!-- Instagram公式リンクバナー -->
         <a href="https://www.instagram.com/oita_ueno.broadcast?igsh=dWhhaWJxNGsyanVu&utm_source=qr" target="_blank" class="btn-insta-banner">
             <div class="insta-icon-container">
-                <!-- 白抜きで美しいシンプルなInstagram SVGアイコン -->
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                     <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
                     <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
@@ -505,20 +783,28 @@
         <!-- その他コンテンツセクション（学校紹介PV） -->
         <div class="section-title">OTHER CONTENTS</div>
 
-        <!-- 学校紹介PVリンク（自動サムネイル付き、最下部の落ち着いた位置） -->
-        <a href="https://youtu.be/rwcsDeVlROE?si=UmfHvXHLTa6Eu737" target="_blank" class="btn-link">
-            <div class="thumbnail-wrapper">
-                <img src="https://img.youtube.com/vi/rwcsDeVlROE/mqdefault.jpg" alt="学校紹介PV サムネイル" onerror="this.src='https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=300&auto=format&fit=crop&q=60'">
+        <!-- 学校紹介PVリンク（自動サムネイル付き） -->
+        <div class="program-card">
+            <a href="https://youtu.be/rwcsDeVlROE?si=UmfHvXHLTa6Eu737" target="_blank" class="program-main-link" title="作品を視聴する">
+                <div class="program-main">
+                    <div class="thumbnail-wrapper">
+                        <img src="https://img.youtube.com/vi/rwcsDeVlROE/mqdefault.jpg" alt="学校紹介PV サムネイル" onerror="this.src='https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=300&auto=format&fit=crop&q=60'">
+                    </div>
+                    <div class="btn-text">
+                        <span class="category-row">
+                            <svg class="category-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
+                            <span class="category">学校紹介映像</span>
+                        </span>
+                        <span class="work-title">『大分上野丘高校 学校紹介PV』</span>
+                    </div>
+                </div>
+            </a>
+            <div class="program-actions">
+                <a href="https://youtu.be/rwcsDeVlROE?si=UmfHvXHLTa6Eu737" target="_blank" class="action-btn btn-watch" style="flex: 100%;">
+                    <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg> 作品を視聴する
+                </a>
             </div>
-            <span class="btn-text">
-                <span class="category-row">
-                    <!-- カメラ/映像用SVGアイコン -->
-                    <svg class="category-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
-                    <span class="category">学校紹介映像</span>
-                </span>
-                <span class="work-title">『大分上野丘高校 学校紹介PV』</span>
-            </span>
-        </a>
+        </div>
 
         <!-- 交流メッセージ -->
         <div class="message-card">
@@ -542,9 +828,48 @@
 
     <!-- フッター部分 -->
     <footer>
-        <p class="copyright-notice">当サイトの動画リンク等の部外への共有、画面収録等の保存、無断転載は固くお断りいたします。</p>
+        <p class="copyright-notice">当サイトの作品リンク等の部外への共有、画面収録等の保存、無断転載は固くお断りいたします。</p>
         <p>&copy; Oita Uenogaoka High School Broadcasting Club.</p>
     </footer>
+
+    <!-- ==========================================
+         モーダル（ポップアップ）ウィンドウのHTML
+         ========================================== -->
+    <div id="detail-modal" onclick="closeModalOnOuterClick(event)">
+        <div class="modal-card">
+            <div class="modal-header">
+                <div class="modal-category-row">
+                    <!-- JavaScriptでアイコンとカテゴリーテキストが動的に入ります -->
+                    <span id="modal-icon-container"></span>
+                    <span id="modal-category" class="modal-category-text"></span>
+                </div>
+                <button type="button" class="modal-close-btn" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <!-- 優美な金バッジを表示するコンテナ -->
+                <div id="modal-award" class="modal-award-badge" style="display: none;"></div>
+                <div id="modal-title" class="modal-title-row"></div>
+                
+                <!-- 制作意図エリア -->
+                <div id="modal-intent-section">
+                    <div class="modal-section-title">制作意図</div>
+                    <div id="modal-intent" class="modal-content-text"></div>
+                </div>
+
+                <!-- あらすじエリア（ドラマ専用） -->
+                <div id="modal-synopsis-section" style="margin-top: 14px; display: none;">
+                    <div class="modal-section-title">あらすじ</div>
+                    <div id="modal-synopsis" class="modal-content-text"></div>
+                </div>
+            </div>
+            <!-- モーダルポップアップ内にも「作品を視聴する」ボタンを追加 -->
+            <div class="modal-footer">
+                <a id="modal-watch-btn" href="#" target="_blank" class="action-btn btn-watch btn-watch-large">
+                    <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg> 作品を視聴する
+                </a>
+            </div>
+        </div>
+    </div>
 
     <!-- スプラッシュスクリーンのコントロール用スクリプト -->
     <script>
@@ -560,6 +885,121 @@
                 }, 1300);
             }, 4150);
         });
+
+        // ==========================================
+        // モーダル表示用データ・スクリプト
+        // ==========================================
+        const programsData = {
+            1: {
+                title: "『ベースとフレンド』",
+                category: "ラジオドキュメント",
+                award: "第73回NHK杯全国高校放送コンテスト 大分県大会 優良賞",
+                url: "https://www.youtube.com/watch?v=hWRPaxYbU6I&list=PLDLkhIT6097k&index=1",
+                icon: `<svg class="category-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M16.24 7.76a6 6 0 0 1 0 8.49m-8.48-.01a6 6 0 0 1 0-8.49m11.31-2.82a10 10 0 0 1 0 14.14m-14.14 0a10 10 0 0 1 0-14.14"></path><circle cx="12" cy="12" r="2"></circle></svg>`,
+                intent: `私達の通う上野丘高校には「文武不岐」というスローガンが掲げられています。勉強と部活の両立を意味するこの言葉の裏には、仲間との熱量の差や、両立するための時間がないといった葛藤がありました。今回は、上野丘高校野球部77年ぶりの県大会優勝を通して、私達にも当てはまるであろう等身大の葛藤にスポットを当てました。完璧な両立を目指すのではなく、仲間と補い合いながら悩み抜く道のりにこそ価値があるというメッセージを、今を生きる高校生に伝えたいと思い、制作しました。`,
+                synopsis: null
+            },
+            2: {
+                title: "『雨ニハマケズ、目ニハトマズ』",
+                category: "テレビドキュメント",
+                award: "第73回NHK杯全国高校放送コンテスト 大分県大会 優秀賞",
+                url: "https://www.youtube.com/watch?v=bLaiO6uIzfs&list=PLDLkhIT6097k&index=2",
+                icon: `<svg class="category-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="15" rx="2" ry="2"></rect><polyline points="17 2 12 7 7 2"></polyline></svg>`,
+                intent: `大分上野丘高校の大きな問題、それは落とし物が多いことである。特に多いのは傘で、校内で忘れ去られたままの傘は数知れず。この現状に先生方も頭を抱えている。コロナ禍が明けて以来、落とし物は世間的にも増加の一途を辿っている社会問題だ。自分が失くしたものに対して無関心でいる多くの生徒に、当事者意識を持たせ、落とし物の存在に気づいてもらうため、この番組を制作した。`,
+                synopsis: null
+            },
+            3: {
+                title: "『パーフェクト・リバース』",
+                category: "創作ラジオドラマ",
+                award: "第73回NHK杯全国高校放送コンテスト 大分県大会 最優秀賞",
+                url: "https://www.youtube.com/watch?v=k6mVJT84P4Y&list=PLDLkhIT6097k&index=3",
+                icon: `<svg class="category-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="23"></line><line x1="8" y1="23" x2="16" y2="23"></line></svg>`,
+                intent: `完璧カリスマ高校生バーチャルライバー高嶺優美の本当の姿は、引っ込み思案で自己主張が苦手な正反対の人間だった。そんな彼女はファンやマネージャーの期待に応えて常に完璧を演じ続ける日々に嫌気がさしていた。
+ある日突然、彼女は日頃の愚痴を聞いたAIに配信を乗っ取られてしまう。AIから主導権を取り戻そうとするも、完璧さでAIに勝ち目がないことが証明されてしまった。 乗っ取られたことから、今まで自分のやっていたことがいかに中身のなかったことだったか気がつき、ライバー活動を引退することを決意する。
+ところが相談したマネージャーの熱い言葉に心を動かされ、今までの完璧主義から生まれ変わってありのままの自分でライバー活動を続ける選択をする。結果は賛否両論で人気も落ちてしまったが、今日も彼女は本当の自分を愛してくれるファンのために配信を続けていく。`,
+                synopsis: `完璧カリスマ高校生バーチャルライバー高嶺優美の本当の姿は、引っ込み思案で自己主張が苦手な正反対の人間だった。そんな彼女はファンやマネージャーの期待に応えて常に完璧を演じ続ける日々に嫌気がさしていた。
+ある日突然、彼女は日頃の愚痴を聞いたAIに配信を乗っ取られてしまう。AIから主導権を取り戻そうとするも、完璧さでAIに勝ち目がないことが証明されてしまった。 乗っ取られたことから、今まで自分のやっていたことがいかに中身のなかったことだったか気がつき、ライバー活動を引退することを決意する。
+ところが相談したマネージャーの熱い言葉に心を動かされ、今までの完璧主義から生まれ変わってありのままの自分でライバー活動を続ける選択をする。結果は賛否両論で人気も落ちてしまったが、今日も彼女は本当の自分を愛してくれるファンのために配信を続けていく。`
+            },
+            4: {
+                title: "『未完成でも、その一歩先へ。』",
+                category: "創作テレビドラマ",
+                award: "第73回NHK杯全国高校放送コンテスト 大分県大会 最優秀賞",
+                url: "https://www.youtube.com/watch?v=AZhI3iu4Nlw&list=PLDLkhIT6097k&index=4",
+                icon: `<svg class="category-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"></rect><line x1="7" y1="2" x2="7" y2="22"></line><line x1="17" y1="2" x2="17" y2="22"></line><line x1="2" y1="12" x2="22" y2="12"></line><line x1="2" y1="7" x2="7" y2="7"></line><line x1="2" y1="17" x2="7" y2="17"></line><line x1="17" y1="17" x2="22" y2="17"></line><line x1="17" y1="7" x2="22" y2="7"></line></svg>`,
+                intent: `コミュニケーション。人間社会で生きていくにあたって、避けて通ることのできない道。これだけ重要で欠かせないものであるにもかかわらず、「苦手」と感じる人が多いのではないのだろうか？その理由は様々だろうが、過去の失敗、や失敗することへの恐怖などが挙げられると思う。今回この作品を作った理由は、そんな人たちに「失敗を恐れず、未完成でもいいから踏み出す勇気」を伝えたいと思い、この作品を制作した。`,
+                synopsis: `主人公高橋洸喜はこの春高校生になったばかり。過去のトラウマから人との関わりを恐れて、SNS上だけでのコミュニケーションに依存しきってしまう。そんな中1年前ネットで知り合い、仲良くしていたソラ(松下蒼)から実際に会ってみないか、と誘いを受ける。ソラの強引さに押されて初めてあってみるも、お互いうまく話すことができずソラの行動に過去のトラウマを刺激されその場から逃げ出してしまう。後日高橋洸喜は逃げ出してしまったことを後悔する。そんな高橋洸喜にソラからもう1度会って欲しいと誘いを受ける。ソラの熱意に勇気をもらい今度こそは自分自身を変えて過去のトラウマに打ち勝つと心に決める。2度目の対面での邂逅。お互い用意した策で1回目よりも話すことができるようにはなり、不器用でもいいからコミュニケーションをすることの大切さに気づき、終了。`
+            },
+            5: {
+                title: "『掲示のNew Ageサイネージ』",
+                category: "研究発表",
+                award: null, // 受賞の言及がないため非表示
+                url: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+                icon: `<svg class="category-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .6 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"></path><line x1="9" y1="18" x2="15" y2="18"></line><line x1="10" y1="22" x2="14" y2="22"></line></svg>`,
+                intent: `校内の情報伝達を効率化するための「サイネージのあり方」について、アンケート結果を多角的に分析し、具体的な解決策を分かりやすくスライドにまとめました。私たちの知恵の結晶です。`,
+                synopsis: null
+            }
+        };
+
+        const modal = document.getElementById('detail-modal');
+        const modalIconContainer = document.getElementById('modal-icon-container');
+        const modalCategory = document.getElementById('modal-category');
+        const modalAward = document.getElementById('modal-award');
+        const modalTitle = document.getElementById('modal-title');
+        const modalIntent = document.getElementById('modal-intent');
+        const modalSynopsisSection = document.getElementById('modal-synopsis-section');
+        const modalSynopsis = document.getElementById('modal-synopsis');
+        const modalWatchBtn = document.getElementById('modal-watch-btn');
+
+        // モーダルを開く関数
+        function openModal(id) {
+            const data = programsData[id];
+            if (!data) return;
+
+            // 基本情報のセット
+            modalIconContainer.innerHTML = data.icon;
+            modalCategory.textContent = data.category;
+            modalTitle.textContent = data.title;
+            
+            // 受賞実績の有無で表示切り替え
+            if (data.award) {
+                modalAward.textContent = `🏆 ${data.award}`;
+                modalAward.style.display = 'inline-flex';
+            } else {
+                modalAward.style.display = 'none';
+            }
+
+            // 制作意図のセット
+            modalIntent.textContent = data.intent;
+
+            // あらすじの有無で表示切り替え（ドラマ用）
+            if (data.synopsis) {
+                modalSynopsis.textContent = data.synopsis;
+                modalSynopsisSection.style.display = 'block';
+            } else {
+                modalSynopsisSection.style.display = 'none';
+            }
+            
+            // モーダル内の「作品を視聴する」ボタンのジャンプ先URLを設定
+            modalWatchBtn.href = data.url;
+
+            // 表示する
+            modal.classList.add('show');
+            document.body.style.overflow = 'hidden'; /* 背面のスクロールを一時停止 */
+        }
+
+        // モーダルを閉じる関数
+        function closeModal() {
+            modal.classList.remove('show');
+            document.body.style.overflow = ''; /* スクロールを再開 */
+        }
+
+        // 背景の薄暗い部分（カードの外側）をクリックした時も閉じるようにする
+        function closeModalOnOuterClick(e) {
+            if (e.target === modal) {
+                closeModal();
+            }
+        }
     </script>
 </body>
 </html>
