@@ -59,10 +59,10 @@
 
         .splash-title {
             margin-top: 20px;
-            font-size: 0.75rem;
-            font-weight: 700;
-            color: #4f46e5; /* 前と変わらないエモくて美しいインディゴパープル */
-            letter-spacing: 0.22em; /* 文字間隔をほんのり広げて美しく */
+            font-size: 0.85rem; /* UBCのみにしたので、少しだけ文字サイズを大きめにしてバランス調整 */
+            font-weight: 800;
+            color: #4f46e5; /* エモくて美しいインディゴパープル */
+            letter-spacing: 0.28em; /* 文字間隔を広げてより洗練された印象に */
             opacity: 0;
             /* ロゴが少し現れた1.75秒後（1.45s + 0.3s）から、優しくフェードインする設定 */
             animation: splashTextFadeIn 1.0s ease 1.75s forwards;
@@ -251,23 +251,24 @@
             text-overflow: ellipsis; /* 長いタイトルを綺麗に省略 */
         }
 
-        /* カード下部：ボタンを2つ並べる領域（フレックス横並び） */
+        /* カード下部：ボタンを並べる領域 */
         .program-actions {
             display: flex;
+            flex-direction: column; /* 縦に積んで確実にアコーディオンを下にスライドさせる */
             gap: 6px;
-            margin-top: 8px; /* 12pxから8pxに縮小 */
+            margin-top: 8px;
             border-top: 1px solid #f1f5f9;
-            padding-top: 8px; /* 10pxから8pxに縮小 */
+            padding-top: 8px;
         }
 
-        /* アクション用のスモールボタン */
+        /* アクション用のボタン基本スタイル */
         .action-btn {
-            flex: 1;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 4px;
-            padding: 7px 8px; /* パディングを横幅ギリギリに最適化 */
+            gap: 6px;
+            padding: 8px 12px;
+            height: 36px; /* 高さを確実に固定し、引き伸ばされバグを完全防止 */
             border-radius: 12px;
             font-size: 0.72rem;
             font-weight: 700;
@@ -276,7 +277,8 @@
             transition: all 0.2s ease;
             outline: none;
             user-select: none;
-            white-space: nowrap; /* ボタンテキストの折り返しを防ぎ美しく並べる */
+            box-sizing: border-box;
+            width: 100%;
         }
 
         /* 【主役化：濃いパステルスカイブルーで文字を読みやすく！】
@@ -285,146 +287,103 @@
             background: linear-gradient(135deg, #5db8fe 0%, #1d8fff 100%);
             color: #ffffff;
             border: none;
-            box-shadow: 0 4px 10px rgba(29, 143, 255, 0.2);
+            box-shadow: 0 4px 10px rgba(29, 143, 255, 0.15);
         }
 
         .btn-watch:hover {
             background: linear-gradient(135deg, #1d8fff 0%, #0074df 100%);
-            box-shadow: 0 6px 14px rgba(29, 143, 255, 0.3);
+            box-shadow: 0 6px 14px rgba(29, 143, 255, 0.25);
         }
 
-        /* 【サブ化：ミルキーラベンダー】
-           サイトのパステル背景色に溶け込む、ごく淡い紫色のマシュマロ質感。グレーと違ってとっても可愛いです。 */
-        .btn-info {
-            background-color: #faf5ff;
-            color: #8b5cf6;
-            border: 1px solid rgba(139, 92, 246, 0.15);
-        }
-
-        .btn-info:hover {
-            background-color: #f3e8ff;
-            color: #7c3aed;
-            border-color: rgba(139, 92, 246, 0.3);
-        }
-
-        /* ボタン内のアイコン用SVG */
+        /* ボタン内のアイコン用SVG - 絶対に巨大化しないようにサイズを強力固定！ */
         .action-btn svg {
-            width: 13px;
-            height: 13px;
+            width: 14px !important;
+            height: 14px !important;
             fill: currentColor;
+            flex-shrink: 0; /* Flexboxによる自動拡大・縮小を防ぐ */
         }
 
         /* ==========================================
-           モーダル（ポップアップ）ウィンドウのCSS
+           新アコーディオン（detailsタグ）のデザイン
            ========================================== */
-        #detail-modal {
-            position: fixed;
-            top: 0;
-            left: 0;
+        .work-details {
             width: 100%;
-            height: 100%;
-            background-color: rgba(15, 23, 42, 0.3); /* 優しく暗くする背景 */
-            backdrop-filter: blur(8px); /* iOSやリットリンク風の上品なすりガラス効果 */
-            -webkit-backdrop-filter: blur(8px);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 10000;
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.3s ease;
-            padding: 16px; /* 余白を20pxから16pxに微調整 */
-            box-sizing: border-box;
-        }
-
-        /* モーダル表示時のスタイル */
-        #detail-modal.show {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        /* 白いポップアップカード本体 - モバイルでも確実にはみ出さない高さ制限と構造設計 */
-        .modal-card {
-            background-color: #ffffff;
-            width: 92%; /* 100%から92%にし、横幅はみ出しを確実に防止 */
-            max-width: 440px;
-            max-height: 85vh; /* 縦幅の最大を画面の85%に制限。絶対画面からはみ出さない */
-            border-radius: 24px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+            background-color: #faf5ff; /* とろけるミルキーラベンダー */
+            border-radius: 12px;
             overflow: hidden;
-            transform: scale(0.92);
-            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-            position: relative;
-            display: flex; /* ヘッダー・本文・フッターを縦にきれいに分割 */
-            flex-direction: column;
+            border: 1px solid rgba(139, 92, 246, 0.15);
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
             box-sizing: border-box;
         }
 
-        #detail-modal.show .modal-card {
-            transform: scale(1);
-        }
-
-        /* モーダルのヘッダー（クローズボタン固定領域） */
-        .modal-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 16px 20px 12px 20px;
-            border-bottom: 1px solid #f1f5f9;
-            flex-shrink: 0; /* ヘッダーの高さを固定 */
-        }
-
-        .modal-category-row {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .modal-category-row svg {
-            width: 14px;
-            height: 14px;
-            color: #6366f1;
-        }
-
-        .modal-category-text {
+        /* アコーディオンを開くボタン部分 */
+        .work-details summary {
+            padding: 8px 10px;
             font-size: 0.72rem;
-            color: #828fa3;
             font-weight: 700;
-            letter-spacing: 0.05em;
-        }
-
-        /* 閉じる（✕）ボタン */
-        .modal-close-btn {
-            background: none;
-            border: none;
-            width: 28px;
-            height: 28px;
-            border-radius: 50%;
-            background-color: #f1f5f9;
-            color: #64748b;
+            color: #8b5cf6; /* パステルパープル */
+            cursor: pointer;
+            outline: none;
+            user-select: none;
             display: flex;
             align-items: center;
             justify-content: center;
-            cursor: pointer;
-            transition: background-color 0.2s ease;
-            outline: none;
+            gap: 4px;
+            list-style: none; /* デフォルトの黒い矢印を消す */
+            box-sizing: border-box;
+            height: 36px; /* こちらも高さを揃えて綺麗に統一 */
         }
 
-        .modal-close-btn:hover {
-            background-color: #e2e8f0;
-            color: #334155;
+        /* Safari向けデフォルト矢印消去 */
+        .work-details summary::-webkit-details-marker {
+            display: none;
         }
 
-        /* モーダルのボディ - 本文テキストの量に合わせて、内側のみが綺麗にスクロール */
-        .modal-body {
-            padding: 20px;
+        .work-details summary::before {
+            content: "▼";
+            font-size: 0.55rem;
+            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            display: inline-block;
+        }
+
+        /* 開いた時に矢印を上向きに回転 */
+        .work-details[open] summary::before {
+            transform: rotate(180deg);
+        }
+
+        .work-details[open] {
+            box-shadow: 0 4px 12px rgba(139, 92, 246, 0.05);
+            background-color: #ffffff; /* 開いた中は白ベースで見やすく */
+        }
+
+        /* アコーディオンの内部コンテンツエリア - 高さ制限(140px)とスクロールを追加 */
+        .details-content {
+            padding: 12px 14px;
+            border-top: 1px dashed rgba(139, 92, 246, 0.2);
+            box-sizing: border-box;
+            max-height: 140px; /* ドキュメントと同じ大きさで高さを一定に制限 */
             overflow-y: auto; /* 長文の時は内側のみスクロール可能にする */
-            flex-grow: 1; /* 残りの高さをすべてこのスクロール領域に割り当て */
-            -webkit-overflow-scrolling: touch; /* iOSのスクロールを滑らかに */
+            -webkit-overflow-scrolling: touch; /* iOSでのスクロールをスムーズに */
         }
 
-        /* モーダル内の優美な受賞タグ（ゴールドバッジスタイル） */
-        .modal-award-badge {
+        /* スクロールバーのデザインもエモ可愛く調整 */
+        .details-content::-webkit-scrollbar {
+            width: 5px;
+        }
+        .details-content::-webkit-scrollbar-track {
+            background: #faf5ff;
+            border-radius: 10px;
+        }
+        .details-content::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 10px;
+        }
+        .details-content::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+
+        /* 受賞ゴールドタグ */
+        .award-badge-inline {
             display: inline-flex;
             align-items: center;
             gap: 4px;
@@ -432,55 +391,33 @@
             color: #ffffff;
             font-size: 0.65rem;
             font-weight: 800;
-            padding: 4px 10px;
+            padding: 3px 8px;
             border-radius: 20px;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
             letter-spacing: 0.05em;
-            box-shadow: 0 2px 8px rgba(217, 119, 6, 0.2);
+            box-shadow: 0 2px 6px rgba(217, 119, 6, 0.15);
             line-height: 1.2;
         }
 
-        .modal-title-row {
-            font-size: 1.05rem;
-            font-weight: 800;
-            color: #1e293b;
-            margin-bottom: 14px;
-            line-height: 1.4;
-        }
-
-        .modal-section-title {
-            font-size: 0.72rem;
+        .details-section-title {
+            font-size: 0.65rem;
             color: #6366f1;
             font-weight: 800;
             text-transform: uppercase;
-            letter-spacing: 0.1em;
-            margin-bottom: 6px;
+            letter-spacing: 0.08em;
+            margin-bottom: 4px;
+            margin-top: 8px;
         }
 
-        .modal-content-text {
-            font-size: 0.82rem;
+        .details-section-title:first-of-type {
+            margin-top: 0;
+        }
+
+        .details-content-text {
+            font-size: 0.75rem;
             color: #475569;
             line-height: 1.6;
             white-space: pre-wrap; /* 改行をそのまま反映 */
-            margin-bottom: 14px;
-        }
-
-        /* モーダル下部（作品を視聴するボタンを配置する固定フッター領域） */
-        .modal-footer {
-            padding: 12px 20px 16px 20px;
-            border-top: 1px solid #f1f5f9;
-            display: flex;
-            flex-shrink: 0; /* フッターの高さを固定して絶対に押し出されないようにする */
-            background-color: #ffffff;
-        }
-
-        .modal-footer .btn-watch-large {
-            width: 100%;
-            padding: 10px;
-            border-radius: 14px;
-            font-size: 0.8rem;
-            height: 38px;
-            box-sizing: border-box;
         }
 
         /* Instagramバナー（リットリンクでよく見かける特別におしゃれなグラデーションボタン） */
@@ -624,7 +561,7 @@
     <!-- 嵐（J-Storm / Storm Labels）風 オープニングスクリーン -->
     <div id="splash-screen">
         <img class="splash-logo" src="放送部アイコン.png" alt="UBC Logo">
-        <div class="splash-title">OITA UENOGAOKA UBC</div>
+        <div class="splash-title">UBC</div>
     </div>
 
     <!-- ヘッダー部分 -->
@@ -667,9 +604,16 @@
                 <a href="https://www.youtube.com/watch?v=hWRPaxYbU6I&list=PLDLkhIT6097k&index=1" target="_blank" class="action-btn btn-watch">
                     <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg> 作品を視聴する
                 </a>
-                <button type="button" class="action-btn btn-info" onclick="openModal(1)">
-                    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg> 制作意図
-                </button>
+                
+                <!-- 新アコーディオン（制作意図） -->
+                <details class="work-details">
+                    <summary>制作意図を見る</summary>
+                    <div class="details-content">
+                        <div class="award-badge-inline">🏆 大分県大会 優良賞</div>
+                        <div class="details-section-title">制作意図</div>
+                        <div class="details-content-text">私達の通う上野丘高校には「文武不岐」というスローガンが掲げられています。勉強と部活の両立を意味するこの言葉の裏には、仲間との熱量の差や、両立するための時間がないといった葛藤がありました。今回は、上野丘高校野球部77年ぶりの県大会優勝を通して、私達にも当てはまるであろう等身大の葛藤にスポットを当てました。完璧な両立を目指すのではなく、仲間と補い合いながら悩み抜く道のりにこそ価値があるというメッセージを、今を生きる高校生に伝えたいと思い、制作しました。</div>
+                    </div>
+                </details>
             </div>
         </div>
 
@@ -694,9 +638,16 @@
                 <a href="https://www.youtube.com/watch?v=bLaiO6uIzfs&list=PLDLkhIT6097k&index=2" target="_blank" class="action-btn btn-watch">
                     <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg> 作品を視聴する
                 </a>
-                <button type="button" class="action-btn btn-info" onclick="openModal(2)">
-                    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg> 制作意図
-                </button>
+                
+                <!-- 新アコーディオン（制作意図） -->
+                <details class="work-details">
+                    <summary>制作意図を見る</summary>
+                    <div class="details-content">
+                        <div class="award-badge-inline">🏆 大分県大会 優秀賞</div>
+                        <div class="details-section-title">制作意図</div>
+                        <div class="details-content-text">大分上野丘高校の大きな問題、それは落とし物が多いことである。特に多いのは傘で、校内で忘れ去られたままの傘は数知れず。この現状に先生方も頭を抱えている。コロナ禍が明けて以来、落とし物は世間的にも増加の一途を辿っている社会問題だ。自分が失くしたものに対して無関心でいる多くの生徒に、当事者意識を持たせ、落とし物の存在に気づいてもらおうと、この番組を制作した。</div>
+                    </div>
+                </details>
             </div>
         </div>
         
@@ -721,9 +672,23 @@
                 <a href="https://www.youtube.com/watch?v=k6mVJT84P4Y&list=PLDLkhIT6097k&index=3" target="_blank" class="action-btn btn-watch">
                     <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg> 作品を視聴する
                 </a>
-                <button type="button" class="action-btn btn-info" onclick="openModal(3)">
-                    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg> 制作意図・あらすじ
-                </button>
+                
+                <!-- 新アコーディオン（制作意図・あらすじ） -->
+                <details class="work-details">
+                    <summary>制作意図・あらすじを見る</summary>
+                    <div class="details-content">
+                        <div class="award-badge-inline">🏆 大分県大会 最優秀賞</div>
+                        <div class="details-section-title">制作意図</div>
+                        <div class="details-content-text">完璧カリスマ高校生バーチャルライバー高嶺優美の本当の姿は、引っ込み思案で自己主張が苦手な正反対の人間だった。そんな彼女はファンやマネージャーの期待に応えて常に完璧を演じ続ける日々に嫌気がさしていた。
+ある日突然、彼女は日頃の愚痴を聞いたAIに配信を乗っ取られてしまう。AIから主導権を取り戻そうとするも、完璧さでAIに勝ち目がないことが証明されてしまった。 乗っ取られたことから、今まで自分のやっていたことがいかに中身のなかったことだったか気がつき、ライバー活動を引退することを決意する。
+ところが相談したマネージャーの熱い言葉に心を動かされ、今までの完璧主義から生まれ変わってありのままの自分でライバー活動を続ける選択をする。結果は賛否両論で人気も落ちてしまったが、今日も彼女は本当の自分を愛してくれるファンのために配信を続けていく。</div>
+                        
+                        <div class="details-section-title">あらすじ</div>
+                        <div class="details-content-text">完璧カリスマ高校生バーチャルライバー高嶺優美の本当の姿は、引っ込み思案で自己主張が苦手な正反対の人間だった。そんな彼女はファンやマネージャーの期待に応えて常に完璧を演じ続ける日々に嫌気がさしていた。
+ある日突然、彼女は日頃の愚痴を聞いたAIに配信を乗っ取られてしまう。AIから主導権を取り戻そうとするも、完璧さでAIに勝ち目がないことが証明されてしまった。 乗っ取られたことから、今まで自分のやっていたことがいかに中身のなかったことだったか気がつき、ライバー活動を引退することを決意する。
+ところが相談したマネージャーの熱い言葉に心を動かされ、今までの完璧主義から生まれ変わってありのままの自分でライバー活動を続ける選択をする。結果は賛否論で人気も落ちてしまったが、今日も彼女は本当の自分を愛してくれるファンのために配信を続けていく。</div>
+                    </div>
+                </details>
             </div>
         </div>
 
@@ -748,9 +713,19 @@
                 <a href="https://www.youtube.com/watch?v=AZhI3iu4Nlw&list=PLDLkhIT6097k&index=4" target="_blank" class="action-btn btn-watch">
                     <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg> 作品を視聴する
                 </a>
-                <button type="button" class="action-btn btn-info" onclick="openModal(4)">
-                    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg> 制作意図・あらすじ
-                </button>
+                
+                <!-- 新アコーディオン（制作意図・あらすじ） -->
+                <details class="work-details">
+                    <summary>制作意図・あらすじを見る</summary>
+                    <div class="details-content">
+                        <div class="award-badge-inline">🏆 大分県大会 最優秀賞</div>
+                        <div class="details-section-title">制作意図</div>
+                        <div class="details-content-text">コミュニケーション。人間社会で生きていくにあたって、避けて通ることのできない道。これだけ重要で欠かせないものであるにもかかわらず、「苦手」と感じる人が多いのではないのだろうか？その理由は様々だろうが、過去の失敗、や失敗することへの恐怖などが挙げられると思う。今回この作品を作った理由は、そんな人たちに「失敗を恐れず、未完成でもいいから踏み出す勇気」を伝えたいと思い、この作品を制作した。</div>
+                        
+                        <div class="details-section-title">あらすじ</div>
+                        <div class="details-content-text">主人公高橋洸喜はこの春高校生になったばかり。過去のトラウマから人との関わりを恐れて、SNS上だけでのコミュニケーションに依存しきってしまう。そんな中1年前ネットで知り合い、仲良くしていたソラ(松下蒼)から実際に会ってみないか、と誘いを受ける。ソラの強引さに押されて初めてあってみるも、お互いうまく話すことができずソラの行動に過去のトラウマを刺激されその場から逃げ出してしまう。後日高橋洸喜は逃げ出してしまったことを後悔する。そんな高橋洸喜にソラからもう1度会って欲しいと誘いを受ける。ソラの熱意に勇気をもらい今度こそは自分自身を変えて過去のトラウマに打ち勝つと心に決める。2度目の対面での邂逅。お互い用意した策で1回目よりも話すことができるようにはなり、不器用でもいいからコミュニケーションをすることの大切さに気づき、終了。</div>
+                    </div>
+                </details>
             </div>
         </div>
 
@@ -775,9 +750,15 @@
                 <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank" class="action-btn btn-watch">
                     <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg> 作品を視聴する
                 </a>
-                <button type="button" class="action-btn btn-info" onclick="openModal(5)">
-                    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg> 制作意図
-                </button>
+                
+                <!-- 新アコーディオン（制作意図） -->
+                <details class="work-details">
+                    <summary>制作意図を見る</summary>
+                    <div class="details-content">
+                        <div class="details-section-title">制作意図</div>
+                        <div class="details-content-text">校内の情報伝達を効率化するための「サイネージのあり方」について、アンケート結果を多角的に分析し、具体的な解決策を分かりやすくスライドにまとめました。私たちの知恵の結晶です。</div>
+                    </div>
+                </details>
             </div>
         </div>
 
@@ -851,45 +832,6 @@
         <p>&copy; Oita Uenogaoka High School Broadcasting Club.</p>
     </footer>
 
-    <!-- ==========================================
-         モーダル（ポップアップ）ウィンドウのHTML
-         ========================================== -->
-    <div id="detail-modal" onclick="closeModalOnOuterClick(event)">
-        <div class="modal-card">
-            <div class="modal-header">
-                <div class="modal-category-row">
-                    <!-- JavaScriptでアイコンとカテゴリーテキストが動的に入ります -->
-                    <span id="modal-icon-container"></span>
-                    <span id="modal-category" class="modal-category-text"></span>
-                </div>
-                <button type="button" class="modal-close-btn" onclick="closeModal()">&times;</button>
-            </div>
-            <div class="modal-body">
-                <!-- 優美な金バッジを表示するコンテナ -->
-                <div id="modal-award" class="modal-award-badge" style="display: none;"></div>
-                <div id="modal-title" class="modal-title-row"></div>
-                
-                <!-- 制作意図エリア -->
-                <div id="modal-intent-section">
-                    <div class="modal-section-title">制作意図</div>
-                    <div id="modal-intent" class="modal-content-text"></div>
-                </div>
-
-                <!-- あらすじエリア（ドラマ専用） -->
-                <div id="modal-synopsis-section" style="margin-top: 14px; display: none;">
-                    <div class="modal-section-title">あらすじ</div>
-                    <div id="modal-synopsis" class="modal-content-text"></div>
-                </div>
-            </div>
-            <!-- モーダルポップアップ内にも「作品を視聴する」ボタンを追加 -->
-            <div class="modal-footer">
-                <a id="modal-watch-btn" href="#" target="_blank" class="action-btn btn-watch btn-watch-large">
-                    <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg> 作品を視聴する
-                </a>
-            </div>
-        </div>
-    </div>
-
     <!-- スプラッシュスクリーンのコントロール用スクリプト -->
     <script>
         window.addEventListener('load', () => {
@@ -904,121 +846,6 @@
                 }, 1300);
             }, 4150);
         });
-
-        // ==========================================
-        // モーダル表示用データ・スクリプト
-        // ==========================================
-        const programsData = {
-            1: {
-                title: "『ベースとフレンド』",
-                category: "ラジオドキュメント",
-                award: "第73回NHK杯全国高校放送コンテスト 大分県大会 優良賞",
-                url: "https://www.youtube.com/watch?v=hWRPaxYbU6I&list=PLDLkhIT6097k&index=1",
-                icon: `<svg class="category-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M16.24 7.76a6 6 0 0 1 0 8.49m-8.48-.01a6 6 0 0 1 0-8.49m11.31-2.82a10 10 0 0 1 0 14.14m-14.14 0a10 10 0 0 1 0-14.14"></path><circle cx="12" cy="12" r="2"></circle></svg>`,
-                intent: `私達の通う上野丘高校には「文武不岐」というスローガンが掲げられています。勉強と部活の両立を意味するこの言葉の裏には、仲間との熱量の差や、両立するための時間がないといった葛藤がありました。今回は、上野丘高校野球部77年ぶりの県大会優勝を通して、私達にも当てはまるであろう等身大の葛藤にスポットを当てました。完璧な両立を目指すのではなく、仲間と補い合いながら悩み抜く道のりにこそ価値があるというメッセージを、今を生きる高校生に伝えたいと思い、制作しました。`,
-                synopsis: null
-            },
-            2: {
-                title: "『雨ニハマケズ、目ニハトマズ』",
-                category: "テレビドキュメント",
-                award: "第73回NHK杯全国高校放送コンテスト 大分県大会 優秀賞",
-                url: "https://www.youtube.com/watch?v=bLaiO6uIzfs&list=PLDLkhIT6097k&index=2",
-                icon: `<svg class="category-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="15" rx="2" ry="2"></rect><polyline points="17 2 12 7 7 2"></polyline></svg>`,
-                intent: `大分上野丘高校の大きな問題、それは落とし物が多いことである。特に多いのは傘で、校内で忘れ去られたままの傘は数知れず。この現状に先生方も頭を抱えている。コロナ禍が明けて以来、落とし物は世間的にも増加の一途を辿っている社会問題だ。自分が失くしたものに対して無関心でいる多くの生徒に、当言者意識を持たせ、落とし物の存在に気づてもらおうと、この番組を制作した。`,
-                synopsis: null
-            },
-            3: {
-                title: "『パーフェクト・リバース』",
-                category: "創作ラジオドラマ",
-                award: "第73回NHK杯全国高校放送コンテスト 大分県大会 最優秀賞",
-                url: "https://www.youtube.com/watch?v=k6mVJT84P4Y&list=PLDLkhIT6097k&index=3",
-                icon: `<svg class="category-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="23"></line><line x1="8" y1="23" x2="16" y2="23"></line></svg>`,
-                intent: `完璧カリスマ高校生バーチャルライバー高嶺優美の本当の姿は、引っ込み思案で自己主張が苦手な正反対の人間だった。そんな彼女はファンやマネージャーの期待に応えて常に完璧を演じ続ける日々に嫌気がさしていた。
-ある日突然、彼女は日頃の愚痴を聞いたAIに配信を乗っ取られてしまう。AIから主導権を取り戻そうとするも、完璧さでAIに勝ち目がないことが証明されてしまった。 乗っ取られたことから、今まで自分のやっていたことがいかに中身のなかったことだったか気がつき、ライバー活動を引退することを決意する。
-ところが相談したマネージャーの熱い言葉に心を動かされ、今までの完璧主義から生まれ変わってありのままの自分でライバー活動を続ける選択をする。結果は賛否両論で人気も落ちてしまったが、今日も彼女は本当の自分を愛してくれるファンのために配信を続けていく。`,
-                synopsis: `完璧カリスマ高校生バーチャルライバー高嶺優美の本当の姿は、引っ込み思案で自己主張が苦手な正反対の人間だった。そんな彼女はファンやマネージャーの期待に応えて常に完璧を演じ続ける日々に嫌気がさしていた。
-ある日突然、彼女は日頃の愚痴を聞いたAIに配信を乗っ取られてしまう。AIから主導権を取り戻そうとするも、完璧さでAIに勝ち目がないことが証明されてしまった。 乗っ取られたことから、今まで自分のやっていたことがいかに中身のなかったことだったか気がつき、ライバー活動を引退することを決意する。
-ところが相談したマネージャーの熱い言葉に心を動かされ、今までの完璧主義から生まれ変わってありのままの自分でライバー活動を続ける選択をする。結果は賛否論で人気も落ちてしまったが、今日も彼女は本当の自分を愛してくれるファンのために配信を続けていく。`
-            },
-            4: {
-                title: "『未完成でも、その一歩先へ。』",
-                category: "創作テレビドラマ",
-                award: "第73回NHK杯全国高校放送コンテスト 大分県大会 最優秀賞",
-                url: "https://www.youtube.com/watch?v=AZhI3iu4Nlw&list=PLDLkhIT6097k&index=4",
-                icon: `<svg class="category-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"></rect><line x1="7" y1="2" x2="7" y2="22"></line><line x1="17" y1="2" x2="17" y2="22"></line><line x1="2" y1="12" x2="22" y2="12"></line><line x1="2" y1="7" x2="7" y2="7"></line><line x1="2" y1="17" x2="7" y2="17"></line><line x1="17" y1="17" x2="22" y2="17"></line><line x1="17" y1="7" x2="22" y2="7"></line></svg>`,
-                intent: `コミュニケーション。人間社会で生きていくにあたって、避けて通ることのできない道。これだけ重要で欠かせないものであるにもかかわらず、「苦手」と感じる人が多いのではないのだろうか？その理由は様々だろうが、過去の失敗、や失敗することへの恐怖などが挙げられると思う。今回この作品を作った理由は、そんな人たちに「失敗を恐れず、未完成でもいいから踏み出す勇気」を伝えたいと思い、この作品を制作した。`,
-                synopsis: `主人公高橋洸喜はこの春高校生になったばかり。過去のトラマから人との関わりを恐れて、SNS上だけでのコミュニケーションに依存しきってしまう。そんな中1年前ネットで知り合い、仲良くしていたソラ(松下蒼)から実際に会ってみないか、と誘いを受ける。ソラの強引さに押されて初めてあってみるも、お互いうまく話すことができずソラの行動に過去のトラウマを刺激されその場から逃げ出してしまう。後日高橋洸喜は逃げ出してしまったことを後悔する。そんな高橋洸喜にソラからもう1度会って欲しいと誘いを受ける。ソラの熱意に勇気をもらい今度こそは自分自身を変えて過去のトラウマに打ち勝つと心に決める。2度目の対面での邂逅。お互い用意した策で1回目よりも話すことができるようにはなり、不器用でもいいからコミュニケーションをすることの大切さに気づき、終了。`
-            },
-            5: {
-                title: "『掲示のNew Ageサイネージ』",
-                category: "研究発表",
-                award: null, // 受賞の言及がないため非表示
-                url: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-                icon: `<svg class="category-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .6 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"></path><line x1="9" y1="18" x2="15" y2="18"></line><line x1="10" y1="22" x2="14" y2="22"></line></svg>`,
-                intent: `校内の情報伝達を効率化するための「サイネージのあり方」について、アンケート結果を多角的に分析し、具体的な解決策を分かりやすくスライドにまとめました。私たちの知恵の結晶です。`,
-                synopsis: null
-            }
-        };
-
-        const modal = document.getElementById('detail-modal');
-        const modalIconContainer = document.getElementById('modal-icon-container');
-        const modalCategory = document.getElementById('modal-category');
-        const modalAward = document.getElementById('modal-award');
-        const modalTitle = document.getElementById('modal-title');
-        const modalIntent = document.getElementById('modal-intent');
-        const modalSynopsisSection = document.getElementById('modal-synopsis-section');
-        const modalSynopsis = document.getElementById('modal-synopsis');
-        const modalWatchBtn = document.getElementById('modal-watch-btn');
-
-        // モーダルを開く関数
-        function openModal(id) {
-            const data = programsData[id];
-            if (!data) return;
-
-            // 基本情報のセット
-            modalIconContainer.innerHTML = data.icon;
-            modalCategory.textContent = data.category;
-            modalTitle.textContent = data.title;
-            
-            // 受賞実績の有無で表示切り替え
-            if (data.award) {
-                modalAward.textContent = `🏆 ${data.award}`;
-                modalAward.style.display = 'inline-flex';
-            } else {
-                modalAward.style.display = 'none';
-            }
-
-            // 制作意図のセット
-            modalIntent.textContent = data.intent;
-
-            // あらすじの有無で表示切り替え（ドラマ用）
-            if (data.synopsis) {
-                modalSynopsis.textContent = data.synopsis;
-                modalSynopsisSection.style.display = 'block';
-            } else {
-                modalSynopsisSection.style.display = 'none';
-            }
-            
-            // モーダル内の「作品を視聴する」ボタンのジャンプ先URLを設定
-            modalWatchBtn.href = data.url;
-
-            // 表示する
-            modal.classList.add('show');
-            document.body.style.overflow = 'hidden'; /* 背面のスクロールを一時停止 */
-        }
-
-        // モーダルを閉じる関数
-        function closeModal() {
-            modal.classList.remove('show');
-            document.body.style.overflow = ''; /* スクロールを再開 */
-        }
-
-        // 背景の薄暗い部分（カードの外側）をクリックした時も閉じるようにする
-        function closeModalOnOuterClick(e) {
-            if (e.target === modal) {
-                closeModal();
-            }
-        }
     </script>
 </body>
 </html>
