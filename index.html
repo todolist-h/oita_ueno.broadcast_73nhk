@@ -15,6 +15,7 @@
             padding: 0;
             line-height: 1.6;
             letter-spacing: 0.03em;
+            overflow-x: hidden;
         }
 
         .bg_pattern {
@@ -246,6 +247,18 @@
             letter-spacing: 0.15em;
         }
 
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(12px);
+            transition: opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1), transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: opacity, transform;
+        }
+
+        .scroll-reveal.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
         .program-card {
             background-color: #ffffff;
             border: 1px solid rgba(255, 255, 255, 0.8);
@@ -253,12 +266,13 @@
             padding: 10px;
             margin: 10px 0;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
-            transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .program-card:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(99, 102, 241, 0.05);
+            box-shadow: 0 10px 25px rgba(99, 102, 241, 0.25);
+            opacity: 0.95;
         }
 
         .video-player-container {
@@ -684,7 +698,7 @@
 
         .floating-insta:hover {
             transform: translateY(-4px) scale(1.08);
-            box-shadow: 0 10px 20px rgba(238, 42, 123, 0.45);
+            box-shadow: 0 12px 30px rgba(238, 42, 123, 0.45);
         }
 
         footer {
@@ -724,11 +738,11 @@
 
     <div class="container">
 
-        <div class="section-title">PROGRAMS</div>
+        <div class="section-title scroll-reveal">PROGRAMS</div>
 
         <div class="programs-grid">
 
-            <div class="program-card">
+            <div class="program-card scroll-reveal">
                 <div class="video-player-container" id="player-1"></div>
 
                 <a href="javascript:void(0)" onclick="triggerPlayFromCard(this, 'hWRPaxYbU6I')" class="program-main-link" title="作品を視聴する">
@@ -764,7 +778,7 @@
                 </div>
             </div>
 
-            <div class="program-card">
+            <div class="program-card scroll-reveal">
                 <div class="video-player-container" id="player-2"></div>
 
                 <a href="javascript:void(0)" onclick="triggerPlayFromCard(this, 'bLaiO6uIzfs')" class="program-main-link" title="作品を視聴する">
@@ -794,13 +808,13 @@
                         <summary>制作意図を見る</summary>
                         <div class="details-content">
                             <div class="details-section-title">制作意図</div>
-                            <div class="details-content-text">大分上野丘高校の大きな問題、それは落とし物が多いことである。特に多いのは傘で、校内で忘れ去られたままの傘は数知れず。この現状に先生方も頭を凹めている。コロナ禍が明けて以来、落とし物は世間的にも増加の一途を辿っている社会問題だ。自分が失くしたものに対して無関心でいる多くの生徒に, 当事者意識を持たせ, 落とし物の存在に気づいてもらうため, この番組を制作した。</div>
+                            <div class="details-content-text">大分上野丘高校の大きな問題、それは落とし物が多いことである。特に多いのは傘で、校内で忘れ去られたままの傘は数知れず。この現状に先生方も頭を抱えている。コロナ禍が明けて以来、落とし物は世間的にも増加の一途を辿っている社会問題だ。自分が失くしたものに対して無関心でいる多くの生徒に、当事者意識を持たせ、落とし物の存在に気づいてもらうため、この番組を制作した。</div>
                         </div>
                     </details>
                 </div>
             </div>
             
-            <div class="program-card">
+            <div class="program-card scroll-reveal">
                 <div class="video-player-container" id="player-3"></div>
 
                 <a href="javascript:void(0)" onclick="triggerPlayFromCard(this, 'k6mVJT84P4Y')" class="program-main-link" title="作品を視聴する">
@@ -830,20 +844,15 @@
                         <summary>制作意図・あらすじを見る</summary>
                         <div class="details-content">
                             <div class="details-section-title">制作意図</div>
-                            <div class="details-content-text">周りの人にどう思われるかを気にしすぎて、本当の自分を偽ってしまうことはありませんか？
-本当の自分を押し殺して苦しんでまで、求められた自分になる必要なんてない。AIが台頭する現代こそ、自分らしさを見失って中身のない人間になってほしくない。ありのままのあなたでいてほしい。という思いを込めて、最近高校生の間で人気のバーチャルライバーの二面性になぞらえて制作しました。</div>
-                            
+                            <div class="details-content-text">周りの人にどう思われるかを気にしすぎて、本当の自分を偽ってしまうことはありませんか？本当の自分を押し殺して苦しんでまで、求められた自分になる必要なんてない。AIが台頭する現代こそ、自分らしさを見失って中身のない人間になってほしくない。ありのままのあなたでいてほしい。という思いを込めて、最近高校生の間で人気のバーチャルライバーの二面性になぞらえて制作しました。</div>
                             <div class="details-section-title">あらすじ</div>
-                            <div class="details-content-text">完璧カリスマ高校生バーチャルライバー高嶺優美の本当の姿は、引っ込み思案で自己主張が苦手な正反対の人間だった。そんな彼女はファンやマネージャーの期待に応えて常に完璧を演じ続ける日々に嫌気がさしていた。
-ある日突然、彼女は日頃の愚痴を聞いたAIに配信を乗っ取られてしまう。AIから主導権を取り戻そうとするも、完璧さでAIに勝ち目がないことが証明されてしまった。
-乗っ取られたことから、今まで自分のやっていたことがいかに中身のなかったことだったか気がつき、ライバー活動を引退することを決意する。
-ところが相談したマネージャーの熱い言葉に心を動かされ、今までの完璧主義から生まれ変わってありのままの自分でライバー活動を続ける選択をする。結果は賛否両論で人気も落ちてしまったが、今日も彼女は本当の自分を愛してくれるファンのために配信を続けていく。</div>
+                            <div class="details-content-text">完璧カリスマ高校生バーチャルライバー高嶺優美の本当の姿は、引っ込み思案で自己主張が苦手な正反対の人間だった。そんな彼女はファンやマネージャーの期待に応えて常に完璧を演じ続ける日々に嫌気がさしていた。ある日突然、彼女は日頃の愚痴を聞いたAIに配信を乗っ取られてしまう。AIから主導権を取り戻そうとするも、完璧さでAIに勝ち目がないことが証明されてしまった。乗っ取られたことから、今まで自分のやっていたことがいかに中身のなかったことだったか気がつき、ライバー活動を引退することを決意する。ところが相談したマネージャーの熱い言葉に心を動かされ、今までの完璧主義から生まれ変わってありのままの自分でライバー活動を続ける選択をする。結果は賛否両論で人気も落ちてしまったが、今日も彼女は本当の自分を愛してくれるファンのために配信を続けていく。</div>
                         </div>
                     </details>
                 </div>
             </div>
 
-            <div class="program-card">
+            <div class="program-card scroll-reveal">
                 <div class="video-player-container" id="player-4"></div>
 
                 <a href="javascript:void(0)" onclick="triggerPlayFromCard(this, 'AZhI3iu4Nlw')" class="program-main-link" title="作品を視聴する">
@@ -873,16 +882,15 @@
                         <summary>制作意図・あらすじを見る</summary>
                         <div class="details-content">
                             <div class="details-section-title">制作意図</div>
-                            <div class="details-content-text">コミュニケーション。人間社会で生きていくにあたって、避けて通ることのできない道。これだけ重要で欠かせないものであるにもかかわらず、「苦手」と感じる人が多いのではないのだろうか？その理由は様々だろうが、過去の失敗や、失敗することへの恐怖などが挙げられると思う。今回この作品を作った理由は、そんな人たちに「失敗を恐れず、未完成でもいいから踏み出す勇気」を伝えたいと思い、この作品を制作した。</div>
-                            
+                            <div class="details-content-text">コミュニケーション。人間社会で生きていくにあたって、避けて通ることのできない道。これだけ重要で欠かせないものであるにもかかわらず、「苦手」と感じる人が多いのではないのだろうか？その理由は様々だろうが、過去の失敗、や失敗することへの恐怖などが挙げられると思う。今回この作品を作った理由は、そんな人たちに「失敗を恐れず、未完成でもいいから踏み出す勇気」を伝えたいと思い、この作品を制作した。</div>
                             <div class="details-section-title">あらすじ</div>
-                            <div class="details-content-text">主人公高橋洸喜はこの春高校生になったばかり。過去のトラウマから人との関わりを恐れて、SNS上だけでのコミュニケーションに依存しきってしまう。そんな中1年前ネットで知り合い, 仲良くしていたソラ(松下蒼)から実際に会ってみないか, と誘いを受ける。ソラの強引さに押されて初めてあってみるも, お互いうまく話すことができずソラの行動に過去のトラウマを刺激されその場から逃げ出してしまう。後日高橋洸喜は逃げ出してしまったことを後悔する。そんな高橋洸喜にソラからもう1度会って欲しいと誘いを受ける。ソラの熱意に勇気をもらい今度こそは自分自身を変えて過去のトラウマに打ち勝つと心に決める。2度目の対面での邂逅。お互い用意した策で1回目よりも話すことができるようにはなり, 不器用でもいいからコミュニケーションをすることの大切さに気づき, 終了。</div>
+                            <div class="details-content-text">主人公高橋洸喜はこの春高校生になったばかり。過去のトラウマから人との関わりを恐れて、SNS上だけでのコミュニケーションに依存しきってしまう。そんな中1年前ネットで知り合い、仲良くしていたソラ(松下蒼)から実際に会ってみないか、と誘いを受ける。ソラの強引さに押されて初めてあってみるも、お互いうまく話すことができずソラの行動に過去のトラウマを刺激されその場から逃げ出してしまう。後日高橋洸喜は逃げ出してしまったことを後悔する。そんな高橋洸喜にソラからもう1度会って欲しいと誘いを受ける。ソラの熱意に勇気をもらい今度こそは自分自身を変えて過去のトラウマに打ち勝つと心に決める。2度目の対面での邂逅。お互い用意した策で1回目よりも話すことができるようにはなり、不器用でもいいからコミュニケーションをすることの大切さに気づき、終了。</div>
                         </div>
                     </details>
                 </div>
             </div>
 
-            <div class="program-card">
+            <div class="program-card scroll-reveal">
                 <div class="video-player-container" id="player-5"></div>
 
                 <a href="javascript:void(0)" onclick="triggerPlayFromCard(this, 'iz0a-swgcr4')" class="program-main-link" title="作品を視聴する">
@@ -920,9 +928,9 @@
 
         </div>
 
-        <div class="section-title">OFFICIAL SNS</div>
+        <div class="section-title scroll-reveal">OFFICIAL SNS</div>
 
-        <a href="https://www.instagram.com/oita_ueno.broadcast?igsh=dWhhaWJxNGsyanVu&utm_source=qr" target="_blank" class="btn-insta-banner">
+        <a href="https://www.instagram.com/oita_ueno.broadcast?igsh=dWhhaWJxNGsyanVu&utm_source=qr" target="_blank" class="btn-insta-banner scroll-reveal">
             <div class="insta-icon-container">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                     <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
@@ -936,9 +944,9 @@
             </div>
         </a>
 
-        <div class="section-title">OTHER CONTENTS</div>
+        <div class="section-title scroll-reveal">OTHER CONTENTS</div>
 
-        <div class="program-card">
+        <div class="program-card scroll-reveal">
             <div class="video-player-container" id="player-pv"></div>
 
             <a href="javascript:void(0)" onclick="triggerPlayFromCard(this, 'rwcsDeVlROE')" class="program-main-link" title="作品を視聴する">
@@ -962,7 +970,7 @@
             </div>
         </div>
 
-        <div class="message-card">
+        <div class="message-card scroll-reveal">
             <p>
                 全国の放送部の皆さん、ご視聴ありがとうございます！<br>
                 感想や日頃の活動の様子など、ぜひお聞かせください。<br>
@@ -992,9 +1000,34 @@
                 splash.classList.add('loaded');
                 setTimeout(() => {
                     splash.style.display = 'none';
+                    initScrollReveal();
                 }, 1300);
             }, 6650);
         });
+
+        function initScrollReveal() {
+            const revealElements = document.querySelectorAll('.scroll-reveal');
+
+            const observer = new IntersectionObserver((entries, observerInstance) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        const el = entry.target;
+                        
+                        el.style.transitionDelay = '0s'; // ディレイ（タイムラグ）を完全に撤廃
+                        el.classList.add('revealed');
+                        observerInstance.unobserve(el);
+                    }
+                });
+            }, {
+                root: null,
+                threshold: 0.05,
+                rootMargin: '0px 0px 80px 0px' // スクロール時に画面に入る手前の段階（80px）から滑らかに登場開始
+            });
+
+            revealElements.forEach((el) => {
+                observer.observe(el);
+            });
+        }
 
         function triggerPlayFromCard(linkElement, videoId) {
             const card = linkElement.closest('.program-card');
