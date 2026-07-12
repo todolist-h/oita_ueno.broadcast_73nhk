@@ -216,6 +216,45 @@
             max-width: 500px; /* スマートフォンにジャストフィットするサイズ */
             margin: 0 auto;
             padding: 10px 16px 80px 16px;
+            box-sizing: border-box;
+            width: 100%;
+        }
+
+        /* ==========================================
+           タブレット・PCなどのワイド画面対応 (レスポンシブスタイル)
+           ========================================== */
+        @media (min-width: 768px) {
+            .container {
+                max-width: 960px; /* 画面が広いときは幅を広げてゆったりと配置 */
+                padding: 20px 24px 100px 24px;
+            }
+
+            /* PROGRAMSセクションの作品カードを美麗な2カラム（2列）のグリッド配列に */
+            .programs-grid {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 20px;
+                margin-bottom: 20px;
+            }
+
+            .programs-grid .program-card {
+                margin: 0; /* モバイル用の外余白をリセット */
+            }
+
+            /* 奇数（5つめ）の研究発表カードは、グリッドの中央に程よいサイズでどっしり鎮座させます */
+            .programs-grid .program-card:nth-child(5) {
+                grid-column: span 2;
+                justify-self: center;
+                width: 100%;
+                max-width: 460px;
+            }
+
+            /* その他の単一要素は、横に広がりすぎないように最大幅を絞って優美にセンタリング */
+            .btn-insta-banner, .message-card, .container > .program-card {
+                max-width: 480px;
+                margin-left: auto;
+                margin-right: auto;
+            }
         }
 
         /* 各セクションのタイトル */
@@ -516,7 +555,7 @@
             height: 36px; /* こちらも高さを揃えて綺麗に統一 */
         }
 
-        /* Safari向けデフォルト矢印消去 */
+        /* Safari向けデフォルトの黒い矢印を消す */
         .work-details summary::-webkit-details-marker {
             display: none;
         }
@@ -683,7 +722,7 @@
             width: 54px;
             height: 54px;
             background: linear-gradient(45deg, #f9ce34 0%, #ee2a7b 50%, #6228d7 100%);
-            border: 3px solid #ffffff; /* 白いふちどりので可愛らしく */
+            border: 3px solid #ffffff; /* 白いふちどりのので可愛らしく */
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -754,227 +793,231 @@
         <!-- 作品一覧のセクション -->
         <div class="section-title">PROGRAMS</div>
 
-        <!-- 01. ラジオドキュメント（ベースとフレンド） -->
-        <div class="program-card">
-            <!-- その場再生用の埋め込みプレイヤーコンテナ（初期状態は隠す） -->
-            <div class="video-player-container" id="player-1"></div>
+        <!-- ★PC/iPad用の大画面レイアウトを格納するコンテナ（スマホでは自動で1カラムになります）★ -->
+        <div class="programs-grid">
 
-            <!-- ★サムネイルやタイトルをタップしたときも、動画プレイヤーを開くように onclick を設定★ -->
-            <a href="javascript:void(0)" onclick="triggerPlayFromCard(this, 'hWRPaxYbU6I')" class="program-main-link" title="作品を視聴する">
-                <div class="program-main">
-                    <div class="thumbnail-wrapper">
-                        <img src="https://img.youtube.com/vi/hWRPaxYbU6I/mqdefault.jpg" alt="ラジオドキュメント サムネイル" onerror="this.src='https://images.unsplash.com/photo-1484755560695-a4c740285fa6?w=300&auto=format&fit=crop&q=60'">
-                    </div>
-                    <div class="btn-text">
-                        <span class="category-row">
-                            <!-- ラジオ用SVGアイコン -->
-                            <svg class="category-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M16.24 7.76a6 6 0 0 1 0 8.49m-8.48-.01a6 6 0 0 1 0-8.49m11.31-2.82a10 10 0 0 1 0 14.14m-14.14 0a10 10 0 0 1 0-14.14"></path><circle cx="12" cy="12" r="2"></circle></svg>
-                            <span class="category">ラジオドキュメント</span>
-                            <!-- 優良賞（パステル調ミルクティベージュバッジ） -->
-                            <span class="award-tag-mini award-bronze">
-                                <svg class="award-medal-svg" viewBox="0 0 24 24"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg>
-                                県大会 優良賞
+            <!-- 01. ラジオドキュメント（ベースとフレンド） -->
+            <div class="program-card">
+                <!-- その場再生用の埋め込みプレイヤーコンテナ（初期状態は隠す） -->
+                <div class="video-player-container" id="player-1"></div>
+
+                <!-- サムネイルやタイトルをタップしたときも、動画プレイヤーを開くように onclick を設定 -->
+                <a href="javascript:void(0)" onclick="triggerPlayFromCard(this, 'hWRPaxYbU6I')" class="program-main-link" title="作品を視聴する">
+                    <div class="program-main">
+                        <div class="thumbnail-wrapper">
+                            <img src="https://img.youtube.com/vi/hWRPaxYbU6I/mqdefault.jpg" alt="ラジオドキュメント サムネイル" onerror="this.src='https://images.unsplash.com/photo-1484755560695-a4c740285fa6?w=300&auto=format&fit=crop&q=60'">
+                        </div>
+                        <div class="btn-text">
+                            <span class="category-row">
+                                <!-- ラジオ用SVGアイコン -->
+                                <svg class="category-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M16.24 7.76a6 6 0 0 1 0 8.49m-8.48-.01a6 6 0 0 1 0-8.49m11.31-2.82a10 10 0 0 1 0 14.14m-14.14 0a10 10 0 0 1 0-14.14"></path><circle cx="12" cy="12" r="2"></circle></svg>
+                                <span class="category">ラジオドキュメント</span>
+                                <!-- 優良賞（パステル調ミルクティベージュバッジ） -->
+                                <span class="award-tag-mini award-bronze">
+                                    <svg class="award-medal-svg" viewBox="0 0 24 24"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg>
+                                    県大会 優良賞
+                                </span>
                             </span>
-                        </span>
-                        <span class="work-title">『ベースとフレンド』</span>
+                            <span class="work-title">『ベースとフレンド』</span>
+                        </div>
                     </div>
+                </a>
+                <div class="program-actions">
+                    <button type="button" class="action-btn btn-watch" onclick="togglePlay(this, 'hWRPaxYbU6I')">
+                        <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg> 作品を視聴する
+                    </button>
+                    
+                    <!-- 新アコーディオン（制作意図） -->
+                    <details class="work-details">
+                        <summary>制作意図を見る</summary>
+                        <div class="details-content">
+                            <div class="details-section-title">制作意図</div>
+                            <div class="details-content-text">私達の通う上野丘高校には「文武不岐」というスローガンが掲げられています。勉強と部活の両立を意味するこの言葉の裏には、仲間との熱量の差や、両立するための時間がないといった葛藤がありました。今回は、上野丘高校野球部77年ぶりの県大会優勝を通して、私達にも当てはまるであろう等身大の葛藤にスポットを当てました。完璧な両立を目指すのではなく、仲間と補い合いながら悩み抜く道のりにこそ価値があるというメッセージを、今を生きる高校生に伝えたいと思い、制作しました。</div>
+                        </div>
+                    </details>
                 </div>
-            </a>
-            <div class="program-actions">
-                <button type="button" class="action-btn btn-watch" onclick="togglePlay(this, 'hWRPaxYbU6I')">
-                    <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg> 作品を視聴する
-                </button>
-                
-                <!-- 新アコーディオン（制作意図） -->
-                <details class="work-details">
-                    <summary>制作意図を見る</summary>
-                    <div class="details-content">
-                        <div class="details-section-title">制作意図</div>
-                        <div class="details-content-text">私達の通う上野丘高校には「文武不岐」というスローガンが掲げられています。勉強と部活の両立を意味するこの言葉の裏には、仲間との熱量の差や、両立するための時間がないといった葛藤がありました。今回は、上野丘高校野球部77年ぶりの県大会優勝を通して、私達にも当てはまるであろう等身大の葛藤にスポットを当てました。完璧な両立を目指すのではなく、仲間と補い合いながら悩み抜く道のりにこそ価値があるというメッセージを、今を生きる高校生に伝えたいと思い、制作しました。</div>
-                    </div>
-                </details>
             </div>
-        </div>
 
-        <!-- 02. テレビドキュメント（雨ニハマケズ、目ニハトマズ） -->
-        <div class="program-card">
-            <!-- その場再生用の埋め込みプレイヤーコンテナ -->
-            <div class="video-player-container" id="player-2"></div>
+            <!-- 02. テレビドキュメント（雨ニハマケズ、目ニハトマズ） -->
+            <div class="program-card">
+                <!-- その場再生用の埋め込みプレイヤーコンテナ -->
+                <div class="video-player-container" id="player-2"></div>
 
-            <!-- ★サムネイルやタイトルをタップしたときも、動画プレイヤーを開くように onclick を設定★ -->
-            <a href="javascript:void(0)" onclick="triggerPlayFromCard(this, 'bLaiO6uIzfs')" class="program-main-link" title="作品を視聴する">
-                <div class="program-main">
-                    <div class="thumbnail-wrapper">
-                        <img src="https://img.youtube.com/vi/bLaiO6uIzfs/mqdefault.jpg" alt="テレビドキュメント サムネイル" onerror="this.src='https://images.unsplash.com/photo-1461151304267-38535e780c79?w=300&auto=format&fit=crop&q=60'">
-                    </div>
-                    <div class="btn-text">
-                        <span class="category-row">
-                            <!-- テレビ用SVGアイコン -->
-                            <svg class="category-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="15" rx="2" ry="2"></rect><polyline points="17 2 12 7 7 2"></polyline></svg>
-                            <span class="category">テレビドキュメント</span>
-                            <!-- 優秀賞（シルバー） -->
-                            <span class="award-tag-mini award-silver">
-                                <svg class="award-medal-svg" viewBox="0 0 24 24"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg>
-                                県大会 優秀賞
+                <!-- サムネイルやタイトルをタップしたときも、動画プレイヤーを開くように onclick を設定 -->
+                <a href="javascript:void(0)" onclick="triggerPlayFromCard(this, 'bLaiO6uIzfs')" class="program-main-link" title="作品を視聴する">
+                    <div class="program-main">
+                        <div class="thumbnail-wrapper">
+                            <img src="https://img.youtube.com/vi/bLaiO6uIzfs/mqdefault.jpg" alt="テレビドキュメント サムネイル" onerror="this.src='https://images.unsplash.com/photo-1461151304267-38535e780c79?w=300&auto=format&fit=crop&q=60'">
+                        </div>
+                        <div class="btn-text">
+                            <span class="category-row">
+                                <!-- テレビ用SVGアイコン -->
+                                <svg class="category-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="15" rx="2" ry="2"></rect><polyline points="17 2 12 7 7 2"></polyline></svg>
+                                <span class="category">テレビドキュメント</span>
+                                <!-- 優秀賞（シルバー） -->
+                                <span class="award-tag-mini award-silver">
+                                    <svg class="award-medal-svg" viewBox="0 0 24 24"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg>
+                                    県大会 優秀賞
+                                </span>
                             </span>
-                        </span>
-                        <span class="work-title">『雨ニハマケズ、目ニハトマズ』</span>
+                            <span class="work-title">『雨ニハマケズ、目ニハトマズ』</span>
+                        </div>
                     </div>
+                </a>
+                <div class="program-actions">
+                    <button type="button" class="action-btn btn-watch" onclick="togglePlay(this, 'bLaiO6uIzfs')">
+                        <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg> 作品を視聴する
+                    </button>
+                    
+                    <!-- 新アコーディオン（制作意図) -->
+                    <details class="work-details">
+                        <summary>制作意図を見る</summary>
+                        <div class="details-content">
+                            <div class="details-section-title">制作意図</div>
+                            <div class="details-content-text">大分上野丘高校の大きな問題、それは落とし物が多いことである。特に多いのは傘で、校内で忘れ去られたままの傘は数知れず。この現状に先生方も頭を抱えている。コロナ禍が明けて以来、落とし物は世間的にも増加の一途を辿っている社会問題だ。自分が失くしたものに対して無関心でいる多くの生徒に, 当事者意識を持たせ, 落とし物の存在に気づいてもらうため, この番組を制作した。</div>
+                        </div>
+                    </details>
                 </div>
-            </a>
-            <div class="program-actions">
-                <button type="button" class="action-btn btn-watch" onclick="togglePlay(this, 'bLaiO6uIzfs')">
-                    <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg> 作品を視聴する
-                </button>
-                
-                <!-- 新アコーディオン（制作意図) -->
-                <details class="work-details">
-                    <summary>制作意図を見る</summary>
-                    <div class="details-content">
-                        <div class="details-section-title">制作意図</div>
-                        <div class="details-content-text">大分上野丘高校の大きな問題、それは落とし物が多いことである。特に多いのは傘で、校内で忘れ去られたままの傘は数知れず。この現状に先生方も頭を抱えている。コロナ禍が明けて以来、落とし物は世間的にも増加の一途を辿っている社会問題だ。自分が失くしたものに対して無関心でいる多くの生徒に, 当事者意識を持たせ, 落とし物の存在に気づいてもらうため, この番組を制作した。</div>
-                    </div>
-                </details>
             </div>
-        </div>
-        
-        <!-- 03. 創作ラジオドラマ（パーフェクト・リバース） -->
-        <div class="program-card">
-            <!-- その場再生用の埋め込みプレイヤーコンテナ -->
-            <div class="video-player-container" id="player-3"></div>
+            
+            <!-- 03. 創作ラジオドラマ（パーフェクト・リバース） -->
+            <div class="program-card">
+                <!-- その場再生用の埋め込みプレイヤーコンテナ -->
+                <div class="video-player-container" id="player-3"></div>
 
-            <!-- ★サムネイルやタイトルをタップしたときも、動画プレイヤーを開くように onclick を設定★ -->
-            <a href="javascript:void(0)" onclick="triggerPlayFromCard(this, 'k6mVJT84P4Y')" class="program-main-link" title="作品を視聴する">
-                <div class="program-main">
-                    <div class="thumbnail-wrapper">
-                        <img src="https://img.youtube.com/vi/k6mVJT84P4Y/mqdefault.jpg" alt="創作ラジオドラマ サムネイル" onerror="this.src='https://images.unsplash.com/photo-1478737270239-2f02b77fc618?w=300&auto=format&fit=crop&q=60'">
-                    </div>
-                    <div class="btn-text">
-                        <span class="category-row">
-                            <!-- マイク（音声）用SVGアイコン -->
-                            <svg class="category-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="23"></line><line x1="8" y1="23" x2="16" y2="23"></line></svg>
-                            <span class="category">創作ラジオドラマ</span>
-                            <!-- 最優秀賞（ゴールド：最前面に進出して見える一番目立つ色） -->
-                            <span class="award-tag-mini award-gold">
-                                <svg class="award-medal-svg" viewBox="0 0 24 24"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg>
-                                県大会 最優秀賞
+                <!-- サムネイルやタイトルをタップしたときも、動画プレイヤーを開くように onclick を設定 -->
+                <a href="javascript:void(0)" onclick="triggerPlayFromCard(this, 'k6mVJT84P4Y')" class="program-main-link" title="作品を視聴する">
+                    <div class="program-main">
+                        <div class="thumbnail-wrapper">
+                            <img src="https://img.youtube.com/vi/k6mVJT84P4Y/mqdefault.jpg" alt="創作ラジオドラマ サムネイル" onerror="this.src='https://images.unsplash.com/photo-1478737270239-2f02b77fc618?w=300&auto=format&fit=crop&q=60'">
+                        </div>
+                        <div class="btn-text">
+                            <span class="category-row">
+                                <!-- マイク（音声）用SVGアイコン -->
+                                <svg class="category-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="23"></line><line x1="8" y1="23" x2="16" y2="23"></line></svg>
+                                <span class="category">創作ラジオドラマ</span>
+                                <!-- 最優秀賞（ゴールド：最前面に進出して見える一番目立つ色） -->
+                                <span class="award-tag-mini award-gold">
+                                    <svg class="award-medal-svg" viewBox="0 0 24 24"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg>
+                                    県大会 最優秀賞
+                                </span>
                             </span>
-                        </span>
-                        <span class="work-title">『パーフェクト・リバース』</span>
+                            <span class="work-title">『パーフェクト・リバース』</span>
+                        </div>
                     </div>
-                </div>
-            </a>
-            <div class="program-actions">
-                <button type="button" class="action-btn btn-watch" onclick="togglePlay(this, 'k6mVJT84P4Y')">
-                    <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg> 作品を視聴する
-                </button>
-                
-                <!-- 新アコーディオン（制作意図・あらすじ） -->
-                <details class="work-details">
-                    <summary>制作意図・あらすじを見る</summary>
-                    <div class="details-content">
-                        <div class="details-section-title">制作意図</div>
-                        <div class="details-content-text">周りの人にどう思われるかを気にしすぎて、本当の自分を偽ってしまうことはありませんか？
+                </a>
+                <div class="program-actions">
+                    <button type="button" class="action-btn btn-watch" onclick="togglePlay(this, 'k6mVJT84P4Y')">
+                        <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg> 作品を視聴する
+                    </button>
+                    
+                    <!-- 新アコーディオン（制作意図・あらすじ） -->
+                    <details class="work-details">
+                        <summary>制作意図・あらすじを見る</summary>
+                        <div class="details-content">
+                            <div class="details-section-title">制作意図</div>
+                            <div class="details-content-text">周りの人にどう思われるかを気にしすぎて、本当の自分を偽ってしまうことはありませんか？
 本当の自分を押し殺して苦しんでまで、求められた自分になる必要なんてない。AIが台頭する現代こそ、自分らしさを見失って中身のない人間になってほしくない。ありのままのあなたでいてほしい。という思いを込めて、最近高校生の間で人気のバーチャルライバーの二面性になぞらえて制作しました。</div>
-                        
-                        <div class="details-section-title">あらすじ</div>
-                        <div class="details-content-text">完璧カリスマ高校生バーチャルライバー高嶺優美の本当の姿は、引っ込み思案で自己主張が苦手な正反対の人間だった。そんな彼女はファンやマネージャーの期待に応えて常に完璧を演じ続ける日々に嫌気がさしていた。
+                            
+                            <div class="details-section-title">あらすじ</div>
+                            <div class="details-content-text">完璧カリスマ高校生バーチャルライバー高嶺優美の本当の姿は、引っ込み思案で自己主張が苦手な正反対の人間だった。そんな彼女はファンやマネージャーの期待に応えて常に完璧を演じ続ける日々に嫌気がさしていた。
 ある日突然、彼女は日頃の愚痴を聞いたAIに配信を乗っ取られてしまう。AIから主導権を取り戻そうとするも、完璧さでAIに勝ち目がないことが証明されてしまった。
 乗っ取られたことから、今まで自分のやっていたことがいかに中身のなかったことだったか気がつき、ライバー活動を引退することを決意する。
-ところが相談したマネージャーの熱い言葉に心を動かされ、今までの完璧主義から生まれ変わってありのままの自分でライバー活動を続ける選択をする。結果は賛否両論で人気も落ちてしまったが、今日も彼女は本当の自分を愛してくれるファンのために配信を続けていく。</div>
-                    </div>
-                </details>
-            </div>
-        </div>
-
-        <!-- 04. 創作テレビドラマ（未完成でも、その一歩先へ。） -->
-        <div class="program-card">
-            <!-- その場再生用の埋め込みプレイヤーコンテナ -->
-            <div class="video-player-container" id="player-4"></div>
-
-            <!-- ★サムネイルやタイトルをタップしたときも、動画プレイヤーを開くように onclick を設定★ -->
-            <a href="javascript:void(0)" onclick="triggerPlayFromCard(this, 'AZhI3iu4Nlw')" class="program-main-link" title="作品を視聴する">
-                <div class="program-main">
-                    <div class="thumbnail-wrapper">
-                        <img src="https://img.youtube.com/vi/AZhI3iu4Nlw/mqdefault.jpg" alt="創作テレビドラマ サムネイル" onerror="this.src='https://images.unsplash.com/photo-1485846234645-a62644f84728?w=300&auto=format&fit=crop&q=60'">
-                    </div>
-                    <div class="btn-text">
-                        <span class="category-row">
-                            <svg class="category-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"></rect><line x1="7" y1="2" x2="7" y2="22"></line><line x1="17" y1="2" x2="17" y2="22"></line><line x1="2" y1="12" x2="22" y2="12"></line><line x1="2" y1="7" x2="7" y2="7"></line><line x1="2" y1="17" x2="7" y2="17"></line><line x1="17" y1="17" x2="22" y2="17"></line><line x1="17" y1="7" x2="22" y2="7"></line></svg>
-                            <span class="category">創作テレビドラマ</span>
-                            <!-- 最優秀賞（ゴールド：最前面に進出して見える一番目立つ色） -->
-                            <span class="award-tag-mini award-gold">
-                                <svg class="award-medal-svg" viewBox="0 0 24 24"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg>
-                                県大会 最優秀賞
-                            </span>
-                        </span>
-                        <span class="work-title">『未完成でも、その一歩先へ。』</span>
-                    </div>
+ところが相談したマネージャー of 熱い言葉に心を動かされ、今までの完璧主義から生まれ変わってありのままの自分でライバー活動を続ける選択をする。結果は賛否両論で人気も落ちてしまったが、今日も彼女は本当の自分を愛してくれるファンのために配信を続けていく。</div>
+                        </div>
+                    </details>
                 </div>
-            </a>
-            <div class="program-actions">
-                <button type="button" class="action-btn btn-watch" onclick="togglePlay(this, 'AZhI3iu4Nlw')">
-                    <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg> 作品を視聴する
-                </button>
-                
-                <!-- 新アコーディオン（制作意図・あらすじ） -->
-                <details class="work-details">
-                    <summary>制作意図・あらすじを見る</summary>
-                    <div class="details-content">
-                        <div class="details-section-title">制作意図</div>
-                        <div class="details-content-text">コミュニケーション。人間社会で生きていくにあたって、避けて通ることのできない道。これだけ重要で欠かせないものであるにもかかわらず、「苦手」と感じる人が多いのではないのだろうか？その理由は様々だろうが、過去の失敗や、失敗することへの恐怖などが挙げられると思う。今回この作品を作った理由は、そんな人たちに「失敗を恐れず、未完成でもいいから踏み出す勇気」を伝えたいと思い、この作品を制作した。</div>
-                        
-                        <div class="details-section-title">あらすじ</div>
-                        <div class="details-content-text">主人公高橋洸喜はこの春高校生になったばかり。過去のトラウマから人との関わりを恐れて、SNS上だけでのコミュニケーションに依存しきってしまう。そんな中1年前ネットで知り合い, 仲良くしていたソラ(松下蒼)から実際に会ってみないか, と誘いを受ける。ソラの強引さに押されて初めてあってみるも, お互いうまく話すことができずソラの行動に過去のトラウマを刺激されその場から逃げ出してしまう。後日高橋洸喜は逃げ出してしまったことを後悔する。そんな高橋洸喜にソラからもう1度会って欲しいと誘いを受ける。ソラの熱意に勇気をもらい今度こそは自分自身を変えて過去のトラウマに打ち勝つと心に決める。2度目の対面での邂逅。お互い用意した策で1回目よりも話すことができるようにはなり, 不器用でもいいからコミュニケーションをすることの大切さに気づき, 終了。</div>
-                    </div>
-                </details>
             </div>
-        </div>
 
-        <!-- 05. 研究発表（掲示のNew Ageサイネージ） -->
-        <div class="program-card">
-            <!-- その場再生用の埋め込みプレイヤーコンテナ（★動画プレイヤーと同じ場所に綺麗に展開します★） -->
-            <div class="video-player-container" id="player-5"></div>
+            <!-- 04. 創作テレビドラマ（未完成でも、その一歩先へ。） -->
+            <div class="program-card">
+                <!-- その場再生用の埋め込みプレイヤーコンテナ -->
+                <div class="video-player-container" id="player-4"></div>
 
-            <!-- ★サムネイルやタイトルをタップしたときも、動画プレイヤー（動画スライドプレイヤー）を開くように onclick を設定★ -->
-            <a href="javascript:void(0)" onclick="triggerPlayFromCard(this, 'dQw4w9WgXcQ')" class="program-main-link" title="作品を視聴する">
-                <div class="program-main">
-                    <div class="thumbnail-wrapper">
-                        <!-- 研究発表のYouTubeサムネイルを適切に表示 -->
-                        <img src="https://img.youtube.com/vi/dQw4w9WgXcQ/mqdefault.jpg" alt="研究発表 サムネイル" onerror="this.src='https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=300&auto=format&fit=crop&q=60'">
-                    </div>
-                    <div class="btn-text">
-                        <span class="category-row">
-                            <!-- ひらめき・サイネージ用SVGアイコン -->
-                            <svg class="category-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .6 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"></path><line x1="9" y1="18" x2="15" y2="18"></line><line x1="10" y1="22" x2="14" y2="22"></line></svg>
-                            <span class="category">研究発表</span>
-                            <!-- 【★改善】県大会 最優秀賞バッジをここに合流させました -->
-                            <span class="award-tag-mini award-gold">
-                                <svg class="award-medal-svg" viewBox="0 0 24 24"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg>
-                                県大会 最優秀賞
+                <!-- ★サムネイルやタイトルをタップしたときも、動画プレイヤーを開くように onclick を設定★ -->
+                <a href="javascript:void(0)" onclick="triggerPlayFromCard(this, 'AZhI3iu4Nlw')" class="program-main-link" title="作品を視聴する">
+                    <div class="program-main">
+                        <div class="thumbnail-wrapper">
+                            <img src="https://img.youtube.com/vi/AZhI3iu4Nlw/mqdefault.jpg" alt="創作テレビドラマ サムネイル" onerror="this.src='https://images.unsplash.com/photo-1485846234645-a62644f84728?w=300&auto=format&fit=crop&q=60'">
+                        </div>
+                        <div class="btn-text">
+                            <span class="category-row">
+                                <svg class="category-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"></rect><line x1="7" y1="2" x2="7" y2="22"></line><line x1="17" y1="2" x2="17" y2="22"></line><line x1="2" y1="12" x2="22" y2="12"></line><line x1="2" y1="7" x2="7" y2="7"></line><line x1="2" y1="17" x2="7" y2="17"></line><line x1="17" y1="17" x2="22" y2="17"></line><line x1="17" y1="7" x2="22" y2="7"></line></svg>
+                                <span class="category">創作テレビドラマ</span>
+                                <!-- 最優秀賞（ゴールド：最前面に進出して見える一番目立つ色） -->
+                                <span class="award-tag-mini award-gold">
+                                    <svg class="award-medal-svg" viewBox="0 0 24 24"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg>
+                                    県大会 最優秀賞
+                                </span>
                             </span>
-                        </span>
-                        <!-- 【★改善】作品名を「掲示のNew Ageサイネージ」に変更 -->
-                        <span class="work-title">『掲示のNew Ageサイネージ』</span>
+                            <span class="work-title">『未完成でも、その一歩先へ。』</span>
+                        </div>
                     </div>
+                </a>
+                <div class="program-actions">
+                    <button type="button" class="action-btn btn-watch" onclick="togglePlay(this, 'AZhI3iu4Nlw')">
+                        <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg> 作品を視聴する
+                    </button>
+                    
+                    <!-- 新アコーディオン（制作意図・あらすじ） -->
+                    <details class="work-details">
+                        <summary>制作意図・あらすじを見る</summary>
+                        <div class="details-content">
+                            <div class="details-section-title">制作意図</div>
+                            <div class="details-content-text">コミュニケーション。人間社会で生きていくにあたって、避けて通ることのできない道。これだけ重要で欠かせないものであるにもかかわらず、「苦手」と感じる人が多いのではないのだろうか？その理由は様々だろうが、過去の失敗や、失敗することへの恐怖などが挙げられると思う。今回この作品を作った理由は、そんな人たちに「失敗を恐れず、未完成でもいいから踏み出す勇気」を伝えたいと思い、この作品を制作した。</div>
+                            
+                            <div class="details-section-title">あらすじ</div>
+                            <div class="details-content-text">主人公高橋洸喜はこの春高校生になったばかり。過去のトラウマから人との関わりを恐れて、SNS上だけでのコミュニケーションに依存しきってしまう。そんな中1年前ネットで知り合い, 仲良くしていたソラ(松下蒼)から実際に会ってみないか, と誘いを受ける。ソラの強引さに押されて初めてあってみるも, お互いうまく話すことができずソラの行動に過去のトラウマを刺激されその場から逃げ出してしまう。後日高橋洸喜は逃げ出してしまったことを後悔する。そんな高橋洸喜にソラからもう1度会って欲しいと誘いを受ける。ソラの熱意に勇気をもらい今度こそは自分自身を変えて過去のトラウマに打ち勝つと心に決める。2度目の対面での邂逅。お互い用意した策で1回目よりも話すことができるようにはなり, 不器用でもいいからコミュニケーションをすることの大切さに気づき, 終了。</div>
+                        </div>
+                    </details>
                 </div>
-            </a>
-            <div class="program-actions">
-                <!-- 【★その場で動画プレイヤーをフワッと展開して視聴するトグルボタン（PDFではなく動画IDを指定）★】 -->
-                <button type="button" class="action-btn btn-watch" onclick="togglePlay(this, 'dQw4w9WgXcQ')">
-                    <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg> 作品を視聴する
-                </button>
-                
-                <!-- アコーディオン -->
-                <details class="work-details">
-                    <summary>研究要旨を見る</summary>
-                    <div class="details-content">
-                        <div class="details-section-title">研究要旨</div>
-                        <div class="details-content-text">情報化社会といわれるように、私たちのもとに届く情報はあまりにも多い。重要な連絡が情報過多により埋もれる実態が、生徒や教員への調査から浮き彫りになった。そこで、更新が容易で視認性の高いデジタルサイネージを導入するとともに、管理・運用を生徒だけで完結する体制を構築した。導入前後の比較からその効果を分析し、他校でも導入可能な汎用性の高い構成を考え、校内放送活動における情報伝達の新たな形を提示する。</div>
-                    </div>
-                </details>
             </div>
-        </div>
+
+            <!-- 05. 研究発表（掲示のNew Ageサイネージ） -->
+            <div class="program-card">
+                <!-- その場再生用の埋め込みプレイヤーコンテナ（★動画プレイヤーと同じ場所に綺麗に展開します★） -->
+                <div class="video-player-container" id="player-5"></div>
+
+                <!-- ★サムネイルやタイトルをタップしたときも、動画プレイヤー（動画スライドプレイヤー）を開くように onclick を設定★ -->
+                <a href="javascript:void(0)" onclick="triggerPlayFromCard(this, 'dQw4w9WgXcQ')" class="program-main-link" title="作品を視聴する">
+                    <div class="program-main">
+                        <div class="thumbnail-wrapper">
+                            <!-- 研究発表のYouTubeサムネイルを適切に表示 -->
+                            <img src="https://img.youtube.com/vi/dQw4w9WgXcQ/mqdefault.jpg" alt="研究発表 サムネイル" onerror="this.src='https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=300&auto=format&fit=crop&q=60'">
+                        </div>
+                        <div class="btn-text">
+                            <span class="category-row">
+                                <!-- ひらめき・サイネージ用SVGアイコン -->
+                                <svg class="category-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .6 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"></path><line x1="9" y1="18" x2="15" y2="18"></line><line x1="10" y1="22" x2="14" y2="22"></line></svg>
+                                <span class="category">研究発表</span>
+                                <!-- 県大会 最優秀賞バッジ -->
+                                <span class="award-tag-mini award-gold">
+                                    <svg class="award-medal-svg" viewBox="0 0 24 24"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg>
+                                    県大会 最優秀賞
+                                </span>
+                            </span>
+                            <span class="work-title">『掲示のNew Ageサイネージ』</span>
+                        </div>
+                    </div>
+                </a>
+                <div class="program-actions">
+                    <!-- その場で動画プレイヤーをフワッと展開して視聴するトグルボタン -->
+                    <button type="button" class="action-btn btn-watch" onclick="togglePlay(this, 'dQw4w9WgXcQ')">
+                        <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg> 作品を視聴する
+                    </button>
+                    
+                    <!-- アコーディオン -->
+                    <details class="work-details">
+                        <summary>研究要旨を見る</summary>
+                        <div class="details-content">
+                            <div class="details-section-title">研究要旨</div>
+                            <div class="details-content-text">情報化社会といわれるように、私たちのもとに届く情報はあまりにも多い。重要な連絡が情報過多により埋もれる実態が、生徒や教員への調査から浮き彫りになった。そこで、更新が容易で視認性の高いデジタルサイネージを導入するとともに、管理・運用を生徒だけで完結する体制を構築した。導入前後の比較からその効果を分析し、他校でも導入可能な汎用性の高い構成を考え、校内放送活動における情報伝達の新たな形を提示する。</div>
+                        </div>
+                    </details>
+                </div>
+            </div>
+
+        </div> <!-- /.programs-grid -->
 
         <div class="section-title">OFFICIAL SNS</div>
 
@@ -1021,8 +1064,8 @@
         <div class="message-card">
             <p>
                 全国の放送部の皆さん、ご視聴ありがとうございます！<br>
-                感想や、日頃 of 活動の様子など、ぜひお聞かせください。<br>
-                大会期間中, お互いに頑張りましょう！✨
+                感想や日頃の活動の様子など、ぜひお聞かせください。<br>
+                これからもお互いに頑張っていきましょう！✨
             </p>
         </div>
 
