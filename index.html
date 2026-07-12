@@ -250,7 +250,7 @@
         .scroll-reveal {
             opacity: 0;
             transform: translateY(12px);
-            transition: opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1), transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
             will-change: opacity, transform;
         }
 
@@ -808,7 +808,7 @@
                         <summary>制作意図を見る</summary>
                         <div class="details-content">
                             <div class="details-section-title">制作意図</div>
-                            <div class="details-content-text">大分上野丘高校の大きな問題、それは落とし物が多いことである。特に多いのは傘で、校内で忘れ去られたままの傘は数知れず。この現状に先生方も頭を抱えている。コロナ禍が明けて以来、落とし物は世間的にも増加の一途を辿っている社会問題だ。自分が失くしたものに対して無関心でいる多くの生徒に、当事者意識を持たせ、落とし物の存在に気づいてもらうため、この番組を制作した。</div>
+                            <div class="details-content-text">大分上野丘高校の大きな問題、それは落とし物が多いことである。特に多いのは傘で、校内で忘れ去られたままの傘は数知れず。この現状に先生方も頭を抱えている。コロナ禍が明けて以来、落とし物は世間的にも増加の一途を辿っている社会問題だ。自分が失くしたものに対して無関心でいる多くの生徒に、当事者意識を持たせ、落とし物の存在に気づいてもらうため, この番組を制作した。</div>
                         </div>
                     </details>
                 </div>
@@ -844,9 +844,9 @@
                         <summary>制作意図・あらすじを見る</summary>
                         <div class="details-content">
                             <div class="details-section-title">制作意図</div>
-                            <div class="details-content-text">周りの人にどう思われるかを気にしすぎて、本当の自分を偽ってしまうことはありませんか？本当の自分を押し殺して苦しんでまで、求められた自分になる必要なんてない。AIが台頭する現代こそ、自分らしさを見失って中身のない人間になってほしくない。ありのままのあなたでいてほしい。という思いを込めて、最近高校生の間で人気のバーチャルライバーの二面性になぞらえて制作しました。</div>
+                            <div class="details-content-text">周りの人にどう思われるかを気にしすぎて、本当の自分を偽ってしまうことはありませんか？ 本当の自分を押し殺して苦しんでまで、求められた自分になる必要なんてない。AIが台頭する現代こそ、自分らしさを見失って中身のない人間になってほしくない。ありのままのあなたでいてほしい。という思いを込めて、最近高校生の間で人気のバーチャルライバーの二面性になぞらえて制作しました。</div>
                             <div class="details-section-title">あらすじ</div>
-                            <div class="details-content-text">完璧カリスマ高校生バーチャルライバー高嶺優美の本当の姿は、引っ込み思案で自己主張が苦手な正反対の人間だった。そんな彼女はファンやマネージャーの期待に応えて常に完璧を演じ続ける日々に嫌気がさしていた。ある日突然、彼女は日頃の愚痴を聞いたAIに配信を乗っ取られてしまう。AIから主導権を取り戻そうとするも、完璧さでAIに勝ち目がないことが証明されてしまった。乗っ取られたことから、今まで自分のやっていたことがいかに中身のなかったことだったか気がつき、ライバー活動を引退することを決意する。ところが相談したマネージャーの熱い言葉に心を動かされ、今までの完璧主義から生まれ変わってありのままの自分でライバー活動を続ける選択をする。結果は賛否両論で人気も落ちてしまったが、今日も彼女は本当の自分を愛してくれるファンのために配信を続けていく。</div>
+                            <div class="details-content-text">完璧カリスマ高校生バーチャルライバー高嶺優美の本当の姿は、引っ込み思案で自己主張が苦手な正反対の人間だった。そんな彼女はファンやマネージャーの期待に応えて常に完璧を演じ続ける日々に嫌気がさしていた。 ある日突然、彼女は日頃の愚痴を聞いたAIに配信を乗っ取られてしまう。AIから主導権を取り戻そうとするも、完璧さでAIに勝ち目がないことが証明されてしまった。 乗っ取られたことから、今まで自分のやっていたことがいかに中身のなかったことだったか気がつき、ライバー活動を引退することを決意する。 ところが相談したマネージャーの熱い言葉に心を動かされ、今までの完璧主義から生まれ変わってありのままの自分でライバー活動を続ける選択をする。結果は賛否両論で人気も落ちてしまったが、今日も彼女は本当の自分を愛してくれるファンのために配信を続けていく。</div>
                         </div>
                     </details>
                 </div>
@@ -907,7 +907,7 @@
                                     県大会 最優秀賞
                                 </span>
                             </span>
-                            <span class="work-title">『掲示のNew Ageサイネージ』</span>
+                            <span class="work-title">『掲示 of New Age サイネージ』</span>
                         </div>
                     </div>
                 </a>
@@ -1007,28 +1007,51 @@
 
         function initScrollReveal() {
             const revealElements = document.querySelectorAll('.scroll-reveal');
+            
+            // 初期の表示遅延判定用（スプラッシュ明けのファーストビュー用）
+            let isInitialBatch = true;
+            let initialDelayCounter = 0;
 
             const observer = new IntersectionObserver((entries, observerInstance) => {
                 entries.forEach((entry) => {
                     if (entry.isIntersecting) {
                         const el = entry.target;
                         
-                        el.style.transitionDelay = '0s'; // ディレイ（タイムラグ）を完全に撤廃
+                        if (isInitialBatch) {
+                            // 画面起動時に最初から見えている範囲の要素は、ほぼ同時にパッとならないよう0.12秒刻みでトントンと順番に表示
+                            el.style.transitionDelay = `${initialDelayCounter * 0.12}s`;
+                            initialDelayCounter++;
+                        } else {
+                            // スクロールして後から入ってくるカードにはタイムラグディレイを一切かけず素早くふわっと表示
+                            el.style.transitionDelay = '0s';
+                        }
+                        
                         el.classList.add('revealed');
                         observerInstance.unobserve(el);
+
+                        // 一度登場したらディレイ用インラインスタイルはクリア
+                        setTimeout(() => {
+                            el.style.transitionDelay = '';
+                        }, 1500);
                     }
                 });
             }, {
                 root: null,
                 threshold: 0.05,
-                rootMargin: '0px 0px 80px 0px' // スクロール時に画面に入る手前の段階（80px）から滑らかに登場開始
+                rootMargin: '0px 0px -56px 0px' // 指示通り-56pxに調整
             });
 
             revealElements.forEach((el) => {
                 observer.observe(el);
             });
+
+            // ファーストビューの並び順ディレイ用判定を、ロード直後（最初の登録）が終わったらオフにする
+            setTimeout(() => {
+                isInitialBatch = false;
+            }, 1000);
         }
 
+        // 作品視聴用の制御関数
         function triggerPlayFromCard(linkElement, videoId) {
             const card = linkElement.closest('.program-card');
             const btn = card.querySelector('.btn-watch');
