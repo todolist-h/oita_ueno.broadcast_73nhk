@@ -249,8 +249,17 @@
                 max-width: 460px;
             }
 
-            /* その他の単一要素は、横に広がりすぎないように最大幅を絞って優美にセンタリング */
-            .btn-insta-banner, .message-card, .container > .program-card {
+            /* ★【完全バグ修正】PC・大画面時にもインラインのInstagramリンクバナーが完全に中央に来るよう設定を徹底強化★ */
+            .btn-insta-banner {
+                display: flex !important;
+                width: 100% !important;
+                max-width: 480px !important;
+                margin-left: auto !important;
+                margin-right: auto !important;
+            }
+
+            .message-card, .container > .program-card {
+                width: 100%;
                 max-width: 480px;
                 margin-left: auto;
                 margin-right: auto;
@@ -297,7 +306,7 @@
             box-shadow: 0 4px 12px rgba(15, 23, 42, 0.1);
             max-height: 282px; /* スマホ画面の最大16:9比率高さに制限 */
             margin-bottom: 0;
-            /* iOSのカード展開のような、極上の跳ね返り（バウンス感）がある0.4秒のスプリングアニメーションを設定 */
+            /* iOS of カード展開のような、極上の跳ね返り（バウンス感）がある0.4秒のスプリングアニメーションを設定 */
             animation: slideDownPlayer 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1) forwards;
         }
         @keyframes slideDownPlayer {
@@ -628,6 +637,8 @@
         .btn-insta-banner {
             display: flex;
             align-items: center;
+            width: 100%;
+            box-sizing: border-box;
             padding: 16px 20px;
             margin: 16px 0;
             background: linear-gradient(45deg, #f9ce34 0%, #ee2a7b 50%, #6228d7 100%);
@@ -981,93 +992,93 @@
                 <!-- ★サムネイルやタイトルをタップしたときも、動画プレイヤー（動画スライドプレイヤー）を開くように onclick を設定★ -->
                 <a href="javascript:void(0)" onclick="triggerPlayFromCard(this, 'dQw4w9WgXcQ')" class="program-main-link" title="作品を視聴する">
                     <div class="program-main">
-                        <div class="thumbnail-wrapper">
-                            <!-- 研究発表のYouTubeサムネイルを適切に表示 -->
-                            <img src="https://img.youtube.com/vi/dQw4w9WgXcQ/mqdefault.jpg" alt="研究発表 サムネイル" onerror="this.src='https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=300&auto=format&fit=crop&q=60'">
-                        </div>
-                        <div class="btn-text">
-                            <span class="category-row">
-                                <!-- ひらめき・サイネージ用SVGアイコン -->
-                                <svg class="category-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .6 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"></path><line x1="9" y1="18" x2="15" y2="18"></line><line x1="10" y1="22" x2="14" y2="22"></line></svg>
-                                <span class="category">研究発表</span>
-                                <!-- 県大会 最優秀賞バッジ -->
-                                <span class="award-tag-mini award-gold">
-                                    <svg class="award-medal-svg" viewBox="0 0 24 24"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg>
-                                    県大会 最優秀賞
-                                </span>
-                            </span>
-                            <span class="work-title">『掲示のNew Ageサイネージ』</span>
-                        </div>
-                    </div>
-                </a>
-                <div class="program-actions">
-                    <!-- その場で動画プレイヤーをフワッと展開して視聴するトグルボタン -->
-                    <button type="button" class="action-btn btn-watch" onclick="togglePlay(this, 'dQw4w9WgXcQ')">
-                        <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg> 作品を視聴する
-                    </button>
-                    
-                    <!-- アコーディオン -->
-                    <details class="work-details">
-                        <summary>研究要旨を見る</summary>
-                        <div class="details-content">
-                            <div class="details-section-title">研究要旨</div>
-                            <div class="details-content-text">情報化社会といわれるように、私たちのもとに届く情報はあまりにも多い。重要な連絡が情報過多により埋もれる実態が、生徒や教員への調査から浮き彫りになった。そこで、更新が容易で視認性の高いデジタルサイネージを導入するとともに、管理・運用を生徒だけで完結する体制を構築した。導入前後の比較からその効果を分析し、他校でも導入可能な汎用性の高い構成を考え、校内放送活動における情報伝達の新たな形を提示する。</div>
-                        </div>
-                    </details>
-                </div>
-            </div>
-
-        </div> <!-- /.programs-grid -->
-
-        <div class="section-title">OFFICIAL SNS</div>
-
-        <a href="https://www.instagram.com/oita_ueno.broadcast?igsh=dWhhaWJxNGsyanVu&utm_source=qr" target="_blank" class="btn-insta-banner">
-            <div class="insta-icon-container">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                    <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
-                    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
-                    <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
-                </svg>
-            </div>
-            <div class="insta-text">
-                <span class="insta-label">大分上野丘高校放送部 公式Instagram</span>
-                <span class="insta-id">@oita_ueno.broadcast</span>
-            </div>
-        </a>
-
-        <div class="section-title">OTHER CONTENTS</div>
-
-        <div class="program-card">
-            <div class="video-player-container" id="player-pv"></div>
-
-            <a href="javascript:void(0)" onclick="triggerPlayFromCard(this, 'rwcsDeVlROE')" class="program-main-link" title="作品を視聴する">
-                <div class="program-main">
-                    <div class="thumbnail-wrapper">
-                        <img src="https://img.youtube.com/vi/rwcsDeVlROE/mqdefault.jpg" alt="学校紹介PV サムネイル" onerror="this.src='https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=300&auto=format&fit=crop&q=60'">
+                        <!-- 研究発表のYouTubeサムネイルを適切に表示 -->
+                        <img src="https://img.youtube.com/vi/dQw4w9WgXcQ/mqdefault.jpg" alt="研究発表 サムネイル" onerror="this.src='https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=300&auto=format&fit=crop&q=60'">
                     </div>
                     <div class="btn-text">
                         <span class="category-row">
-                            <svg class="category-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
-                            <span class="category">学校紹介映像</span>
+                            <!-- ひらめき・サイネージ用SVGアイコン -->
+                            <svg class="category-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .6 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"></path><line x1="9" y1="18" x2="15" y2="18"></line><line x1="10" y1="22" x2="14" y2="22"></line></svg>
+                            <span class="category">研究発表</span>
+                            <!-- 県大会 最優秀賞バッジ -->
+                            <span class="award-tag-mini award-gold">
+                                <svg class="award-medal-svg" viewBox="0 0 24 24"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg>
+                                県大会 最優秀賞
+                            </span>
                         </span>
-                        <span class="work-title">『大分上野丘高校 学校紹介PV』</span>
+                        <!-- 作品名を「掲示のNew Ageサイネージ」に変更 -->
+                        <span class="work-title">『掲示のNew Ageサイネージ』</span>
                     </div>
                 </div>
             </a>
             <div class="program-actions">
-                <button type="button" class="action-btn btn-watch" onclick="togglePlay(this, 'rwcsDeVlROE')" style="flex: 100%;">
+                <!-- その場で動画プレイヤーをフワッと展開して視聴するトグルボタン -->
+                <button type="button" class="action-btn btn-watch" onclick="togglePlay(this, 'dQw4w9WgXcQ')">
                     <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg> 作品を視聴する
                 </button>
+                
+                <!-- アコーディオン -->
+                <details class="work-details">
+                    <summary>研究要旨を見る</summary>
+                    <div class="details-content">
+                        <div class="details-section-title">研究要旨</div>
+                        <div class="details-content-text">情報化社会といわれるように、私たちのもとに届く情報はあまりにも多い。重要な連絡が情報過多により埋もれる実態が、生徒や教員への調査から浮き彫りになった。そこで、更新が容易で視認性の高いデジタルサイネージを導入するとともに、管理・運用を生徒だけで完結する体制を構築した。導入前後の比較からその効果を分析し、他校でも導入可能な汎用性の高い構成を考え、校内放送活動における情報伝達の新たな形を提示する。</div>
+                    </div>
+                </details>
             </div>
         </div>
 
-        <div class="message-card">
-            <p>
-                全国の放送部の皆さん、ご視聴ありがとうございます！<br>
-                感想や日頃の活動の様子など、ぜひお聞かせください。<br>
-                これからもお互いに頑張っていきましょう！✨
-            </p>
+    </div> <!-- /.programs-grid -->
+
+    <div class="section-title">OFFICIAL SNS</div>
+
+    <a href="https://www.instagram.com/oita_ueno.broadcast?igsh=dWhhaWJxNGsyanVu&utm_source=qr" target="_blank" class="btn-insta-banner">
+        <div class="insta-icon-container">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+            </svg>
         </div>
+        <div class="insta-text">
+            <span class="insta-label">大分上野丘高校放送部 公式Instagram</span>
+            <span class="insta-id">@oita_ueno.broadcast</span>
+        </div>
+    </a>
+
+    <div class="section-title">OTHER CONTENTS</div>
+
+    <div class="program-card">
+        <div class="video-player-container" id="player-pv"></div>
+
+        <a href="javascript:void(0)" onclick="triggerPlayFromCard(this, 'rwcsDeVlROE')" class="program-main-link" title="作品を視聴する">
+            <div class="program-main">
+                <div class="thumbnail-wrapper">
+                    <img src="https://img.youtube.com/vi/rwcsDeVlROE/mqdefault.jpg" alt="学校紹介PV サムネイル" onerror="this.src='https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=300&auto=format&fit=crop&q=60'">
+                </div>
+                <div class="btn-text">
+                    <span class="category-row">
+                        <svg class="category-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
+                        <span class="category">学校紹介映像</span>
+                    </span>
+                    <span class="work-title">『大分上野丘高校 学校紹介PV』</span>
+                </div>
+            </div>
+        </a>
+        <div class="program-actions">
+            <button type="button" class="action-btn btn-watch" onclick="togglePlay(this, 'rwcsDeVlROE')" style="flex: 100%;">
+                <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg> 作品を視聴する
+            </button>
+        </div>
+    </div>
+
+    <div class="message-card">
+        <p>
+            全国の放送部の皆さん、ご視聴ありがとうございます！<br>
+            感想や日頃の活動の様子など、ぜひお聞かせください。<br>
+            これからもお互いに頑張っていきましょう！✨
+        </p>
+    </div>
 
     </div>
 
