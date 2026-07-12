@@ -4,44 +4,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>大分県立大分上野丘高等学校 放送部 - 第73回Nコン作品交換ページ</title>
-    <!-- ファビコン（ウェブサイトアイコン）の設定 -->
     <link rel="icon" href="放送部アイコン.png" type="image/png">
     <style>
-        /* 全体のスタイル設定（爽やかでエモい「青みの強い」パステルグラデーション背景に変更） */
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
             background: linear-gradient(135deg, #bae6fd 0%, #e0f2fe 50%, #f0f9ff 100%);
             background-attachment: fixed;
-            color: #475569; /* より柔らかいグレー */
+            color: #475569;
             margin: 0;
             padding: 0;
             line-height: 1.6;
             letter-spacing: 0.03em;
         }
 
-        /* ==========================================
-           ポルカドット背景パターン（Polka v2）
-           全体のパステルブルーに完璧に溶け込む半透明のドット柄にカスタマイズ
-           ========================================== */
         .bg_pattern {
             position: fixed;
             top: 0;
             left: 0;
             width: 100vw;
             height: 100vh;
-            pointer-events: none; /* 背面のボタンクリックやスクロールを邪魔しない対策 */
-            opacity: 0.5; /* ドットが強すぎて文字の邪魔をしないようにふんわり透明化 */
+            pointer-events: none;
+            opacity: 0.5;
             z-index: -1;
         }
         .Polka_v2 {
-            /* 黄色のドットを、サイトのパステルブルーに調和する「半透明の澄んだ青」にアレンジ */
             background-image: radial-gradient(rgba(56, 189, 248, 0.35) 2px, transparent 2px), 
                               radial-gradient(rgba(56, 189, 248, 0.35) 2px, transparent 2px);
             background-size: 40px 40px;
             background-position: 0 0, 20px 20px;
         }
 
-        /* 嵐（J-Storm）オフィシャル風オープニングスプラッシュ画面 */
         #splash-screen {
             position: fixed;
             top: 0;
@@ -54,34 +46,27 @@
             align-items: center;
             justify-content: center;
             z-index: 9999;
-            /* 消える時間（1.3秒）の設定 */
             transition: opacity 1.3s cubic-bezier(0.25, 1, 0.5, 1), visibility 1.3s ease;
             opacity: 1;
             visibility: visible;
         }
 
-        /* スプラッシュ画面が消える時のスタイル（その場で優しく消えていきます） */
         #splash-screen.loaded {
             opacity: 0;
             visibility: hidden;
         }
 
-        /* ★キャッチコピー透過ロゴのアニメーションシーケンス★
-           1.0s時点でフェードイン開始、1.0sかけて現れ、1.4秒間表示を完全にキープ、
-           そこから0.5秒間（計2.9s）でスッとフェードアウトするように時間を短縮調整しました。 */
         .splash-logo-1 {
             position: absolute;
-            width: 82%; /* スマホやタブレットでも見栄えが良くなるサイズに調整 */
+            width: 82%;
             max-width: 320px;
             height: auto;
             object-fit: contain;
             opacity: 0;
             animation: splashLogo1Sequence 2.9s cubic-bezier(0.25, 1, 0.5, 1) 1.0s forwards;
-            
-            /* 白文字のフチにクッキリした影を作るためのマルチドロップシャドウ */
-            filter: drop-shadow(0px 1px 2px rgba(15, 23, 42, 0.8))      /* 文字のすぐ後ろを濃い暗色で引き締め（視認性を確保） */
-                    drop-shadow(0px 3px 8px rgba(79, 70, 229, 0.5))     /* テーマカラーの紫を外側に広げてエモい発光感を演出 */
-                    drop-shadow(0px 8px 24px rgba(15, 23, 42, 0.25));   /* 大きく柔らかい影で全体の立体感をアップ */
+            filter: drop-shadow(0px 1px 2px rgba(15, 23, 42, 0.8)) 
+                    drop-shadow(0px 3px 8px rgba(79, 70, 229, 0.5)) 
+                    drop-shadow(0px 8px 24px rgba(15, 23, 42, 0.25));
         }
 
         @keyframes splashLogo1Sequence {
@@ -89,22 +74,20 @@
                 opacity: 0;
                 transform: scale(0.95);
             }
-            34.48% { /* 1.0sかけてフェードイン完了 (1.0s / 2.9s ≒ 34.48%) */
+            34.48% {
                 opacity: 1;
                 transform: scale(1);
             }
-            82.76% { /* キャッチコピーの表示を1.4秒間キープ (2.4s / 2.9s ≒ 82.76%) */
+            82.76% {
                 opacity: 1;
                 transform: scale(1);
             }
-            100% { /* 最後の0.5秒でスッと消えて第2フェーズのロゴにバトンタッチ (2.9s) */
+            100% {
                 opacity: 0;
                 transform: scale(0.95);
             }
         }
 
-        /* ★第2フェーズ 放送部公式ロゴアイコンのアニメーション★
-           キャッチコピーが完全に消え去る「3.9秒」の瞬間から1.0秒かけてフワッと浮かび上がります */
         .splash-logo-2 {
             position: absolute;
             width: 105px;
@@ -114,7 +97,7 @@
             box-shadow: 0 10px 30px rgba(59, 130, 246, 0.22);
             object-fit: cover;
             opacity: 0;
-            transform: translateY(-40px); /* 中央から少し上に配置して英文部活名と重ならないように調整 */
+            transform: translateY(-40px);
             animation: splashLogo2FadeIn 1.0s cubic-bezier(0.16, 1, 0.3, 1) 3.9s forwards;
         }
 
@@ -129,15 +112,13 @@
             }
         }
 
-        /* ★英文部活名のアニメーション★
-           公式丸ロゴ（ロゴ2）と同じ「3.9秒」のタイミングで、そのすぐ下にフェードインします */
         .splash-title {
             position: absolute;
-            transform: translateY(60px); /* 丸ロゴ（105px）のすぐ下に重ならず並ぶように位置調整 */
-            font-size: 0.65rem; /* スマホでも1行できれいに収まるよう微調整 */
+            transform: translateY(60px);
+            font-size: 0.65rem;
             font-weight: 800;
-            color: #4f46e5; /* パステルグラデーションに映える、元のエモいインディゴパープル */
-            letter-spacing: 0.22em; /* 文字間隔をほんのり広げて美しく */
+            color: #4f46e5;
+            letter-spacing: 0.22em;
             opacity: 0;
             text-align: center;
             padding: 0 15px;
@@ -148,7 +129,7 @@
         @keyframes splashTitleFadeIn {
             0% {
                 opacity: 0;
-                transform: translateY(70px); /* 下からスッと上昇しながら現れるスマホUI風演出 */
+                transform: translateY(70px);
             }
             100% {
                 opacity: 0.8;
@@ -156,13 +137,11 @@
             }
         }
 
-        /* ヘッダー：プロフィール風のデザイン */
         header {
             text-align: center;
-            padding: 40px 20px 12px 20px; /* 下部余白を20pxから12pxに小さく調整 */
+            padding: 40px 20px 12px 20px;
         }
 
-        /* メイン画面側のプロフィールサークル */
         .profile-avatar {
             width: 95px;
             height: 95px;
@@ -171,7 +150,7 @@
             display: block;
             box-shadow: 0 8px 20px rgba(59, 130, 246, 0.18);
             object-fit: cover;
-            border: 3px solid #ffffff; /* リットリンク風の可愛い white ふちどり */
+            border: 3px solid #ffffff;
         }
 
         header h1 {
@@ -202,7 +181,6 @@
             color: #64748b;
         }
 
-        /* 各動画の注意書き用スタイル（優しいグレーで少し小さく表示） */
         header p .notice-soft {
             display: block;
             font-size: 0.72rem;
@@ -211,25 +189,20 @@
             line-height: 1.4;
         }
 
-        /* メインコンテンツ */
         .container {
-            max-width: 500px; /* スマートフォンにジャストフィットするサイズ */
+            max-width: 500px;
             margin: 0 auto;
             padding: 10px 16px 80px 16px;
             box-sizing: border-box;
             width: 100%;
         }
 
-        /* ==========================================
-           タブレット・PCなどのワイド画面対応 (レスポンシブスタイル)
-           ========================================== */
         @media (min-width: 768px) {
             .container {
-                max-width: 960px; /* 画面が広いときは幅を広げてゆったりと配置 */
+                max-width: 960px;
                 padding: 20px 24px 100px 24px;
             }
 
-            /* PROGRAMSセクションの作品カードを美麗な2カラム（2列）のグリッド配列に */
             .programs-grid {
                 display: grid;
                 grid-template-columns: repeat(2, 1fr);
@@ -238,10 +211,9 @@
             }
 
             .programs-grid .program-card {
-                margin: 0; /* モバイル用の外余白をリセット */
+                margin: 0;
             }
 
-            /* 奇数（5つめ）の研究発表カードは、グリッドの中央に程よいサイズでどっしり鎮座させます */
             .programs-grid .program-card:nth-child(5) {
                 grid-column: span 2;
                 justify-self: center;
@@ -249,7 +221,6 @@
                 max-width: 460px;
             }
 
-            /* ★【完全バグ修正】PC・大画面時にもインラインのInstagramリンクバナーが完全に中央に来るよう設定を徹底強化★ */
             .btn-insta-banner {
                 display: flex !important;
                 width: 100% !important;
@@ -266,23 +237,21 @@
             }
         }
 
-        /* 各セクションのタイトル */
         .section-title {
             font-size: 0.85rem;
             font-weight: 700;
             color: #828fa3;
-            margin: 20px 0 12px 0; /* 上部余白を32pxから20pxに小さく調整 */
+            margin: 20px 0 12px 0;
             text-align: center;
             letter-spacing: 0.15em;
         }
 
-        /* 新しい「作品カード」スタイル：リットリンクに完璧に調和する角丸白ボックス */
         .program-card {
             background-color: #ffffff;
             border: 1px solid rgba(255, 255, 255, 0.8);
             border-radius: 20px;
-            padding: 10px; /* 14pxから10pxに縮小してさらにコンパクトに */
-            margin: 10px 0; /* 14pxから10pxに縮小 */
+            padding: 10px;
+            margin: 10px 0;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
             transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
         }
@@ -292,27 +261,21 @@
             box-shadow: 0 8px 20px rgba(99, 102, 241, 0.05);
         }
 
-        /* ==========================================
-           インライン作品再生用プレイヤーコンテナ（スマホUI風極上スプリングアニメーション）
-           高さ（max-height）をアニメーションにブレンドし、ガタつきを完全解消！
-           ========================================== */
         .video-player-container {
             width: 100%;
             aspect-ratio: 16 / 9;
             border-radius: 12px;
             overflow: hidden;
             background-color: #000000;
-            display: none; /* 初期状態は非表示、ボタン押下時にスライド表示 */
+            display: none;
             box-shadow: 0 4px 12px rgba(15, 23, 42, 0.1);
-            max-height: 282px; /* スマホ画面の最大16:9比率高さに制限 */
+            max-height: 282px;
             margin-bottom: 0;
-            /* iOS of カード展開のような、極上の跳ね返り（バウンス感）がある0.4秒のスプリングアニメーションを設定 */
             animation: slideDownPlayer 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1) forwards;
         }
         @keyframes slideDownPlayer {
             from {
                 opacity: 0;
-                /* 上から優しく滑り降りつつ、0.93のサイズからふんわりと飛び出るように拡大します */
                 transform: translateY(-15px) scale(0.93);
                 max-height: 0;
                 margin-bottom: 0;
@@ -320,13 +283,11 @@
             to {
                 opacity: 1;
                 transform: translateY(0) scale(1);
-                max-height: 282px; /* カード表面で最大の高さまで滑らかに展開 */
-                margin-bottom: 8px; /* 展開完了時に少しマージンを確保 */
+                max-height: 282px;
+                margin-bottom: 8px;
             }
         }
 
-        /* 閉じるときのスマホUI風スプリングアニメーション
-           こちらも max-height と margin-bottom を連動してスルスルと滑らかに畳みます！ */
         .video-player-container.slide-up {
             animation: slideUpPlayer 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.15) forwards;
         }
@@ -339,14 +300,12 @@
             }
             to {
                 opacity: 0;
-                /* 閉じる時は、プレイヤーがふんわりと上に引っ込みながら0.93倍に縮んで綺麗に畳まれます */
                 transform: translateY(-15px) scale(0.93);
                 max-height: 0;
                 margin-bottom: 0;
             }
         }
 
-        /* 作品情報の上の部分：画像やタイトルを押すと視聴できるリンクに設定 */
         .program-main-link {
             text-decoration: none;
             color: inherit;
@@ -364,10 +323,9 @@
             width: 100%;
         }
 
-        /* サムネイル画像のラッパー（アスペクト比 16:9 を維持） */
         .thumbnail-wrapper {
             width: 100px;
-            height: 56.25px; /* 16:9 の比率 */
+            height: 56.25px;
             border-radius: 8px;
             overflow: hidden;
             flex-shrink: 0;
@@ -383,33 +341,29 @@
             transition: transform 0.3s ease;
         }
 
-        /* サムネ部分をホバーしたときに画像がほんのりズームアップする美しい演出 */
         .program-main-link:hover .thumbnail-wrapper img {
             transform: scale(1.05);
         }
 
-        /* テキストエリア */
         .btn-text {
             display: flex;
             flex-direction: column;
             flex-grow: 1;
-            min-width: 0; /* テキスト溢れ防止 */
+            min-width: 0;
         }
 
-        /* カテゴリー行（アイコン ＋ テキスト） */
         .category-row {
             display: flex;
             align-items: center;
-            flex-wrap: wrap; /* スマホ画面でバッジが折り返せるように設定 */
+            flex-wrap: wrap;
             gap: 4px;
             margin-bottom: 4px;
         }
 
-        /* SVGアイコンのスタイル */
         .category-icon {
             width: 12px;
             height: 12px;
-            color: #6366f1; /* 上品なパープルブルー */
+            color: #6366f1;
             flex-shrink: 0;
         }
 
@@ -420,41 +374,38 @@
             letter-spacing: 0.05em;
         }
 
-        /* 👑 部門名の真横に並ぶ、絵文字なしの洗練されたミニ受賞実績バッジ */
         .award-tag-mini {
             display: inline-flex;
             align-items: center;
             gap: 3px;
-            font-size: 0.58rem; /* 文字数が多くなったため0.6remから少し小さく調整 */
+            font-size: 0.58rem;
             font-weight: 800;
             padding: 1px 6px;
             border-radius: 8px;
             line-height: 1.2;
             letter-spacing: 0.01em;
-            white-space: nowrap; /* ★絶対改行しない設定です★ */
+            white-space: nowrap;
             flex-shrink: 0;
         }
 
-        /* 賞のランクに合わせたエモ可愛いパステルカラー調整（視覚ヒエラルキーを改善） */
         .award-gold {
             background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
-            color: #b45309; /* 最も進出して目立つパステルゴールドブラウン */
+            color: #b45309;
             border: 1px solid rgba(245, 158, 11, 0.2);
         }
 
         .award-silver {
             background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
-            color: #475569; /* 中間の落ち着きを持ったパステルシルバーグレー */
+            color: #475569;
             border: 1px solid rgba(148, 163, 184, 0.2);
         }
 
         .award-bronze {
             background: linear-gradient(135deg, #fff7ed 0%, #ffedd5 100%);
-            color: #9a3412; /* 目立ちすぎず温かみのあるアースブラウン */
+            color: #9a3412;
             border: 1px solid rgba(251, 146, 60, 0.15);
         }
 
-        /* ミニバッジ内の洗練された極細SVGメダルアイコン */
         .award-medal-svg {
             width: 10px !important;
             height: 10px !important;
@@ -464,35 +415,32 @@
             flex-shrink: 0;
         }
 
-        /* 作品タイトルがハッキリ主役として表示されます */
         .btn-text .work-title {
             font-size: 0.85rem;
             font-weight: 700;
             color: #1e293b;
             white-space: nowrap;
             overflow: hidden;
-            text-overflow: ellipsis; /* 長いタイトルを綺麗に省略 */
+            text-overflow: ellipsis;
             margin-top: 2px;
         }
 
-        /* カード下部：ボタンを並べる領域 */
         .program-actions {
             display: flex;
-            flex-direction: column; /* 縦に積んで確実にアコーディオンを下にスライドさせる */
+            flex-direction: column;
             gap: 6px;
             margin-top: 8px;
             border-top: 1px solid #f1f5f9;
             padding-top: 8px;
         }
 
-        /* アクション用のボタン基本スタイル */
         .action-btn {
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 4px;
             padding: 8px 10px;
-            height: 36px; /* 高さを確実に固定し、引き伸ばされバグを完全防止 */
+            height: 36px;
             border-radius: 12px;
             font-size: 0.72rem;
             font-weight: 700;
@@ -505,8 +453,6 @@
             width: 100%;
         }
 
-        /* 【主役化：濃いパステルスカイブルーで文字を読みやすく！】
-           パステル調の明るく優しい印象は守りつつ、白文字がハッキリ読めるようにグラデーションを少し濃いめの爽快な青へ調整。 */
         .btn-watch {
             background: linear-gradient(135deg, #5db8fe 0%, #1d8fff 100%);
             color: #ffffff;
@@ -519,26 +465,21 @@
             box-shadow: 0 6px 14px rgba(29, 143, 255, 0.25);
         }
 
-        /* 再生中・プレイヤーオープン時のちょっとエモいピンク調グラデーションボタン */
         .btn-watch.active-playing {
             background: linear-gradient(135deg, #fda4af 0%, #f43f5e 100%);
             box-shadow: 0 4px 10px rgba(244, 63, 94, 0.15);
         }
 
-        /* ボタン内のアイコン用SVG - 絶対に巨大化しないようにサイズを強力固定！ */
         .action-btn svg {
             width: 14px !important;
             height: 14px !important;
             fill: currentColor;
-            flex-shrink: 0; /* Flexboxによる自動拡大・縮小を防ぐ */
+            flex-shrink: 0;
         }
 
-        /* ==========================================
-           新アコーディオン（detailsタグ）のデザイン
-           ========================================== */
         .work-details {
             width: 100%;
-            background-color: #faf5ff; /* とろけるミルキーラベンダー */
+            background-color: #faf5ff;
             border-radius: 12px;
             overflow: hidden;
             border: 1px solid rgba(139, 92, 246, 0.15);
@@ -546,12 +487,11 @@
             box-sizing: border-box;
         }
 
-        /* アコーディオンを開くボタン部分 */
         .work-details summary {
             padding: 8px 10px;
             font-size: 0.72rem;
             font-weight: 700;
-            color: #8b5cf6; /* パステルパープル */
+            color: #8b5cf6;
             cursor: pointer;
             outline: none;
             user-select: none;
@@ -559,12 +499,11 @@
             align-items: center;
             justify-content: center;
             gap: 4px;
-            list-style: none; /* デフォルトの黒い矢印を消す */
+            list-style: none;
             box-sizing: border-box;
-            height: 36px; /* こちらも高さを揃えて綺麗に統一 */
+            height: 36px;
         }
 
-        /* Safari向けデフォルトの黒い矢印を消す */
         .work-details summary::-webkit-details-marker {
             display: none;
         }
@@ -576,27 +515,24 @@
             display: inline-block;
         }
 
-        /* 開いた時に矢印を上向きに回転 */
         .work-details[open] summary::before {
             transform: rotate(180deg);
         }
 
         .work-details[open] {
             box-shadow: 0 4px 12px rgba(139, 92, 246, 0.05);
-            background-color: #ffffff; /* 開いた中は白ベースで見やすく */
+            background-color: #ffffff;
         }
 
-        /* アコーディオンの内部コンテンツエリア - 高さ制限(140px)とスクロールを追加 */
         .details-content {
             padding: 12px 14px;
             border-top: 1px dashed rgba(139, 92, 246, 0.2);
             box-sizing: border-box;
-            max-height: 140px; /* ドキュメントと同じ大きさで高さを一定に制限 */
-            overflow-y: auto; /* 長文の時は内側のみスクロール可能にする */
-            -webkit-overflow-scrolling: touch; /* iOSでのスクロールをスムーズに */
+            max-height: 140px;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
         }
 
-        /* スクロールバーのデザインもエモ可愛く調整 */
         .details-content::-webkit-scrollbar {
             width: 5px;
         }
@@ -630,10 +566,9 @@
             font-size: 0.75rem;
             color: #475569;
             line-height: 1.6;
-            white-space: pre-wrap; /* 改行をそのまま反映 */
+            white-space: pre-wrap;
         }
 
-        /* Instagramバナー */
         .btn-insta-banner {
             display: flex;
             align-items: center;
@@ -643,7 +578,7 @@
             margin: 16px 0;
             background: linear-gradient(45deg, #f9ce34 0%, #ee2a7b 50%, #6228d7 100%);
             border: none;
-            border-radius: 30px; /* リットリンクで人気の丸くて太いバナー */
+            border-radius: 30px;
             text-decoration: none;
             color: #ffffff;
             box-shadow: 0 6px 20px rgba(238, 42, 123, 0.2);
@@ -707,7 +642,6 @@
             transform: translateX(4px);
         }
 
-        /* 交流メッセージカード */
         .message-card {
             background-color: rgba(255, 255, 255, 0.5);
             border: 1px solid rgba(255, 255, 255, 0.8);
@@ -725,7 +659,6 @@
             line-height: 1.7;
         }
 
-        /* 常時表示（フローティング）Instagramボタン：リットリンクに溶け込むピンクパステル */
         .floating-insta {
             position: fixed;
             bottom: 25px;
@@ -733,7 +666,7 @@
             width: 54px;
             height: 54px;
             background: linear-gradient(45deg, #f9ce34 0%, #ee2a7b 50%, #6228d7 100%);
-            border: 3px solid #ffffff; /* 白いふchいどりので可愛らしく */
+            border: 3px solid #ffffff;
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -749,13 +682,11 @@
             height: 24px;
         }
 
-        /* タップ・ホバー時に少し大きくなる可愛い動き */
         .floating-insta:hover {
             transform: translateY(-4px) scale(1.08);
             box-shadow: 0 10px 20px rgba(238, 42, 123, 0.45);
         }
 
-        /* フッター */
         footer {
             text-align: center;
             padding: 30px 20px 40px 20px;
@@ -773,22 +704,15 @@
 </head>
 <body>
 
-    <!-- 🌸 追加：ポルカドット背景パターン -->
     <div class="bg_pattern Polka_v2"></div>
 
-    <!-- 嵐（J-Storm / Storm Labels）風 オープニングスクリーン（2段階アニメーション仕様） -->
     <div id="splash-screen">
-        <!-- ロゴ1：キャッチコピー透過ロゴ画像（拡張子.png） -->
         <img class="splash-logo-1" src="IMG_0839.png" alt="放送部って、意外と青春だ。">
-        
-        <!-- ロゴ2：放送部の公式丸型アイコン画像 -->
         <img class="splash-logo-2" src="放送部アイコン.png" alt="放送部アイコン">
         <div class="splash-title">Oita Uenogaoka Broadcast Club</div>
     </div>
 
-    <!-- ヘッダー部分 -->
     <header>
-        <!-- プロフィールアイコン画像 -->
         <img class="profile-avatar" src="放送部アイコン.png" alt="大分県立大分上野丘高等学校 放送部 公式アイコン">
         <h1>大分県立大分上野丘高等学校 放送部</h1>
         <div class="school-tag">第73回NHK杯全国高校放送コンテスト 出品作品</div>
@@ -798,21 +722,15 @@
         </p>
     </header>
 
-    <!-- メインコンテンツ -->
     <div class="container">
 
-        <!-- 作品一覧のセクション -->
         <div class="section-title">PROGRAMS</div>
 
-        <!-- ★PC/iPad用の大画面レイアウトを格納するコンテナ（スマホでは自動で1カラムになります）★ -->
         <div class="programs-grid">
 
-            <!-- 01. ラジオドキュメント（ベースとフレンド） -->
             <div class="program-card">
-                <!-- その場再生用の埋め込みプレイヤーコンテナ（初期状態は隠す） -->
                 <div class="video-player-container" id="player-1"></div>
 
-                <!-- サムネイルやタイトルをタップしたときも、動画プレイヤーを開くように onclick を設定 -->
                 <a href="javascript:void(0)" onclick="triggerPlayFromCard(this, 'hWRPaxYbU6I')" class="program-main-link" title="作品を視聴する">
                     <div class="program-main">
                         <div class="thumbnail-wrapper">
@@ -820,10 +738,8 @@
                         </div>
                         <div class="btn-text">
                             <span class="category-row">
-                                <!-- ラジオ用SVGアイコン -->
                                 <svg class="category-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M16.24 7.76a6 6 0 0 1 0 8.49m-8.48-.01a6 6 0 0 1 0-8.49m11.31-2.82a10 10 0 0 1 0 14.14m-14.14 0a10 10 0 0 1 0-14.14"></path><circle cx="12" cy="12" r="2"></circle></svg>
                                 <span class="category">ラジオドキュメント</span>
-                                <!-- 優良賞（パステル調ミルクティベージュバッジ） -->
                                 <span class="award-tag-mini award-bronze">
                                     <svg class="award-medal-svg" viewBox="0 0 24 24"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg>
                                     県大会 優良賞
@@ -838,7 +754,6 @@
                         <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg> 作品を視聴する
                     </button>
                     
-                    <!-- 新アコーディオン（制作意図） -->
                     <details class="work-details">
                         <summary>制作意図を見る</summary>
                         <div class="details-content">
@@ -849,12 +764,9 @@
                 </div>
             </div>
 
-            <!-- 02. テレビドキュメント（雨ニハマケズ、目ニハトマズ） -->
             <div class="program-card">
-                <!-- その場再生用の埋め込みプレイヤーコンテナ -->
                 <div class="video-player-container" id="player-2"></div>
 
-                <!-- サムネイルやタイトルをタップしたときも、動画プレイヤーを開くように onclick を設定 -->
                 <a href="javascript:void(0)" onclick="triggerPlayFromCard(this, 'bLaiO6uIzfs')" class="program-main-link" title="作品を視聴する">
                     <div class="program-main">
                         <div class="thumbnail-wrapper">
@@ -862,10 +774,8 @@
                         </div>
                         <div class="btn-text">
                             <span class="category-row">
-                                <!-- テレビ用SVGアイコン -->
                                 <svg class="category-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="15" rx="2" ry="2"></rect><polyline points="17 2 12 7 7 2"></polyline></svg>
                                 <span class="category">テレビドキュメント</span>
-                                <!-- 優秀賞（シルバー） -->
                                 <span class="award-tag-mini award-silver">
                                     <svg class="award-medal-svg" viewBox="0 0 24 24"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg>
                                     県大会 優秀賞
@@ -880,7 +790,6 @@
                         <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg> 作品を視聴する
                     </button>
                     
-                    <!-- 新アコーディオン（制作意図) -->
                     <details class="work-details">
                         <summary>制作意図を見る</summary>
                         <div class="details-content">
@@ -891,12 +800,9 @@
                 </div>
             </div>
             
-            <!-- 03. 創作ラジオドラマ（パーフェクト・リバース） -->
             <div class="program-card">
-                <!-- その場再生用の埋め込みプレイヤーコンテナ -->
                 <div class="video-player-container" id="player-3"></div>
 
-                <!-- サムネイルやタイトルをタップしたときも、動画プレイヤーを開くように onclick を設定 -->
                 <a href="javascript:void(0)" onclick="triggerPlayFromCard(this, 'k6mVJT84P4Y')" class="program-main-link" title="作品を視聴する">
                     <div class="program-main">
                         <div class="thumbnail-wrapper">
@@ -904,10 +810,8 @@
                         </div>
                         <div class="btn-text">
                             <span class="category-row">
-                                <!-- マイク（音声）用SVGアイコン -->
                                 <svg class="category-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="23"></line><line x1="8" y1="23" x2="16" y2="23"></line></svg>
                                 <span class="category">創作ラジオドラマ</span>
-                                <!-- 最優秀賞（ゴールド：最前面に進出して見える一番目立つ色） -->
                                 <span class="award-tag-mini award-gold">
                                     <svg class="award-medal-svg" viewBox="0 0 24 24"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg>
                                     県大会 最優秀賞
@@ -922,7 +826,6 @@
                         <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg> 作品を視聴する
                     </button>
                     
-                    <!-- 新アコーディオン（制作意図・あらすじ） -->
                     <details class="work-details">
                         <summary>制作意図・あらすじを見る</summary>
                         <div class="details-content">
@@ -934,18 +837,15 @@
                             <div class="details-content-text">完璧カリスマ高校生バーチャルライバー高嶺優美の本当の姿は、引っ込み思案で自己主張が苦手な正反対の人間だった。そんな彼女はファンやマネージャーの期待に応えて常に完璧を演じ続ける日々に嫌気がさしていた。
 ある日突然、彼女は日頃の愚痴を聞いたAIに配信を乗っ取られてしまう。AIから主導権を取り戻そうとするも、完璧さでAIに勝ち目がないことが証明されてしまった。
 乗っ取られたことから、今まで自分のやっていたことがいかに中身のなかったことだったか気がつき、ライバー活動を引退することを決意する。
-ところが相談したマネージャー of 熱い言葉に心を動かされ、今までの完璧主義から生まれ変わってありのままの自分でライバー活動を続ける選択をする。結果は賛否両論で人気も落ちてしまったが、今日も彼女は本当の自分を愛してくれるファンのために配信を続けていく。</div>
+ところが相談したマネージャーの熱い言葉に心を動かされ、今までの完璧主義から生まれ変わってありのままの自分でライバー活動を続ける選択をする。結果は賛否両論で人気も落ちてしまったが、今日も彼女は本当の自分を愛してくれるファンのために配信を続けていく。</div>
                         </div>
                     </details>
                 </div>
             </div>
 
-            <!-- 04. 創作テレビドラマ（未完成でも、その一歩先へ。） -->
             <div class="program-card">
-                <!-- その場再生用の埋め込みプレイヤーコンテナ -->
                 <div class="video-player-container" id="player-4"></div>
 
-                <!-- ★サムネイルやタイトルをタップしたときも、動画プレイヤーを開くように onclick を設定★ -->
                 <a href="javascript:void(0)" onclick="triggerPlayFromCard(this, 'AZhI3iu4Nlw')" class="program-main-link" title="作品を視聴する">
                     <div class="program-main">
                         <div class="thumbnail-wrapper">
@@ -955,7 +855,6 @@
                             <span class="category-row">
                                 <svg class="category-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"></rect><line x1="7" y1="2" x2="7" y2="22"></line><line x1="17" y1="2" x2="17" y2="22"></line><line x1="2" y1="12" x2="22" y2="12"></line><line x1="2" y1="7" x2="7" y2="7"></line><line x1="2" y1="17" x2="7" y2="17"></line><line x1="17" y1="17" x2="22" y2="17"></line><line x1="17" y1="7" x2="22" y2="7"></line></svg>
                                 <span class="category">創作テレビドラマ</span>
-                                <!-- 最優秀賞（ゴールド：最前面に進出して見える一番目立つ色） -->
                                 <span class="award-tag-mini award-gold">
                                     <svg class="award-medal-svg" viewBox="0 0 24 24"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg>
                                     県大会 最優秀賞
@@ -970,7 +869,6 @@
                         <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg> 作品を視聴する
                     </button>
                     
-                    <!-- 新アコーディオン（制作意図・あらすじ） -->
                     <details class="work-details">
                         <summary>制作意図・あらすじを見る</summary>
                         <div class="details-content">
@@ -984,25 +882,18 @@
                 </div>
             </div>
 
-            <!-- 05. 研究発表（掲示のNew Ageサイネージ） -->
             <div class="program-card">
-                <!-- その場再生用の埋め込みプレイヤーコンテナ（★動画プレイヤーと同じ場所に綺麗に展開します★） -->
                 <div class="video-player-container" id="player-5"></div>
 
-                <!-- ★【差し替え完了】最新の研究発表YouTube動画リンクを反映しました★ -->
                 <a href="javascript:void(0)" onclick="triggerPlayFromCard(this, 'iz0a-swgcr4')" class="program-main-link" title="作品を視聴する">
                     <div class="program-main">
-                        <!-- 【★バグ修正・美構造維持★】 -->
                         <div class="thumbnail-wrapper">
-                            <!-- 新しい動画IDでのYouTubeサムネイル表示 -->
                             <img src="https://img.youtube.com/vi/iz0a-swgcr4/mqdefault.jpg" alt="研究発表 サムネイル" onerror="this.src='https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=300&auto=format&fit=crop&q=60'">
                         </div>
                         <div class="btn-text">
                             <span class="category-row">
-                                <!-- ひらめき・サイネージ用SVGアイコン -->
                                 <svg class="category-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .6 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"></path><line x1="9" y1="18" x2="15" y2="18"></line><line x1="10" y1="22" x2="14" y2="22"></line></svg>
                                 <span class="category">研究発表</span>
-                                <!-- 県大会 最優秀賞バッジ -->
                                 <span class="award-tag-mini award-gold">
                                     <svg class="award-medal-svg" viewBox="0 0 24 24"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg>
                                     県大会 最優秀賞
@@ -1013,24 +904,21 @@
                     </div>
                 </a>
                 <div class="program-actions">
-                    <!-- その場で動画プレイヤーをフワッと展開して視聴するトグルボタン（新しい動画IDを適用） -->
                     <button type="button" class="action-btn btn-watch" onclick="togglePlay(this, 'iz0a-swgcr4')">
                         <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg> 作品を視聴する
                     </button>
                     
-                    <!-- アコーディオン -->
                     <details class="work-details">
                         <summary>研究要旨を見る</summary>
                         <div class="details-content">
                             <div class="details-section-title">研究要旨</div>
-                            <!-- 【★改善】英語交じり部分を「情報伝達の新たな形」へと美しく校正しました -->
                             <div class="details-content-text">情報化社会といわれるように、私たちのもとに届く情報はあまりにも多い。重要な連絡が情報過多により埋もれる実態が、生徒や教員への調査から浮き彫りになった。そこで、更新が容易で視認性の高いデジタルサイネージを導入するとともに、管理・運用を生徒だけで完結する体制を構築した。導入前後の比較からその効果を分析し、他校でも導入可能な汎用性の高い構成を考え、校内放送活動における情報伝達の新たな形を提示する。</div>
                         </div>
                     </details>
                 </div>
             </div>
 
-        </div> <!-- /.programs-grid -->
+        </div>
 
         <div class="section-title">OFFICIAL SNS</div>
 
@@ -1100,21 +988,14 @@
     <script>
         window.addEventListener('load', () => {
             const splash = document.getElementById('splash-screen');
-            // ご要望：最初にキャッチコピーを1.5秒表示させ、バトンタッチしてロゴと部活動名をフェードイン。
-            // ロゴ2とタイトルの表示時間を-0.3秒調整し、合計 6.65秒（6650ms）時点で全体のフェードアウトを開始。
-            // 6.65s（ディレイ） + 1.3s（フェードアウト時間） = 7.95s（7950ms）
             setTimeout(() => {
                 splash.classList.add('loaded');
-                // フェードアウトの完了（1.3秒）を待って、背景の操作ができるようにDOMから非表示
                 setTimeout(() => {
                     splash.style.display = 'none';
                 }, 1300);
             }, 6650);
         });
 
-        // ==========================================
-        // サムネイル画像や作品名部分がタップされた時、対応する視聴ボタンを自動クリックして動かす関数
-        // ==========================================
         function triggerPlayFromCard(linkElement, videoId) {
             const card = linkElement.closest('.program-card');
             const btn = card.querySelector('.btn-watch');
@@ -1123,65 +1004,50 @@
             }
         }
 
-        // ==========================================
-        // その場再生プレイヤー制御用の関数（エラー153およびYouTube埋め込み対応版）
-        // ==========================================
         function togglePlay(btn, videoId) {
             const card = btn.closest('.program-card');
             const container = card.querySelector('.video-player-container');
             
-            // 1. 他の開いている動画プレイヤー（やPDFプレイヤー）をすべて停止して閉じる
             document.querySelectorAll('.video-player-container').forEach(c => {
                 if (c !== container && c.style.display === 'block') {
                     closePlayerWithAnimation(c);
                 }
             });
 
-            // 2. ターゲットのプレイヤーを表示／非表示にするトグル処理
             if (container.style.display === 'none' || container.innerHTML === '') {
                 container.style.display = 'block';
-                container.classList.remove('slide-up'); // クローズ時のクラスをクリア
+                container.classList.remove('slide-up');
                 
-                // 通常のYouTubeビデオ（研究発表もYouTube動画として共通処理されます）
                 const currentOrigin = window.location.origin;
                 container.innerHTML = `<iframe width="100%" height="100%" src="https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&rel=0&enablejsapi=1&origin=${encodeURIComponent(currentOrigin)}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
                 
-                // ボタンのテキストとアイコン、色合い（アクティブ色）を切り替え
                 btn.innerHTML = `<svg viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg> プレイヤーを閉じる`;
                 btn.classList.add('active-playing');
                 
-                // プレイヤーの位置までスルスルと自動でスクロール
                 setTimeout(() => {
                     container.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
                 }, 150);
             } else {
-                // プレイヤーを閉じる（アニメーション処理を適用）
                 closePlayerWithAnimation(container);
             }
         }
 
-        // ==========================================
-        // ★プレイヤーをスマホUI風スプリングモーションで閉じる共通処理★
-        // ==========================================
         function closePlayerWithAnimation(container) {
             const card = container.closest('.program-card');
             const btn = card.querySelector('.btn-watch');
 
-            // 1. 閉じる用のスライドアップクラスを追加
             container.classList.add('slide-up');
 
-            // 2. ボタン表示を「作品を視聴する」に戻す
             if (btn) {
                 btn.innerHTML = `<svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg> 作品を視聴する`;
                 btn.classList.remove('active-playing');
             }
 
-            // 3. 0.3秒のアニメーション終了を待って、プレイヤーを非表示＆iframeデータを破棄
             setTimeout(() => {
                 container.style.display = 'none';
                 container.innerHTML = '';
-                container.classList.remove('slide-up'); // 次回開く時のためにリセット
-            }, 300); // 閉じるアニメーション（0.3秒）と完全に同期
+                container.classList.remove('slide-up');
+            }, 300);
         }
     </script>
 </body>
