@@ -230,12 +230,54 @@
                 margin-right: auto !important;
             }
 
-            .message-card, .container > .program-card {
+            .message-card, .container > .program-card, .notice-card {
                 width: 100%;
                 max-width: 480px;
                 margin-left: auto;
                 margin-right: auto;
             }
+        }
+
+        /* 大会制限事項に関する美しいお知らせボード */
+        .notice-card {
+            background-color: rgba(255, 255, 255, 0.85);
+            border: 1px dashed #6366f1;
+            border-radius: 16px;
+            padding: 16px;
+            margin: 10px 0 24px 0;
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.04);
+            box-sizing: border-box;
+        }
+
+        .notice-card .notice-title-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.8rem;
+            font-weight: 800;
+            color: #4f46e5;
+            margin-bottom: 8px;
+        }
+
+        .notice-card .notice-title-row svg {
+            width: 16px;
+            height: 16px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 2.5;
+            flex-shrink: 0;
+        }
+
+        .notice-card p {
+            margin: 0;
+            font-size: 0.72rem;
+            color: #475569;
+            line-height: 1.6;
+        }
+
+        .notice-card p strong {
+            color: #4f46e5;
+            font-weight: 800;
         }
 
         .section-title {
@@ -320,6 +362,61 @@
             }
         }
 
+        /* 公開制限中の綺麗なプレースホルダーグラフィック */
+        .restricted-placeholder {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #e0f2fe 0%, #faf5ff 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 16px;
+            box-sizing: border-box;
+            text-align: center;
+        }
+
+        .restricted-placeholder .icon-wrapper {
+            background-color: #ffffff;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 10px;
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.12);
+        }
+
+        .restricted-placeholder .icon-wrapper svg {
+            width: 22px;
+            height: 22px;
+            color: #6366f1;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 2.5;
+        }
+
+        .restricted-placeholder .status-title {
+            font-size: 0.85rem;
+            font-weight: 800;
+            color: #1e293b;
+            margin-bottom: 6px;
+            letter-spacing: 0.05em;
+        }
+
+        .restricted-placeholder .status-desc {
+            font-size: 0.68rem;
+            color: #64748b;
+            line-height: 1.5;
+            margin: 0;
+        }
+
+        .restricted-placeholder .status-desc strong {
+            color: #4f46e5;
+            font-weight: 800;
+        }
+
         .program-main-link {
             text-decoration: none;
             color: inherit;
@@ -346,6 +443,7 @@
             margin-right: 14px;
             background-color: #e2e8f0;
             box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+            position: relative;
         }
 
         .thumbnail-wrapper img {
@@ -357,6 +455,21 @@
 
         .program-main-link:hover .thumbnail-wrapper img {
             transform: scale(1.05);
+        }
+
+        /* 制限中バッジ */
+        .restricted-badge {
+            position: absolute;
+            top: 4px;
+            left: 4px;
+            background-color: rgba(15, 23, 42, 0.75);
+            color: #ffffff;
+            font-size: 0.48rem;
+            font-weight: 800;
+            padding: 2px 5px;
+            border-radius: 4px;
+            letter-spacing: 0.02em;
+            backdrop-filter: blur(2px);
         }
 
         .btn-text {
@@ -732,11 +845,22 @@
         <div class="school-tag">第73回NHK杯全国高校放送コンテスト 出品作品</div>
         <p>
             全国大会の作品一覧です。ぜひご視聴ください！
-            <span class="notice-soft">※本サイトは大会参加者の皆様との作品交換用です。部外へのURL共有や、画面収録などの保存はご遠慮ください。</span>
+            <span class="notice-soft">※本サイトは大会参加者の皆様との作品交換用です。部外へのURL共有や, 画面収録などの保存はご遠慮ください。</span>
         </p>
     </header>
 
     <div class="container">
+
+        <!-- 参加規程第6項に基づいた、他校やアクセス者への非常に親切なインフォメーションボード -->
+        <div class="notice-card scroll-reveal">
+            <div class="notice-title-row">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+                <span>作品の公開制限に関する大切なお知らせ</span>
+            </div>
+            <p>
+                NHK杯全国高校放送コンテストの<strong>参加規程「6.作品等の公開について」</strong>に準拠し、出品中の各作品（映像・音声）は、<strong>7月23日（木）の決勝大会終了</strong>まで他媒体での一般公開が制限されております。これに伴い、現在YouTube動画を「非公開設定」に切り替えております。大会終了後に一斉に公開設定に戻しますので、今しばらく楽しみにお待ちください！
+            </p>
+        </div>
 
         <div class="section-title scroll-reveal">PROGRAMS</div>
 
@@ -745,9 +869,10 @@
             <div class="program-card scroll-reveal">
                 <div class="video-player-container" id="player-1"></div>
 
-                <a href="javascript:void(0)" onclick="triggerPlayFromCard(this, 'hWRPaxYbU6I')" class="program-main-link" title="作品を視聴する">
+                <a href="javascript:void(0)" onclick="triggerPlayFromCard(this, 'hWRPaxYbU6I')" class="program-main-link" title="作品情報を確認する">
                     <div class="program-main">
                         <div class="thumbnail-wrapper">
+                            <span class="restricted-badge">7/23以降公開</span>
                             <img src="https://img.youtube.com/vi/hWRPaxYbU6I/mqdefault.jpg" alt="ラジオドキュメント サムネイル" onerror="this.src='https://images.unsplash.com/photo-1484755560695-a4c740285fa6?w=300&auto=format&fit=crop&q=60'">
                         </div>
                         <div class="btn-text">
@@ -781,9 +906,10 @@
             <div class="program-card scroll-reveal">
                 <div class="video-player-container" id="player-2"></div>
 
-                <a href="javascript:void(0)" onclick="triggerPlayFromCard(this, 'bLaiO6uIzfs')" class="program-main-link" title="作品を視聴する">
+                <a href="javascript:void(0)" onclick="triggerPlayFromCard(this, 'bLaiO6uIzfs')" class="program-main-link" title="作品情報を確認する">
                     <div class="program-main">
                         <div class="thumbnail-wrapper">
+                            <span class="restricted-badge">7/23以降公開</span>
                             <img src="https://img.youtube.com/vi/bLaiO6uIzfs/mqdefault.jpg" alt="テレビドキュメント サムネイル" onerror="this.src='https://images.unsplash.com/photo-1461151304267-38535e780c79?w=300&auto=format&fit=crop&q=60'">
                         </div>
                         <div class="btn-text">
@@ -817,9 +943,10 @@
             <div class="program-card scroll-reveal">
                 <div class="video-player-container" id="player-3"></div>
 
-                <a href="javascript:void(0)" onclick="triggerPlayFromCard(this, 'k6mVJT84P4Y')" class="program-main-link" title="作品を視聴する">
+                <a href="javascript:void(0)" onclick="triggerPlayFromCard(this, 'k6mVJT84P4Y')" class="program-main-link" title="作品情報を確認する">
                     <div class="program-main">
                         <div class="thumbnail-wrapper">
+                            <span class="restricted-badge">7/23以降公開</span>
                             <img src="https://img.youtube.com/vi/k6mVJT84P4Y/mqdefault.jpg" alt="創作ラジオドラマ サムネイル" onerror="this.src='https://images.unsplash.com/photo-1478737270239-2f02b77fc618?w=300&auto=format&fit=crop&q=60'">
                         </div>
                         <div class="btn-text">
@@ -856,9 +983,10 @@
             <div class="program-card scroll-reveal">
                 <div class="video-player-container" id="player-4"></div>
 
-                <a href="javascript:void(0)" onclick="triggerPlayFromCard(this, 'AZhI3iu4Nlw')" class="program-main-link" title="作品を視聴する">
+                <a href="javascript:void(0)" onclick="triggerPlayFromCard(this, 'AZhI3iu4Nlw')" class="program-main-link" title="作品情報を確認する">
                     <div class="program-main">
                         <div class="thumbnail-wrapper">
+                            <span class="restricted-badge">7/23以降公開</span>
                             <img src="https://img.youtube.com/vi/AZhI3iu4Nlw/mqdefault.jpg" alt="創作テレビドラマ サムネイル" onerror="this.src='https://images.unsplash.com/photo-1485846234645-a62644f84728?w=300&auto=format&fit=crop&q=60'">
                         </div>
                         <div class="btn-text">
@@ -894,9 +1022,10 @@
             <div class="program-card scroll-reveal">
                 <div class="video-player-container" id="player-5"></div>
 
-                <a href="javascript:void(0)" onclick="triggerPlayFromCard(this, 'iz0a-swgcr4')" class="program-main-link" title="作品を視聴する">
+                <a href="javascript:void(0)" onclick="triggerPlayFromCard(this, 'iz0a-swgcr4')" class="program-main-link" title="作品情報を確認する">
                     <div class="program-main">
                         <div class="thumbnail-wrapper">
+                            <span class="restricted-badge">7/23以降公開</span>
                             <img src="https://img.youtube.com/vi/iz0a-swgcr4/mqdefault.jpg" alt="研究発表 サムネイル" onerror="this.src='https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=300&auto=format&fit=crop&q=60'">
                         </div>
                         <div class="btn-text">
@@ -950,9 +1079,10 @@
         <div class="program-card scroll-reveal">
             <div class="video-player-container" id="player-pv"></div>
 
-            <a href="javascript:void(0)" onclick="triggerPlayFromCard(this, 'rwcsDeVlROE')" class="program-main-link" title="作品を視聴する">
+            <a href="javascript:void(0)" onclick="triggerPlayFromCard(this, 'rwcsDeVlROE')" class="program-main-link" title="学校紹介映像を確認する">
                 <div class="program-main">
                     <div class="thumbnail-wrapper">
+                        <!-- 自校の紹介映像でありNコン出品作品ではないため、制限対象外（通常通り視聴可能）としてわかりやすく扱います -->
                         <img src="https://img.youtube.com/vi/rwcsDeVlROE/mqdefault.jpg" alt="学校紹介PV サムネイル" onerror="this.src='https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=300&auto=format&fit=crop&q=60'">
                     </div>
                     <div class="btn-text">
@@ -965,7 +1095,7 @@
                 </div>
             </a>
             <div class="program-actions">
-                <button type="button" class="action-btn btn-watch" onclick="togglePlay(this, 'rwcsDeVlROE')" style="flex: 100%;">
+                <button type="button" class="action-btn btn-watch" onclick="togglePlay(this, 'rwcsDeVlROE')">
                     <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg> 作品を視聴する
                 </button>
             </div>
@@ -995,6 +1125,9 @@
     </footer>
 
     <script>
+        // 【プロ仕様】大会制限フラグ：決勝大会終了（7/23）後にここを「false」に書き換えるだけで、一気にYouTube再生へ切り替わります！
+        const isRestricted = true; 
+
         window.addEventListener('load', () => {
             const splash = document.getElementById('splash-screen');
             setTimeout(() => {
@@ -1019,7 +1152,7 @@
                         const el = entry.target;
                         
                         if (isInitialBatch) {
-                            // 画面起動時に最初から見えている範囲 of 要素は、ほぼ同時にパッとならないよう0.12秒刻みでトントンと順番に表示
+                            // 画面起動時に最初から見えている範囲の要素は、ほぼ同時にパッとならないよう0.12秒刻みでトントンと順番に表示
                             el.style.transitionDelay = `${initialDelayCounter * 0.12}s`;
                             initialDelayCounter++;
                         } else {
@@ -1075,8 +1208,29 @@
                 container.style.display = 'block';
                 container.classList.remove('slide-up');
                 
-                const currentOrigin = window.location.origin;
-                container.innerHTML = `<iframe width="100%" height="100%" src="https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&rel=0&enablejsapi=1&origin=${encodeURIComponent(currentOrigin)}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+                // 学校紹介PV（Nコン出品作品ではないもの）は制限対象外とし、その他の出品作に制限をかけます
+                const isNconWork = (videoId !== 'rwcsDeVlROE');
+
+                if (isRestricted && isNconWork) {
+                    // 大会制限モード中の美しいプレースホルダー表示
+                    container.innerHTML = `
+                        <div class="restricted-placeholder">
+                            <div class="icon-wrapper">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                            </div>
+                            <div class="status-title">ただいま公開制限中（非公開設定）です</div>
+                            <p class="status-desc">
+                                NHK杯全国高校放送コンテスト参加規程により、<br>
+                                出品作品の公開を一時的に休止しております。<br>
+                                <strong>7月23日（木）の決勝大会終了後</strong>に順次公開いたします！
+                            </p>
+                        </div>
+                    `;
+                } else {
+                    // 通常再生モード（または紹介PV）のYouTube埋め込み
+                    const currentOrigin = window.location.origin;
+                    container.innerHTML = `<iframe width="100%" height="100%" src="https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&rel=0&enablejsapi=1&origin=${encodeURIComponent(currentOrigin)}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+                }
                 
                 btn.innerHTML = `<svg viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg> プレイヤーを閉じる`;
                 btn.classList.add('active-playing');
